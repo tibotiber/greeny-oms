@@ -22,19 +22,23 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 #logo a {
   color: #fff;
-  font-family: 'Righteous', cursive;
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
   display: block;
-  font-size: 20px;
+  font-size: 22px;
   line-height: 50px;
-  background: url(../img/logo.png) right 42px no-repeat;
+  background: url(../img/fish-logo.png) right 32px no-repeat;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
 }
 #logo a:hover {
-  background-position: right 25px;
+  background-position: right 15px;
   text-decoration: none;
+}
+.main-menu span {
+  font-family: 'Exo 2', sans-serif;
 }
 .navbar {
   margin: 0;
@@ -2261,17 +2265,17 @@ td.beauty-hover {
   margin-left:20px;
 }
 @media (min-width: 768px) {
-  #sidebar-left.col-sm-2 {
+  #sidebar-left.col-sm-3 {
     opacity: 1;
-    width: 16.666666666666664%;
+    width: 25%;
     padding: 0 15px;
   }
-  .sidebar-show #sidebar-left.col-sm-2 {
+  .sidebar-show #sidebar-left.col-sm-3 {
     opacity: 0;
     width:0;
     padding:0;
   }
-  .sidebar-show #content.col-sm-10 {
+  .sidebar-show #content.col-sm-9 {
     opacity: 1;
     width:100%;
   }
@@ -2280,6 +2284,20 @@ td.beauty-hover {
   }
 }
 @media (min-width: 992px) {
+  #sidebar-left.col-md-2 {
+    opacity: 1;
+    width: 16.666666666667%;
+    padding: 0 15px;
+  }
+  .sidebar-show #sidebar-left.col-md-2 {
+    opacity: 0;
+    width:0;
+    padding:0;
+  }
+  .sidebar-show #content.col-md-10 {
+    opacity: 1;
+    width:100%;
+  }
   .nav.main-menu > li > a, .nav.msg-menu > li > a {
     text-align: left;
   }
