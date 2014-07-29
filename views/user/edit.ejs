@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<form action="/user/update/<%=user.id %>" method="POST" class="form-signin">
+    <h2>You're editing a user</h2>
+
+    <input value="<%=user.name %>" name="name" placeholder="Full name" type="text" class="form-control"/>
+    <input value="<%=user.email %>" name="email" placeholder="Email address" type="text" class="form-control"/>
+    <% if(session.authenticated && session.User.admin) { %>
+        <input value="<%=user.username %>" name="username" placeholder="Username" type="text" class="form-control"/>
+<!--	<select class="form-control" name="role">
+	    <option selected><%=user.role %></option>
+	    <option>Resident</option>
+            <option>Family</option>
+            <option>Friend</option>
+            <option>Caregiver</option>
+            <option>Doctor</option>
+            <option>Tech</option>
+        </select>
+
+	<% if(user.admin) { %>
+	<input type="hidden" name="admin" value="true" />
+	<input type="checkbox" name="adminSwitch" checked>
+	<% } else { %>
+	<input type="hidden" name="admin" value="false" />
+	<input type="checkbox" name="adminSwitch" unchecked>
+	<% } %>
+
+	<script>
+	  $.fn.bootstrapSwitch.defaults.onText = 'ADMIN';
+	  $.fn.bootstrapSwitch.defaults.offText = 'USER';
+	  $.fn.bootstrapSwitch.defaults.size = 'large';
+	  $("[name='adminSwitch']").bootstrapSwitch();
+	  $("[name='adminSwitch']").on('switchChange.bootstrapSwitch', function(event, state) {
+	      $("[name='admin']").val(state);
+	  });
+	</script>
+	
+    <% } %>
+-->
+    <input type="submit" value="Proceed" class="btn btn-lg btn-primary btn-block"/>
+    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+</form>
