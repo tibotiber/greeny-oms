@@ -9,30 +9,26 @@
 
 module.exports[404] = function pageNotFound(req, res) {
 
-  /*
-   * NOTE: This function is Sails middleware-- that means that not only do `req` and `res`
-   * work just like their Express equivalents to handle HTTP requests, they also simulate
-   * the same interface for receiving socket messages.
-   */
+    /*
+     * NOTE: This function is Sails middleware-- that means that not only do `req` and `res`
+     * work just like their Express equivalents to handle HTTP requests, they also simulate
+     * the same interface for receiving socket messages.
+     */
 
-  var viewFilePath = '404';
-  var statusCode = 404;
-  var result = {
-    status: statusCode
-  };
+    var statusCode = 404;
+    var result = {
+	status: statusCode
+    };
 
-  // If the user-agent wants a JSON response, send json
-  if (req.wantsJSON) {
-    return res.json(result, result.status);
-  }
+    // If the user-agent wants a JSON response, send json
+    if (req.wantsJSON) {
+	return res.json(result, result.status);
+    }
 
-  res.status(result.status);
-  res.render(viewFilePath, function (err) {
-    // If the view doesn't exist, or an error occured, send json
-    if (err) { return res.json(result, result.status); }
+    res.status(result.status);
 
-    // Otherwise, serve the `views/404.*` page
-    res.render(viewFilePath);
-  });
+    // Serve the `views/404.*` page
+    res.view('404');
+
 
 };
