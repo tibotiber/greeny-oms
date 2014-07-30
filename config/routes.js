@@ -29,12 +29,18 @@
 module.exports.routes = {
 
     '/': {
-	view: 'home/index'
+	controller: 'SessionController',
+	action: 'index'
     },
 
     '/login': {
 	controller: 'SessionController',
 	action: 'new'
+    },
+
+    '/logout': {
+	controller: 'SessionController',
+	action: 'destroy'
     }
 
     /*

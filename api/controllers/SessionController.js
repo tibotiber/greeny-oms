@@ -34,7 +34,7 @@ module.exports = {
 	    }
 
 	    // in case of error, we redirect to user creation page
-	    res.redirect("/session/new");
+	    res.redirect("/login");
 	    return;
 	}
 
@@ -48,7 +48,7 @@ module.exports = {
 		req.session.flash = {
 		    err: noAccountError
 		}
-		res.redirect('/session/new');
+		res.redirect('/login');
 		return;
 	    };
 
@@ -60,7 +60,7 @@ module.exports = {
 		    req.session.flash = {
 			err: usernamePasswordMismatchError
 		    }
-		    res.redirect('/session/new');
+		    res.redirect('/login');
 		    return;
 		};
 
@@ -80,7 +80,15 @@ module.exports = {
     destroy: function(req, res, next){
 	sails.log("User logged out: "+req.session.User.username);
 	req.session.destroy();
-	res.redirect('/session/new');
+	res.redirect('/login');
+    },
+
+    index: function(req, res, next) {
+	/* this is the main redirect of the app */
+	if(!req.session.authenticated)
+	    res.redirect('/login');
+	else
+	    res.view('home/index');
     }
   
 };
