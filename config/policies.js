@@ -22,6 +22,13 @@ module.exports.policies = {
 	'*': true,
 	'new': 'isNotAuthenticated',
 	destroy: 'isAuthenticated'
+    },
+
+    UserController: {
+	'*': 'isAdmin',
+	show: 'userOwnProfile',
+	update: 'userOwnProfile',
+	edit: 'userOwnProfile'
     }
     
 

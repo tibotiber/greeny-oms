@@ -10,24 +10,6 @@
 
     "name": "isString",
 
-    "admin": "isBool",
-
-    "manager": "isBool",
-
-    "sales": "isBool",
-
-    "purchasing": "isBool",
-
-    "quality_check": "isBool",
-
-    "packing": "isBool",
-
-    "documentation": "isBool",
-
-    "accounts_payable": "isBool",
-
-    "accounts_receivable": "isBool",
-
     "timezone": "isTimezone"
 
 }]

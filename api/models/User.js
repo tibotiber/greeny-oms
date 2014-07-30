@@ -93,13 +93,17 @@ module.exports = {
     },
 
     beforeValidation: function(values, next) {
-	if(typeof values.admin !== 'undefined'){
-	    if(values.admin === 'unchecked'){
-		values.admin = false;
-	    }else if(values.admin[1] === 'on'){
-		values.admin = true;
+	// boolify checkbox values
+	var booleans = ['admin', 'manager', 'sales', 'purchasing', 'quality_check', 'packing', 'documentation', 'accounts_payable', 'accounts_receivable'];
+	var boolify = function(property) {
+	    if(typeof values[property] !== 'undefined') {
+		if(values[property] === 'unchecked')
+		    values[property] = false;
+		else if(values[property][1] === 'on')
+		    values[property] = true;
 	    }
 	}
+	booleans.forEach(boolify);
 	next();
     },
 

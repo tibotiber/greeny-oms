@@ -85,6 +85,7 @@ a.show-sidebar:hover {
   background: #ebebeb;
   box-shadow: 0 0 6px #131313;
   padding-bottom: 3000px !important;
+  padding-top: 15px;
   margin-bottom: -2980px !important;
   overflow: hidden;
   -webkit-transition: 0.2s;
