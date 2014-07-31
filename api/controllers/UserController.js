@@ -58,15 +58,8 @@ module.exports = {
 
     update: function(req, res, next){
 	if(!validateReqParams(req.params.all(), res)) return;
-/*
-	// boolify admin value
-	var params = req.params.all();
-	if(params.admin == "true") {
-	    params.admin = true;
-	} else if(params.admin == "false") {
-	    params.admin = false;
-	}
-*/
+	sails.log.debug(JSON.stringify(req.files));
+	sails.log.debug(req.param('profile-pic'));
 	User.update(req.param('id'), req.params.all(), function userUpdated(err){
 	    if(err){
 		sails.log.error(err);
