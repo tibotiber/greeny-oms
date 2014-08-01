@@ -14,8 +14,28 @@
  *
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
-var uu = require('underscore'),
-validateReqParams = require('../services/validateReqParams');
+var uu = require('underscore');
+var fs = require('fs');
+var validateReqParams = require('../services/validateReqParams');
+
+var UPLOAD_PATH = 'assets/upload/profile-pics/';
+
+function safeFilename(name) {
+    name = name.replace(/ /g, '-');
+    name = name.replace(/[^A-Za-z0-9-_\.]/g, '');
+    name = name.replace(/\.+/g, '.');
+    name = name.replace(/-+/g, '-');
+    name = name.replace(/_+/g, '_');
+    return name;
+}
+
+function fileMinusExt(fileName) {
+    return fileName.split('.').slice(0, -1).join('.');
+}
+
+function fileExtension(fileName) {
+    return fileName.split('.').slice(-1);
+}
 
 
 module.exports = {
@@ -58,14 +78,56 @@ module.exports = {
 
     update: function(req, res, next){
 	if(!validateReqParams(req.params.all(), res)) return;
-	sails.log.debug(JSON.stringify(req.files));
-	sails.log.debug(req.param('profile-pic'));
-	User.update(req.param('id'), req.params.all(), function userUpdated(err){
-	    if(err){
-		sails.log.error(err);
-		return res.redirect('/user/edit/' + req.param('id'));
+	// initialize updates object
+	var params = JSON.parse(JSON.stringify(req.params.all()));
+	// upload profile pic if any
+	var uploadProfilePic = function(file, cb) {
+	    if(file.originalFilename != "") {
+		var fileName = safeFilename(file.name);
+		var filePath = UPLOAD_PATH + fileName;
+		fs.readFile(file.path, function (err, data) {
+		    if (err) {
+			cb(err, null);
+		    } else {
+			if(!fs.existsSync(filePath)) {
+			    fs.writeFile(filePath, data, function (err) {
+				if (err)
+				    cb(err, null);
+				else
+				    cb(null, fileName);
+				});
+			} else {
+			    var i = 1;
+			    while(fs.existsSync(fileMinusExt(filePath)+i+'.'+fileExtension(filePath)))
+				i++;
+			    fileName = fileMinusExt(fileName)+i+'.'+fileExtension(fileName);
+			    filePath = UPLOAD_PATH + fileName;
+			    fs.writeFile(filePath, data, function (err) {
+				if (err)
+				    cb(err, null);
+				else
+				    cb(null, fileName);
+			    });
+			}
+		    }
+		});
+	    } else {
+		cb(null, null);
 	    }
-	    res.redirect('/user/show/' + req.param('id'));
+	}
+	uploadProfilePic(req.files['profile_pic'], function(err, filename) {
+	    if(err)
+		log.error("Error uploading new profile pic: "+err);
+	    if(filename)
+		params['profile_pic'] = filename;
+	    // update user info
+	    User.update(params.id, params, function userUpdated(err){
+		if(err){
+		    sails.log.error(err);
+		    return res.redirect('/user/edit/' + req.param('id'));
+		}
+		res.redirect('/user/show/' + req.param('id'));
+	    });
 	});
     },
 

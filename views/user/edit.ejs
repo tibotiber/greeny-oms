@@ -12,7 +12,7 @@
       </div>
       <div class="box-content">
         <div class="card">
-            <form action="/user/update/<%=user.id %>" method="POST" class="form-horizontal">
+            <form action="/user/update/<%=user.id %>" enctype="multipart/form-data" method="POST" class="form-horizontal">
               <div class="form-group">
 	        <label class="col-sm-3 control-label">Full name</label>
 	        <div class="col-sm-9">
@@ -27,7 +27,7 @@
 	      </div>
 	      <div class="fileinput fileinput-new" data-provides="fileinput">
 	        <div class="fileinput-new thumbnail" style="width: 80px; height: 80px;">
-		  <img src="/devoops/img/avatar.jpg" alt="profile picture">
+		  <img src="/upload/profile-pics/<%= user['profile_pic'] %>" alt="profile picture">
 		</div>
 	        <div class="fileinput-preview fileinput-exists thumbnail" data-trigger="fileinput" style="width: 80px; height: 80px;">
 		</div>
@@ -35,7 +35,7 @@
 		  <span class="btn btn-default btn-file">
 		    <span class="fileinput-new">Upload new profile picture</span>
 		    <span class="fileinput-exists">Change</span>
-		    <input type="file" name="profile-pic">
+		    <input type="file" name="profile_pic">
 		  </span>
 		  <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 		</div>

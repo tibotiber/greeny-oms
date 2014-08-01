@@ -13,7 +13,7 @@
 	  <h4 class="page-header">
 	    <%= user.name %>
 	  </h4>
-	  <div style="background-image: url('/devoops/img/avatar.jpg'); background-repeat: no-repeat; background-position-x: right; background-size: 80px;">
+	  <div style="background-image: url('/upload/profile-pics/<%= user['profile_pic'] %>'); background-repeat: no-repeat; background-position-x: right; background-size: 80px;">
 	    <label class="col-sm-4 control-label">Username</label>
 	    <p class="col-sm-8"><%= user.username %></p>
 	    <label class="col-sm-4 control-label">Email</label>

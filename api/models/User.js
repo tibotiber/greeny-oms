@@ -36,6 +36,12 @@ module.exports = {
 	    type: 'string'
 	},
 
+	profile_pic: {
+	    type: 'string',
+	    required: true,
+	    defaultsTo: 'avatar.png'
+	},
+
 	/* ROLES */
 	admin: {
 	    type: 'boolean',
