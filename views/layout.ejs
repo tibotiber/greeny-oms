@@ -164,12 +164,16 @@
 			  <span>Profile</span>
 			</a>
 		      </li>
+		      <% if(session.User.admin) { %>
 		      <li>
 			<a href="/user/changePwd/<%= session.User.id %>">
 			  <i class="fa fa-lock"></i>
 			  <span>Change password</span>
 			</a>
 		      </li>
+		      <% } %>
+
+		      
 		      <!--
 		      <li>
 			<a href="ajax/page_messages.html" class="ajax-link">
@@ -196,6 +200,8 @@
 			</a>
 		      </li>
 		      -->
+
+
 		      <li>
 			<a href="/logout">
 			  <i class="fa fa-power-off"></i>
@@ -229,9 +235,23 @@
 		<span class="hidden-xs">Shipments</span>
 	      </a>
 	      <ul class="dropdown-menu">
-		<li><a href="shipment/RK102">RK102</a></li>
-		<li><a href="shipment/JC238">JC238</a></li>
-		<li><a href="shipment/CT22">CT22</a></li>
+		<li><a href="/shipment/RK102">RK102</a></li>
+		<li><a href="/shipment/JC238">JC238</a></li>
+		<li><a href="/shipment/CT22">CT22</a></li>
+	      </ul>
+	    </li>
+	    <li class="dropdown">
+	      <a href="#" class="dropdown-toggle">
+		<i class="fa fa-gears"></i>
+		<span class="hidden-xs">Admin</span>
+	      </a>
+	      <ul class="dropdown-menu">
+		<li>
+		  <a href="/user">
+		    <i class="fa fa-group"></i>
+		    <span class="hidden-xs">Users management</span>
+		  </a>
+		</li>
 	      </ul>
 	    </li>
 	  </ul>
