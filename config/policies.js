@@ -28,7 +28,9 @@ module.exports.policies = {
 	'*': 'isAdmin',
 	show: 'userOwnProfile',
 	update: 'userOwnProfile',
-	edit: 'userOwnProfile'
+	edit: 'userOwnProfile',
+	changePwd: 'userOwnProfile',
+	updatePwd: 'userOwnProfile'
     }
     
 

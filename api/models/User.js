@@ -132,8 +132,9 @@ module.exports = {
 		values.encryptedPassword = encryptedPassword;
 		next();
 	    });
+	} else {
+	    next();
 	}
-	next();
     }
     
 };
