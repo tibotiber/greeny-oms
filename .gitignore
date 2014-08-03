@@ -40,6 +40,8 @@ nbproject
 
 
 ########################
-# local config
+# app specific
 ########################
 config/local.js
+assets/upload/profile-pics/*
+!assets/upload/profile-pics/avatar.png

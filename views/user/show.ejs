@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <div class="row">
   <div class="col-xs-12">
     <div class="box">
@@ -19,24 +20,24 @@
 	    <label class="col-sm-4 control-label">Email</label>
 	    <p class="col-sm-8"><%= user.email %></p>
 	    <% if(session.User.admin) { %>
-	      <label class="col-sm-4 control-label">Admin</label>
-	      <p class="col-sm-8"><%= user.admin %></p>
-	      <label class="col-sm-4 control-label">Manager</label>
-	      <p class="col-sm-8"><%= user.manager %></p>
-	      <label class="col-sm-4 control-label">Sales</label>
-	      <p class="col-sm-8"><%= user.sales %></p>
-	      <label class="col-sm-4 control-label">Purchasing</label>
-	      <p class="col-sm-8"><%= user.purchasing %></p>
-	      <label class="col-sm-4 control-label">Quality Check</label>
-	      <p class="col-sm-8"><%= user.quality_check %></p>
-	      <label class="col-sm-4 control-label">Packing</label>
-	      <p class="col-sm-8"><%= user.packing %></p>
-	      <label class="col-sm-4 control-label">Documentation</label>
-	      <p class="col-sm-8"><%= user.documentation %></p>
-	      <label class="col-sm-4 control-label">Accounts Payable</label>
-	      <p class="col-sm-8"><%= user.accounts_payable %></p>
-	      <label class="col-sm-4 control-label">Accounts Receivable</label>
-	      <p class="col-sm-8"><%= user.accounts_receivable %></p>
+	    <label class="col-sm-4 control-label">Admin</label>
+	    <p class="col-sm-8"><%= user.admin %></p>
+	    <label class="col-sm-4 control-label">Manager</label>
+	    <p class="col-sm-8"><%= user.manager %></p>
+	    <label class="col-sm-4 control-label">Sales</label>
+	    <p class="col-sm-8"><%= user.sales %></p>
+	    <label class="col-sm-4 control-label">Purchasing</label>
+	    <p class="col-sm-8"><%= user.purchasing %></p>
+	    <label class="col-sm-4 control-label">Quality Check</label>
+	    <p class="col-sm-8"><%= user.quality_check %></p>
+	    <label class="col-sm-4 control-label">Packing</label>
+	    <p class="col-sm-8"><%= user.packing %></p>
+	    <label class="col-sm-4 control-label">Documentation</label>
+	    <p class="col-sm-8"><%= user.documentation %></p>
+	    <label class="col-sm-4 control-label">Accounts Payable</label>
+	    <p class="col-sm-8"><%= user.accounts_payable %></p>
+	    <label class="col-sm-4 control-label">Accounts Receivable</label>
+	    <p class="col-sm-8"><%= user.accounts_receivable %></p>
 	    <% } %>
 	    <p class="text-center">
 	      <a class="btn btn-primary" href="/user/edit/<%=user.id %>">Edit</a>
