@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<link href="/jasny-bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet">
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+	<div class="box-name">
+	  <i class="fa fa-user"></i>
+	  <span>User Profile - Change Password</span>
+	</div>
+	<div class="no-move"></div>
+      </div>
+      <div class="box-content">
+        <div class="card">
+          <form id="userForm" action="/user/updatePwd/<%=user.id %>" enctype="multipart/form-data" method="POST" class="form-horizontal">
+            <div class="form-group">
+	      <label class="col-sm-3 control-label">Current password</label>
+	      <div class="col-sm-9">
+	        <input type="password" class="form-control" name="currentPassword" />
+	      </div>
+	    </div>
+            <div class="form-group">
+	      <label class="col-sm-3 control-label">New password</label>
+	      <div class="col-sm-9">
+	        <input type="password" class="form-control" name="password" />
+	      </div>
+	    </div>
+            <div class="form-group">
+	      <label class="col-sm-3 control-label">New password again</label>
+	      <div class="col-sm-9">
+	        <input type="password" class="form-control" name="confirmPassword" />
+	      </div>
+	    </div>
+	    <div class="text-center">
+	      <button type="submit" class="btn btn-primary">Save changes</button>
+	    </div>
+	  </form>
+	</div>
+      </div>
+    </div>
+  </div>  
+</div>
+
+
+<script src="/js/customValidators.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    LoadBootstrapValidatorScript(UserFormValidator);
+  });
+</script>

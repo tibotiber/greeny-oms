@@ -58,6 +58,13 @@ function UserFormValidator() {
 			message: 'The password and its confirm are not the same'
 		    }
 		}
+	    },
+	    currentPassword: {
+		validators: {
+		    notEmpty: {
+			message: 'The password is required and can\'t be empty'
+		    }
+		}
 	    }
 	}
     });

@@ -27,50 +27,22 @@ module.exports = {
     },
 
     create: function(req, res, next){
-	if(!req.param('username') || !req.param('password')){
-	    var usernamePasswordRequiredError = [{name: 'usernamePasswordRequired', message: 'You must enter a username and a password'}];
-	    req.session.flash = {
-		err: usernamePasswordRequiredError
-	    }
-
-	    // in case of error, we redirect to user creation page
-	    res.redirect("/login");
-	    return;
-	}
-
-	// check by username
+	if(!req.param('username') || !req.param('password'))
+	    return res.redirect("/login");
+	// search user
 	var credentials = {username: req.param('username')};
 	User.findOne(credentials).done(function(err, user){
 	    if(err) return next(err);
-
-	    if(!user){
-		var noAccountError = [{name: 'noAccount', message: 'The username ' + req.param('username') + ' was not found'}];
-		req.session.flash = {
-		    err: noAccountError
-		}
-		res.redirect('/login');
-		return;
-	    };
-
+	    if(!user) return res.redirect('/login');
+	    // user found, check password
 	    bcrypt.compare(req.param('password'), user.encryptedPassword, function(err, valid){
 		if(err) return next(err);
-
-		if(!valid){
-		    var usernamePasswordMismatchError = [{name: 'usernamePasswordMismatch', message: 'Invalid username and password combination'}];
-		    req.session.flash = {
-			err: usernamePasswordMismatchError
-		    }
-		    res.redirect('/login');
-		    return;
-		};
-
-		// we authenticate the session directly once the user is created and bound it to the user created
+		if(!valid) return res.redirect('/login');
+		// password ok: create session
 		req.session.authenticated = true;
 		req.session.User = user;
-
-		// logs now to see who is connected
+		// log to display who is connected
 		sails.log("User logged in: "+user.username);
-
 		// redirect to home page
 		res.redirect('/');
 	    });
