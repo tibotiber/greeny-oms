@@ -1,25 +1,209 @@
 <!DOCTYPE html>
 <ul class="nav main-menu">
+
   <li>
     <a href="/" class="active">
-      <i class="fa fa-dashboard"></i>
+      <i class="fa fa-home"></i>
       <span class="hidden-xs">Home</span>
     </a>
   </li>
+
   <li class="dropdown">
     <a href="#" class="dropdown-toggle">
-      <i class="fa fa-bar-chart-o"></i>
+      <i class="fa fa-plane"></i>
       <span class="hidden-xs">Shipments</span>
     </a>
     <ul class="dropdown-menu">
-      <li><a href="/shipment/RK102">RK102</a></li>
-      <li><a href="/shipment/JC238">JC238</a></li>
-      <li><a href="/shipment/CT22">CT22</a></li>
+      <li class="dropdown">
+	<a href="#" class="dropdown-toggle">
+	  <i class="fa fa-folder-open-o hidden-xs"></i>
+	  <span>RK102</span>
+	</a>
+	<ul class="dropdown-menu">
+	  <li>
+	    <a href="/shipment/RK102">
+	      <i class="fa fa-table"></i>
+	      <span class="hidden-xs">Master order</span>
+	    </a>
+	  </li>
+	  <li>
+	    <a href="/shipment/RK102/packing">
+	      <i class="fa fa-list-ol"></i>
+	      <span class="hidden-xs">Packing list</span>
+	    </a>
+	  </li>
+	  <li class="dropdown">
+	    <a href="#" class="dropdown-toggle">
+	      <i class="fa fa-bar-chart-o"></i>
+	      <span class="hidden-xs">Reports</span>
+	    </a>
+	    <ul class="dropdown-menu">
+	      <li>
+		<a href="/shipment/RK102/doa">
+		  <i class="fa fa-medkit"></i>
+		  <span class="hidden-xs">DOA</span>
+		</a>
+	      </li>
+	      <li>
+		<a href="/shipment/RK102/profit">
+		  <i class="fa fa-usd"></i>
+		  <span class="hidden-xs">Profit</span>
+		</a>
+	      </li>
+ 	    </ul>
+	  </li>
+	</ul>
+      </li>
+      <li>
+	<a href="/shipment/JC238">
+	  <i class="fa fa-folder-open-o hidden-xs"></i>
+	  <span>JC238</span>
+	</a>
+      </li>
+      <li>
+	<a href="/shipment/CT22">
+	  <i class="fa fa-folder-open-o hidden-xs"></i>
+	  <span>CT22</span>
+	</a>
+      </li>
     </ul>
   </li>
+  
   <li class="dropdown">
     <a href="#" class="dropdown-toggle">
-      <i class="fa fa-gears"></i>
+      <i class="fa fa-shopping-cart"></i>
+      <span class="hidden-xs">Purchasing</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+	<a href="/purchase">
+	  <i class="fa fa-stack-overflow"></i>
+	  <span class="hidden-xs">Purchase stack</span>
+	</a>
+      </li>
+      <li>
+	<a href="/purchase/SL105">
+	  <i class="fa fa-folder-open-o hidden-xs"></i>
+	  <span>SL105</span>
+	</a>
+      </li>
+      <li>
+	<a href="/purchase/TT78">
+	  <i class="fa fa-folder-open-o hidden-xs"></i>
+	  <span>TT78</span>
+	</a>
+      </li>
+    </ul>
+  </li>
+
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-edit"></i>
+      <span class="hidden-xs">Fish receive</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+	<a href="/purchase/all-qc">
+	  <i class="fa fa-truck"></i>
+	  <span class="hidden-xs">All arrivals</span>
+	</a>
+      </li>
+      <li>
+	<a href="/purchase/SL105/qc">
+	  <i class="fa fa-folder-open-o hidden-xs"></i>
+	  <span>SL105</span>
+	</a>
+      </li>
+      <li>
+	<a href="/purchase/TT78/qc">
+	  <i class="fa fa-folder-open-o hidden-xs"></i>
+	  <span>TT78</span>
+	</a>
+      </li>
+    </ul>
+  </li>
+
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-usd"></i>
+      <span class="hidden-xs">Accounts</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+	<a href="/accounts/payables">
+	  <i class="fa fa-upload"></i>
+	  <span class="hidden-xs">Payables</span>
+	</a>
+      </li>
+      <li>
+	<a href="/accounts/receivables">
+	  <i class="fa fa-download"></i>
+	  <span class="hidden-xs">Receivables</span>
+	</a>
+      </li>
+      <li>
+	<a href="/accounts/soa">
+	  <i class="fa fa-tasks"></i>
+	  <span class="hidden-xs">Customers SOA</span>
+	</a>
+      </li>
+      <li>
+	<a href="/accounts/reporting">
+	  <i class="fa fa-dashboard"></i>
+	  <span class="hidden-xs">Reporting</span>
+	</a>
+      </li>
+    </ul>
+  </li>
+
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-hdd-o"></i>
+      <span class="hidden-xs">Database</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+	<a href="/fish">
+	  <i class="fa fa-anchor"></i>
+	  <span class="hidden-xs">Fish items</span>
+	</a>
+      </li>      
+      <li>
+	<a href="/plants">
+	  <i class="fa fa-leaf"></i>
+	  <span class="hidden-xs">Plants items</span>
+	</a>
+      </li>      
+      <li>
+	<a href="/price">
+	  <i class="fa fa-book"></i>
+	  <span class="hidden-xs">Pricelists</span>
+	</a>
+      </li>      
+      <li>
+	<a href="/customer">
+	  <i class="fa fa-user"></i>
+	  <span class="hidden-xs">Customers</span>
+	</a>
+      </li>      
+      <li>
+	<a href="/supplier">
+	  <i class="fa fa-user"></i>
+	  <span class="hidden-xs">Suppliers</span>
+	</a>
+      </li>      
+      <li>
+	<a href="/freight">
+	  <i class="fa fa-plane"></i>
+	  <span class="hidden-xs">Freight quotations</span>
+	</a>
+      </li>      
+    </ul>
+  </li>
+  
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle">
+      <i class="fa fa-gear"></i>
       <span class="hidden-xs">Admin</span>
     </a>
     <ul class="dropdown-menu">
@@ -29,6 +213,19 @@
 	  <span class="hidden-xs">Users management</span>
 	</a>
       </li>
+      <li>
+	<a href="/user">
+	  <i class="fa fa-wrench"></i>
+	  <span class="hidden-xs">Settings</span>
+	</a>
+      </li>
     </ul>
+  </li>
+
+  <li>
+    <a href="/help">
+      <i class="fa fa-info-circle"></i>
+      <span class="hidden-xs">Help</span>
+    </a>
   </li>
 </ul>
