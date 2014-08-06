@@ -8,6 +8,7 @@
     </a>
   </li>
 
+  <% if(session.User.admin || session.User.manager || session.User.sales || session.User.packing || session.User.documentation){ %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle">
       <i class="fa fa-plane"></i>
@@ -20,38 +21,46 @@
 	  <span>RK102</span>
 	</a>
 	<ul class="dropdown-menu">
+	  <% if(session.User.admin || session.User.manager || session.User.sales || session.User.documentation){ %>
 	  <li>
 	    <a href="/shipment/RK102">
 	      <i class="fa fa-table"></i>
 	      <span class="hidden-xs">Master order</span>
 	    </a>
 	  </li>
+	  <% } %>
 	  <li>
 	    <a href="/shipment/RK102/packing">
 	      <i class="fa fa-list-ol"></i>
 	      <span class="hidden-xs">Packing list</span>
 	    </a>
 	  </li>
+	  <% if(session.User.admin || session.User.manager || session.User.sales){ %>
 	  <li class="dropdown">
 	    <a href="#" class="dropdown-toggle">
 	      <i class="fa fa-bar-chart-o"></i>
 	      <span class="hidden-xs">Reports</span>
 	    </a>
 	    <ul class="dropdown-menu">
+	      <% if(session.User.admin || session.User.manager || session.User.sales){ %>
 	      <li>
 		<a href="/shipment/RK102/doa">
 		  <i class="fa fa-medkit"></i>
 		  <span class="hidden-xs">DOA</span>
 		</a>
 	      </li>
+	      <% } %>
+	      <% if(session.User.admin || session.User.manager){ %>
 	      <li>
 		<a href="/shipment/RK102/profit">
 		  <i class="fa fa-usd"></i>
 		  <span class="hidden-xs">Profit</span>
 		</a>
 	      </li>
+	      <% } %>
  	    </ul>
 	  </li>
+	  <% } %>
 	</ul>
       </li>
       <li>
@@ -68,7 +77,9 @@
       </li>
     </ul>
   </li>
-  
+  <% } %>
+
+  <% if(session.User.admin || session.User.manager || session.User.purchasing){ %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle">
       <i class="fa fa-shopping-cart"></i>
@@ -95,10 +106,12 @@
       </li>
     </ul>
   </li>
+  <% } %>
 
+  <% if(session.User.admin || session.User.manager || session.User.sales || session.User.purchasing || session.User.quality_check || session.User.packing || session.User.documentation){ %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle">
-      <i class="fa fa-edit"></i>
+      <i class="fa fa-truck"></i>
       <span class="hidden-xs">Fish receive</span>
     </a>
     <ul class="dropdown-menu">
@@ -108,33 +121,40 @@
 	  <span class="hidden-xs">All arrivals</span>
 	</a>
       </li>
+      <% if(session.User.admin || session.User.manager || session.User.quality_check){ %>
       <li>
 	<a href="/purchase/SL105/qc">
-	  <i class="fa fa-folder-open-o hidden-xs"></i>
+	  <i class="fa fa-edit hidden-xs"></i>
 	  <span>SL105</span>
 	</a>
       </li>
       <li>
 	<a href="/purchase/TT78/qc">
-	  <i class="fa fa-folder-open-o hidden-xs"></i>
+	  <i class="fa fa-edit hidden-xs"></i>
 	  <span>TT78</span>
 	</a>
       </li>
+      <% } %>
     </ul>
   </li>
+  <% } %>
 
+  <% if(session.User.admin || session.User.manager || session.User.accounts_payable || session.User.accounts_receivable){ %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle">
       <i class="fa fa-usd"></i>
       <span class="hidden-xs">Accounts</span>
     </a>
     <ul class="dropdown-menu">
+      <% if(session.User.admin || session.User.manager || session.User.accounts_payable){ %>
       <li>
 	<a href="/accounts/payables">
 	  <i class="fa fa-upload"></i>
 	  <span class="hidden-xs">Payables</span>
 	</a>
       </li>
+      <% } %>
+      <% if(session.User.admin || session.User.manager || session.User.accounts_receivable){ %>
       <li>
 	<a href="/accounts/receivables">
 	  <i class="fa fa-download"></i>
@@ -147,15 +167,20 @@
 	  <span class="hidden-xs">Customers SOA</span>
 	</a>
       </li>
+      <% } %>
+      <% if(session.User.admin || session.User.manager){ %>
       <li>
 	<a href="/accounts/reporting">
 	  <i class="fa fa-dashboard"></i>
 	  <span class="hidden-xs">Reporting</span>
 	</a>
       </li>
+      <% } %>
     </ul>
   </li>
+  <% } %>
 
+  <% if(session.User.admin || session.User.manager){ %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle">
       <i class="fa fa-hdd-o"></i>
@@ -200,7 +225,9 @@
       </li>      
     </ul>
   </li>
-  
+  <% } %>
+
+  <% if(session.User.admin){ %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle">
       <i class="fa fa-gear"></i>
@@ -221,7 +248,8 @@
       </li>
     </ul>
   </li>
-
+  <% } %>
+  
   <li>
     <a href="/help">
       <i class="fa fa-info-circle"></i>
