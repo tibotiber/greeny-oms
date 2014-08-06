@@ -156,9 +156,9 @@ module.exports = {
 	    if(err) return next(err);
 	    if(!user) return res.redirect('/user/changePwd/' + req.param('id'));
 	    // user found, check password
-	    bcrypt.compare(req.param('currentPassword'), user.encryptedPassword, function(err, valid){
+	    bcrypt.compare(req.param('currentPassword')||"", user.encryptedPassword, function(err, valid){
 		if(err) return next(err);
-		if(!valid) return res.redirect('/user/changePwd/' + req.param('id'));
+		if(!valid && !req.session.User.admin) return res.redirect('/user/changePwd/' + req.param('id'));
 		// password ok: update password
 		User.update(req.param('id'), req.params.all(), function userUpdated(err){
 		    if(err){

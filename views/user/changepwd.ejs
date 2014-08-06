@@ -14,12 +14,14 @@
       <div class="box-content">
         <div class="card">
           <form id="userForm" action="/user/updatePwd/<%=user.id %>" enctype="multipart/form-data" method="POST" class="form-horizontal">
+	    <% if(!session.User.admin){ %>
             <div class="form-group">
 	      <label class="col-sm-3 control-label">Current password</label>
 	      <div class="col-sm-9">
 	        <input type="password" class="form-control" name="currentPassword" />
 	      </div>
 	    </div>
+	    <% } %>
             <div class="form-group">
 	      <label class="col-sm-3 control-label">New password</label>
 	      <div class="col-sm-9">
