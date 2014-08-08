@@ -28,7 +28,7 @@ module.exports[404] = function pageNotFound(req, res) {
     res.status(result.status);
 
     // Serve the `views/404.*` page
-    res.view('404');
+    res.view('404', {layout: "basic_layout"});
 
 
 };
