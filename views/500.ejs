@@ -7,18 +7,10 @@
 	  <h3 class="page-header">Error 500 - Internal Server Error</h3>
 	</div>
 	<div>
-	  <% if (typeof errors !== 'undefined') { %>
-          <pre class="error"><code>
-              <% _.each(errors, function (error) { %>
-              <%= error %>
-              <% }); %>
+	  <pre class="error"><code>
+              <%= data %>
           </code></pre>
-          <% } else { %>
-	  <p class="error">
-            Sorry, an error has occured while processing your request.
-          </p>
-	  <% } %>
-	</div> 
+        </div> 
 	<div class="text-center">
 	  <a href="/help" class="btn btn-primary">Help us report this bug!</a>
 	</div>

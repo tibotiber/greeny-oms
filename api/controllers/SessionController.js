@@ -31,7 +31,7 @@ module.exports = {
 	    return res.redirect("/login");
 	// search user
 	var credentials = {username: req.param('username')};
-	User.findOne(credentials).done(function(err, user){
+	User.findOne(credentials).exec(function(err, user){
 	    if(err) return next(err);
 	    if(!user) return res.redirect('/login');
 	    // user found, check password

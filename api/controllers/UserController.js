@@ -18,24 +18,7 @@ var uu = require('underscore');
 var fs = require('fs');
 var bcrypt = require('bcrypt');
 
-var UPLOAD_PATH = 'assets/upload/profile-pics/';
-
-function safeFilename(name) {
-    name = name.replace(/ /g, '-');
-    name = name.replace(/[^A-Za-z0-9-_\.]/g, '');
-    name = name.replace(/\.+/g, '.');
-    name = name.replace(/-+/g, '-');
-    name = name.replace(/_+/g, '_');
-    return name;
-}
-
-function fileMinusExt(fileName) {
-    return fileName.split('.').slice(0, -1).join('.');
-}
-
-function fileExtension(fileName) {
-    return fileName.split('.').slice(-1);
-}
+var UPLOAD_PATH = '../../assets/upload/profile-pics/';
 
 
 module.exports = {
@@ -46,8 +29,16 @@ module.exports = {
 	res.view();
     },
 
+    firstEver: function(req, res){
+	// change user controller default policy to true to access this
+	// then create first user in app
+	// then use psql to give admin rights
+	// then put back user controller default policy to 'isAdmin'
+	res.view('user/new', {layout: 'basic_layout'})
+    },
+
     index: function(req,res, next) {
-	User.find().sort('id').done(function foundUsers(err, users){
+	User.find().sort('id').exec(function foundUsers(err, users){
 	    if(err) return next(err);
 
 	    res.view({
@@ -57,8 +48,10 @@ module.exports = {
     },
 
     create: function(req, res, next){
-	User.create(req.params.all(), function userCreated (err, user){
-	    if(err) return next("Error in the user creation.");
+	var params = JSON.parse(JSON.stringify(req.params.all()));
+	delete params.id;
+	User.create(params).exec(function userCreated (err, user){
+	    if(err) return next("Error in the user creation: "+err);
 	    sails.log("User \"" + user.username + "\" created");
 	    res.redirect("/user/show/" + user.id);
 	});
@@ -78,54 +71,26 @@ module.exports = {
 	// initialize updates object
 	var params = JSON.parse(JSON.stringify(req.params.all()));
 	// upload profile pic if any
-	var uploadProfilePic = function(file, cb) {
-	    if(file.originalFilename != "") {
-		var fileName = safeFilename(file.name);
-		var filePath = UPLOAD_PATH + fileName;
-		fs.readFile(file.path, function (err, data) {
-		    if (err) {
-			cb(err, null);
-		    } else {
-			if(!fs.existsSync(filePath)) {
-			    fs.writeFile(filePath, data, function (err) {
-				if (err)
-				    cb(err, null);
-				else
-				    cb(null, fileName);
-				});
-			} else {
-			    var i = 1;
-			    while(fs.existsSync(fileMinusExt(filePath)+i+'.'+fileExtension(filePath)))
-				i++;
-			    fileName = fileMinusExt(fileName)+i+'.'+fileExtension(fileName);
-			    filePath = UPLOAD_PATH + fileName;
-			    fs.writeFile(filePath, data, function (err) {
-				if (err)
-				    cb(err, null);
-				else
-				    cb(null, fileName);
-			    });
-			}
+	req.file('profile_pic').upload(
+	    {
+		dirname: UPLOAD_PATH,
+		saveAs: req.param('username')+'.jpg'
+	    },
+	    function (err, uploadedFiles){
+		if(err)
+		    return res.serverError("Error uploading new profile pic: "+err);
+		if(uploadedFiles.length > 0)
+		    params.profile_pic = req.param('username')+'.jpg';
+		// update user info
+		User.update(params.id, params, function userUpdated(err){
+		    if(err){
+			sails.log.error(err);
+			return res.redirect('/user/edit/' + req.param('id'));
 		    }
+		    res.redirect('/user/show/' + req.param('id'));
 		});
-	    } else {
-		cb(null, null);
 	    }
-	}
-	uploadProfilePic(req.files['profile_pic'], function(err, filename) {
-	    if(err)
-		log.error("Error uploading new profile pic: "+err);
-	    if(filename)
-		params['profile_pic'] = filename;
-	    // update user info
-	    User.update(params.id, params, function userUpdated(err){
-		if(err){
-		    sails.log.error(err);
-		    return res.redirect('/user/edit/' + req.param('id'));
-		}
-		res.redirect('/user/show/' + req.param('id'));
-	    });
-	});
+	);
     },
 
     edit: function(req, res, next){
