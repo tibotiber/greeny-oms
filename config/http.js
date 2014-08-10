@@ -21,7 +21,7 @@ module.exports.http = {
      *                                                                           *
      ****************************************************************************/
 
-    // middleware: {
+    middleware: {
 
 	/***************************************************************************
 	 *                                                                          *
@@ -30,23 +30,26 @@ module.exports.http = {
 	 *                                                                          *
 	 ***************************************************************************/
 
-	// order: [
-	//   'startRequestTimer',
-	//   'cookieParser',
-	//   'session',
-	//   'myRequestLogger',
-	//   'bodyParser',
-	//   'handleBodyParserError',
-	//   'compress',
-	//   'methodOverride',
-	//   'poweredBy',
-	//   '$custom',
-	//   'router',
-	//   'www',
-	//   'favicon',
-	//   '404',
-	//   '500'
-	// ],
+	order: [
+	    'startRequestTimer',
+	    'xframe',
+	    'cookieParser',
+	    'session',
+	    'myRequestLogger',
+	    'bodyParser',
+	    'handleBodyParserError',
+	    'compress',
+	    'methodOverride',
+	    'poweredBy',
+	    '$custom',
+	    'router',
+	    'www',
+	    'favicon',
+	    '404',
+	    '500'
+	],
+
+	xframe: require('lusca').xframe('SAMEORIGIN')
 
 	/****************************************************************************
 	 *                                                                           *
@@ -69,9 +72,9 @@ module.exports.http = {
 	 *                                                                          *
 	 ***************************************************************************/
 
-         // bodyParser: require("connect-busboy")
+        // bodyParser: require("skipper")
 
-    // },
+    },
 
     /***************************************************************************
      *                                                                          *
