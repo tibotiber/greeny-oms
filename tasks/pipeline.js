@@ -15,23 +15,41 @@
 // (if you're using LESS with the built-in default config, you'll want
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
-  'styles/**/*.css'
+
+    'styles/autoinject/**/*.css',
+    
+    'devoops/plugins/bootstrap/bootstrap.css',
+    'devoops/plugins/jquery-ui/jquery-ui.min.css',
+    'devoops/plugins/fancybox/jquery.fancybox.css',
+    'devoops/plugins/fullcalendar/fullcalendar.css',
+    'devoops/plugins/xcharts/xcharts.min.css',
+    'devoops/plugins/select2/select2.css',
+    'devoops/css/style.css',
+    'jasny-bootstrap/css/jasny-bootstrap.css',
+
+    'styles/custom.css'
+
 ];
 
 
 // Client-side javascript files to inject in order
 // (uses Grunt-style wildcard/glob/splat expressions)
 var jsFilesToInject = [
-  
-  // Load sails.io before everything else
-  'js/dependencies/sails.io.js',
+    
+    // Load sails.io before everything else
+    'js/autoinject/sails.io.js',
 
-  // Dependencies like jQuery, or Angular are brought in here
-  'js/dependencies/**/*.js',
+    'js/autoinject/**/*.js',
 
-  // All of the rest of your client-side js files
-  // will be injected here in no particular order.
-  'js/**/*.js'
+    'devoops/plugins/jquery/jquery-2.1.0.min.js',
+    'devoops/plugins/jquery-ui/jquery-ui.min.js',
+    'devoops/plugins/bootstrap/bootstrap.min.js',
+    'devoops/plugins/justified-gallery/jquery.justifiedgallery.min.js',
+    'devoops/plugins/tinymce/tinymce.min.js',
+    'devoops/plugins/tinymce/jquery.tinymce.min.js',
+    'devoops/js/devoops.js',
+    'jasny-bootstrap/js/jasny-bootstrap.min.js'
+
 ];
 
 
@@ -45,7 +63,7 @@ var jsFilesToInject = [
 // templates get spit out to the same file.  Be sure and check out `tasks/README.md`
 // for information on customizing and installing new tasks.
 var templateFilesToInject = [
-  'templates/**/*.html'
+    'templates/**/*.html'
 ];
 
 
@@ -54,11 +72,11 @@ var templateFilesToInject = [
 // (i.e. where the other Grunt tasks spit them out, or in some cases, where
 // they reside in the first place)
 module.exports.cssFilesToInject = cssFilesToInject.map(function(path) {
-  return '.tmp/public/' + path;
+    return '.tmp/public/' + path;
 });
 module.exports.jsFilesToInject = jsFilesToInject.map(function(path) {
-  return '.tmp/public/' + path;
+    return '.tmp/public/' + path;
 });
 module.exports.templateFilesToInject = templateFilesToInject.map(function(path) {
-  return 'assets/' + path;
+    return 'assets/' + path;
 });
