@@ -12,20 +12,16 @@
  * http://sailsjs.org/#documentation
  */
 
-module.exports.adapters = {
-
-    // If you leave the adapter config unspecified 
-    // in a model definition, 'default' will be used.
-    'default': 'postgresql',
+module.exports.connections = {
 
     // Persistent adapter for DEVELOPMENT ONLY
     // (data is preserved when the server shuts down)
     disk: {
-	module: 'sails-disk'
+	adapter  : 'sails-disk'
     },
 
     postgresql: {
-	module   : 'sails-postgresql',
+	adapter  : 'sails-postgresql',
 	host     : 'localhost',
 	port     : 5432,
 	schema   : true//sails matches the database schema to your models

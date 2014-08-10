@@ -1,6 +1,7 @@
 function UserFormValidator() {
     $('#userForm').bootstrapValidator({
 	message: 'This value is not valid',
+	excluded: ':disabled',
 	fields: {
 	    username: {
 		message: 'The username is not valid',
@@ -64,6 +65,26 @@ function UserFormValidator() {
 		    notEmpty: {
 			message: 'The password is required and can\'t be empty'
 		    }
+		}
+	    },
+	    profile_pic: {
+		validators: {
+		    file: {
+			extension: 'jpeg',
+			type: 'image/jpeg',
+			maxSize: 1024*1024,//1MB
+			message: 'The profile picture must a jpeg file of 1MB maximum.'
+		    }/*,
+		    callback: {
+			callback: function(value, validator) {
+			    // Manual file check for uploads with skipper
+			    alert(JSON.stringify(valueS));
+			    var options = validator.getFieldElements('profile_pic').val();
+			    alert(options);
+			    return false;
+			},
+			message: 'The profile picture must a jpeg file of 1MB maximum.'
+		    }*/
 		}
 	    }
 	}

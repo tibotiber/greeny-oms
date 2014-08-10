@@ -10,8 +10,6 @@ module.exports = {
 
     tableName: 'user_in_sails',
 
-    schema: true,
-
     attributes: {
 
 	username:{
@@ -98,14 +96,14 @@ module.exports = {
 	}
     },
 
-    beforeValidation: function(values, next) {
+    beforeValidate: function(values, next) {
 	// boolify checkbox values
 	var booleans = ['admin', 'manager', 'sales', 'purchasing', 'quality_check', 'packing', 'documentation', 'accounts_payable', 'accounts_receivable'];
 	var boolify = function(property) {
-	    if(typeof values[property] !== 'undefined') {
-		if(values[property] === 'unchecked')
+	    if(typeof values[property+'_cb'] !== 'undefined') {
+		if(values[property+'_cb'] === 'unchecked')
 		    values[property] = false;
-		else if(values[property][1] === 'on')
+		else if(values[property+'_cb'][1] === 'on')
 		    values[property] = true;
 	    }
 	}
