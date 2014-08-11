@@ -16,6 +16,21 @@ module.exports = {
 	    password : '',
 	    database : ''
 	}
+    },
+
+    emailAccount: {
+        service: 'Gmail',
+	auth: {
+	    user: '',
+	    pass: ''
+	}
+    },
+
+    googleXOAuth2: {
+	// get this from https://console.developers.google.com/
+	clientId: '',
+	clientSecret: '',
+	redirectUri: ''
     }
 
 };

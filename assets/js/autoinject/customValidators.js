@@ -237,3 +237,44 @@ function DemoFormValidator(){
 	}
     });
 }
+
+
+function SupportFormValidator() {
+    $('#supportForm').bootstrapValidator({
+	message: 'This value is not valid',
+	fields: {
+	    type: {
+		validators: {
+		    notEmpty: {
+			message: 'Please choose a support category.'
+		    }
+		}
+	    },
+	    frequency: {
+		validators: {
+		    notEmpty: {
+			message: 'Please indicate the frequency of your problem.'
+		    }
+		}
+	    },
+	    subject: {
+		validators: {
+		    notEmpty: {
+			message: 'Please key in the subject of the support ticket.'
+		    },
+		    stringLength: {
+			max: 50,
+			message: 'The subject must be less than 50 characters'
+		    }
+		}
+	    },
+	    description: {
+		validators: {
+		    notEmpty: {
+			message: 'Please describe your issue to help us assist you efficiently.'
+		    }
+		}
+	    }
+	}
+    });
+}

@@ -25,7 +25,10 @@
 	"bcrypt": "0.7.8",
 	"sails-postgresql": "0.10.x",
 	"underscore": "1.6.0",
-	"lusca": "1.0.1"
+	"lusca": "1.0.1",
+	"nodemailer": "1.1.1",
+	"request": "2.40.0",
+	"xoauth2": "0.1.8"
     },
     "scripts": {
         "start": "node app.js",

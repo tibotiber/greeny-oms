@@ -41,6 +41,11 @@ module.exports.routes = {
     '/logout': {
 	controller: 'SessionController',
 	action: 'destroy'
+    },
+
+    '/oauth2callback': {
+	controller: 'IntegrationController',
+	action: 'oauth2'
     }
 
     /*
