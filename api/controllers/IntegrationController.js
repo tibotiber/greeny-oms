@@ -35,13 +35,18 @@ module.exports = {
 	    },
 	    uri:'https://accounts.google.com/o/oauth2/token',
 	    body: tokenReq
-	},function (error, response, body) {
+	}, function (error, response, body) {
 	    if(response.statusCode == 200){
-		EmailService.sendAsWithOAuth2(options, JSON.parse(body), function(err, info) {
-		    if(err)
-			return res.serverError('Error sending email:\n'+err);
-		    else
-			return res.ok('Your email was sent successfully.');
+		var token = JSON.parse(body);
+		// store token for this user
+		User.update({email: options.fromEmail},{googleApiToken: token.access_token}).exec(function(err, updated) {
+		    // token stored (ignore errors), then use token to send email
+		    EmailService.sendAsWithOAuth2(options, token, function(err, info) {
+			if(err) 
+			    return res.serverError('Error sending email:\n'+err);
+			else
+			    return res.ok('Your email was sent successfully.');
+		    });
 		});
 	    } else {
 		return res.serverError('Error fetching OAuth2 token with Google API: '+ response.statusCode + '\n' + body);

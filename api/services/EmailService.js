@@ -30,21 +30,31 @@ module.exports = {
 
     sendAs: function(options, cb) {
 	/* Send email with provided options on behalf on indicated google user */
-	// get OAuth2 access from Google
-	// See https://developers.google.com/accounts/docs/OAuth2WebServer
-	var scope = 'https://mail.google.com/';
-	var responseType = 'code';
-	var approvalPrompt = 'auto';
-	var accessType = 'online';
-	var url = "https://accounts.google.com/o/oauth2/auth?scope="+scope+
-	    "&state="+JSON.stringify(options)+
-	    "&redirect_uri="+sails.config.googleXOAuth2.redirectUri+
-	    "&response_type="+responseType+
-	    "&client_id="+sails.config.googleXOAuth2.clientId+
-	    "&approval_prompt="+approvalPrompt+
-	    "&login_hint="+options.fromEmail+
-	    "&access_type="+accessType;
-	cb(url);
+	// first check if a token has been stored for this user
+	User.findByEmail(options.fromEmail).exec(function(err, user) {
+	    if (!err && user[0].googleApiToken) {
+		// if a token was stored, use it
+		EmailService.sendAsWithOAuth2(options, {access_token: user[0].googleApiToken}, function(error, info) {
+		    cb(null, error, info);
+		});
+	    } else {
+		// else get OAuth2 access token from Google
+		// See https://developers.google.com/accounts/docs/OAuth2WebServer
+		var scope = 'https://mail.google.com/';
+		var responseType = 'code';
+		var approvalPrompt = 'auto';
+		var accessType = 'online';
+		var url = "https://accounts.google.com/o/oauth2/auth?scope="+scope+
+		    "&state="+JSON.stringify(options)+
+		    "&redirect_uri="+sails.config.googleXOAuth2.redirectUri+
+		    "&response_type="+responseType+
+		    "&client_id="+sails.config.googleXOAuth2.clientId+
+		    "&approval_prompt="+approvalPrompt+
+		    "&login_hint="+options.fromEmail+
+		    "&access_type="+accessType;
+		cb(url);
+	    }
+	});
 	// end of process in 'sendAsWithOAuth2' after Google API callback to IntegrationController
     },
 

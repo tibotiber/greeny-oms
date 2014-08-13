@@ -86,6 +86,10 @@ module.exports = {
 	    defaultsTo: false
 	},
 
+	googleApiToken: {
+	    type: 'string'
+	},
+	
 	toJson: function(){
 	    var obj = this.toObject();
 	    delete obj.password;
