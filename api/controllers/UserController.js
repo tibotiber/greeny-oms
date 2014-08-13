@@ -71,19 +71,21 @@ module.exports = {
 	// initialize updates object
 	var params = JSON.parse(JSON.stringify(req.params.all()));
 	// upload profile pic if any
-	req.file('profile_pic').upload(
-	    {
+	req.file('profile_pic').upload({
 		dirname: UPLOAD_PATH,
 		saveAs: req.param('username')+'.jpg'
-	    },
-	    function (err, uploadedFiles){
+	    }, function (err, uploadedFiles){
 		if(err)
 		    return res.serverError("Error uploading new profile pic: "+err);
 		if(uploadedFiles.length > 0)
+		    // update database
 		    params.profile_pic = req.param('username')+'.jpg';
 		// update user info
-		User.update(params.id, params, function userUpdated(err){
-		    if(err){
+		User.update(params.id, params).exec(function(err, userUpdated) {
+		    // update session if needed
+		    if(!err && req.session.User.id == params.id){
+			req.session.User = userUpdated[0];
+		    } else {
 			sails.log.error(err);
 			return res.redirect('/user/edit/' + req.param('id'));
 		    }
