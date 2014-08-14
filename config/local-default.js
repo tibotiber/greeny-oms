@@ -1,6 +1,7 @@
 /**
  * Local environment settings
  */
+var fs = require('fs');
 
 module.exports = {
 
@@ -18,6 +19,11 @@ module.exports = {
 	}
     },
 
+    ssl: {
+	key  : fs.readFileSync('ssl/key.pem'),
+	cert : fs.readFileSync('ssl/cert.pem')
+    },
+
     emailAccount: {
         service: 'Gmail',
 	auth: {
@@ -28,9 +34,9 @@ module.exports = {
 
     googleXOAuth2: {
 	// get this from https://console.developers.google.com/
-	clientId: '',
-	clientSecret: '',
-	redirectUri: ''
+	clientId     : '',
+	clientSecret : '',
+	redirectUri  : ''
     }
 
 };
