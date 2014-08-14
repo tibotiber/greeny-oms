@@ -6,6 +6,8 @@ var fs = require('fs');
 module.exports = {
 
     appName: "Greeny OMS",
+
+    timezone: "Asia/Singapore",
     
     port: process.env.PORT || 1337,
 
