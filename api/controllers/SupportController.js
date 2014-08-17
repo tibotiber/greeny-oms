@@ -33,7 +33,7 @@ module.exports = {
 	// send email
 	EmailService.sendAs(options, function(url, error, info) {
 	    if(url) return res.redirect(url);
-	    else if(error) return res.serverError('Error sending email:\n'+err);
+	    else if(error) return res.serverError('Error sending email:\n'+error);
 	    else return res.ok('Your email was sent successfully.');
 	});
 	
