@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+	<div class="box-name">
+	  <i class="fa fa-user"></i>
+	  <span>User Profile - Edit</span>
+	</div>
+	<div class="no-move"></div>
+      </div>
+      <div class="box-content">
+        <div class="card">
+          <form id="userForm" action="/user/update/<%=user.id %>" enctype="multipart/form-data" method="POST" class="form-horizontal">
+            <div class="form-group">
+	      <label class="col-sm-3 control-label">Username</label>
+	      <div class="col-sm-9">
+	        <input type="text" class="form-control" name="username" value="<%=user.username %>" readonly="readonly" />
+	      </div>
+	    </div>
+            <div class="form-group">
+	      <label class="col-sm-3 control-label">Full name</label>
+	      <div class="col-sm-9">
+	        <input type="text" class="form-control" name="name" value="<%=user.name %>" />
+	      </div>
+	    </div>
+	    <div class="form-group">
+	      <label class="col-sm-3 control-label">Email address</label>
+	      <div class="col-sm-9">
+	    	<input type="text" class="form-control" name="email" value="<%=user.email %>" />
+	      </div>
+	    </div>
+	    <% if(session.User.admin) { %>
+	    <h4 class="page-header">User roles</h4>
+	    <div class="col-sm-4">
+	      <div class="checkbox">
+	        <label>
+	          <input type="hidden" value="unchecked" name="admin_cb">
+	          <input type="checkbox" name="admin_cb" <% if(user.admin){ %> checked <% } %> > Admin
+	          <i class="fa fa-square-o"></i>
+	        </label>
+	      </div>
+	      <div class="checkbox">
+	        <label>
+	          <input type="hidden" value="unchecked" name="manager_cb">
+	          <input type="checkbox" name="manager_cb" <% if(user.manager){ %> checked <% } %> > Manager
+	          <i class="fa fa-square-o"></i>
+	        </label>
+	      </div>
+	      <div class="checkbox">
+	        <label>
+	          <input type="hidden" value="unchecked" name="sales_cb">
+	          <input type="checkbox" name="sales_cb" <% if(user.sales){ %> checked <% } %> > Sales
+	          <i class="fa fa-square-o"></i>
+	        </label>
+	      </div>
+	    </div>
+	    <div class="col-sm-4">
+	      <div class="checkbox">
+	        <label>
+	          <input type="hidden" value="unchecked" name="purchasing_cb">
+	          <input type="checkbox" name="purchasing_cb" <% if(user.purchasing){ %> checked <% } %> > Purchasing
+	          <i class="fa fa-square-o"></i>
+	        </label>
+	      </div>
+	      <div class="checkbox">
+	        <label>
+	          <input type="hidden" value="unchecked" name="quality_check_cb">
+	          <input type="checkbox" name="quality_check_cb" <% if(user.quality_check){ %> checked <% } %> > Quality Check
+	          <i class="fa fa-square-o"></i>
+	        </label>
+	      </div>
+	      <div class="checkbox">
+	        <label>
+	          <input type="hidden" value="unchecked" name="packing_cb">
+	          <input type="checkbox" name="packing_cb" <% if(user.packing){ %> checked <% } %> > Packing
+	          <i class="fa fa-square-o"></i>
+	        </label>
+	      </div>
+	    </div>
+	    <div class="col-sm-4">
+	      <div class="checkbox">
+	        <label>
+	          <input type="hidden" value="unchecked" name="documentation_cb">
+	          <input type="checkbox" name="documentation_cb" <% if(user.documentation){ %> checked <% } %> > Documentation
+	          <i class="fa fa-square-o"></i>
+	        </label>
+	      </div>
+	      <div class="checkbox">
+	        <label>
+	          <input type="hidden" value="unchecked" name="accounts_payable_cb">
+	          <input type="checkbox" name="accounts_payable_cb" <% if(user.accounts_payable){ %> checked <% } %> > Accounts Payable
+	          <i class="fa fa-square-o"></i>
+	        </label>
+	      </div>
+	      <div class="checkbox">
+	        <label>
+	          <input type="hidden" value="unchecked" name="accounts_receivable_cb">
+	          <input type="checkbox" name="accounts_receivable_cb" <% if(user.accounts_receivable){ %> checked <% } %> > Accounts Receivable
+	          <i class="fa fa-square-o"></i>
+	        </label>
+	      </div>
+	    </div>
+	    <h4 class="page-header">&nbsp;</h4>
+	    <% } %>
+	    <input type="hidden" name="_csrf" value="<%= _csrf %>">
+	    <div class="form-group">
+	      <label class="col-sm-3 control-label">Profile picture</label>
+	      <div class="col-sm-9">
+		<div class="fileinput fileinput-new input-group" data-provides="fileinput">
+		  <div class="form-control" data-trigger="fileinput">
+		    <i class="fa fa-file fileinput-exists"></i>
+		    <span class="fileinput-filename"></span>
+		  </div>
+		  <span class="input-group-addon btn btn-default btn-file">
+		    <span class="fileinput-new">Select file</span>
+		    <span class="fileinput-exists">Change</span>
+		    <input type="file" name="profile_pic">
+		  </span>
+		  <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+		</div>
+	      </div>
+	    </div>
+	    <div class="form-group">
+	      <div class="text-center">
+	    	<button type="submit" class="btn btn-primary">Save changes</button>
+	      </div>
+	    </div>
+	  </form>
+	</div>
+      </div>
+    </div>
+  </div>  
+</div>
+
+
+<script>
+  $('.fileinput').fileinput()
+  $('.fileinput').on('change.bs.fileinput', function(e) {
+    $('#userForm').data('bootstrapValidator').validateField('profile_pic');
+  });
+  $('.fileinput').on('clear.bs.fileinput', function(e) {
+    $('#userForm').data('bootstrapValidator').validateField('profile_pic');
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    LoadBootstrapValidatorScript(UserFormValidator);
+  });  
+</script>

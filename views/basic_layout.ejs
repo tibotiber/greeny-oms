@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%- title %></title>
+    <meta name="author" content="Thibaut Tiberghien, Planecq">
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <!--  
+          Stylesheets and Preprocessors
+          ==============================
+
+          You can always bring in CSS files manually with `link` tags, or asynchronously
+          on the client using a solution like AMD (RequireJS).  Or, if you like, you can
+          take advantage of Sails' boilerplate asset management.
+
+          By default, stylesheets from your `assets/linker/styles` folder are included
+          here automatically.  Both CSS (.css) and LESS (.less) are supported.
+          In production, your styles will be minified and concatenated into a single file.
+          
+          To customize any part of the built-in behavior, just edit your Gruntfile.
+          For example, here are a few things you could do:
+          
+          + Change the order of your CSS files
+          + Import stylesheets from other directories
+          + Use a different or additional preprocessor, like SASS, SCSS or Stylus
+      -->
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/devoops/plugins/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/devoops/plugins/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="/devoops/plugins/fancybox/jquery.fancybox.css">
+    <link rel="stylesheet" href="/devoops/plugins/fullcalendar/fullcalendar.css">
+    <link rel="stylesheet" href="/devoops/plugins/xcharts/xcharts.min.css">
+    <link rel="stylesheet" href="/devoops/plugins/select2/select2.css">
+    <link rel="stylesheet" href="/devoops/css/style.css">
+    <link rel="stylesheet" href="/jasny-bootstrap/css/jasny-bootstrap.css">
+    <link rel="stylesheet" href="/styles/custom.css">
+    <!--STYLES END-->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Exo+2:400,700" rel="stylesheet" type="text/css">
+
+    
+    <!--
+
+	Client-side Javascript
+	========================
+
+	You can always bring in JS files manually with `script` tags, or asynchronously
+	on the client using a solution like AMD (RequireJS).  Or, if you like, you can 
+	take advantage of Sails' boilerplate asset management.
+
+	By default, filesin your `assets/linker/js` folder are included here
+	automatically.  Both JavaScript (.js) and CoffeeScript (.coffee) are supported.
+	In production, your scripts will be minified and concatenated into a single file.
+	
+	To customize any part of the built-in behavior, just edit your Gruntfile.
+	For example, here are a few things you could do:
+        
+        + Change the order of your scripts
+        + Import scripts from other directories
+        + Use a different preprocessor, like TypeScript
+
+      -->
+
+    <!--SCRIPTS-->
+    <script src="/js/autoinject/sails.io.js"></script>
+    <script src="/js/autoinject/customValidators.js"></script>
+    <script src="/devoops/plugins/jquery/jquery-2.1.0.min.js"></script>
+    <script src="/devoops/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/devoops/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="/devoops/plugins/justified-gallery/jquery.justifiedgallery.min.js"></script>
+    <script src="/devoops/plugins/tinymce/tinymce.min.js"></script>
+    <script src="/devoops/plugins/tinymce/jquery.tinymce.min.js"></script>
+    <script src="/devoops/js/devoops.js"></script>
+    <script src="/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+    <!--SCRIPTS END-->
+
+    
+  </head>
+  <body>
+    <div class="container-fluid">
+      <%- body %>
+    </div>
+    
+    <!--
+        Client-side Templates
+        ========================
+
+    	HTML templates are important prerequisites of modern, rich client applications.
+        To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
+        that you load these templates client-side.
+
+        By default, your Gruntfile is configured to automatically load and precompile
+        client-side JST templates in your `assets/linker/templates` folder, then
+        include them here automatically.
+        
+        To customize this behavior to fit your needs, just edit your Gruntfile.
+        For example, here are a few things you could do:
+
+        + Import templates from other directories
+        + Use a different template engine (handlebars, jade, dust, etc.)
+        + Internationalize your templates using a server-side stringfile
+        before they're served.
+      -->
+
+    <!--TEMPLATES-->
+    
+    <!--TEMPLATES END-->
+
+  </body>
+</html>
