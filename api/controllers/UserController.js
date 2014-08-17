@@ -148,5 +148,14 @@ module.exports = {
 	    });
 	    res.redirect('/user');
 	});
+    },
+
+    revokeGoogleApiTokens: function(req, res, next){
+	User.update({}, {googleApiToken: null}).exec(function(err, updated) {
+	    if (err)
+		return res.serverError("Could not revoke api tokens:\n"+err);
+	    else
+		return res.ok("All Google API tokens have been revoked.");
+	});
     }
 };
