@@ -1,7 +1,7 @@
 {
     "name": "greeny-oms",
     "private": true,
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "Order Management System for Greeny Aquaculture",
     "dependencies": {
 	"sails": "~0.10.2",
