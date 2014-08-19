@@ -1,13 +1,13 @@
 $(document).ready(function () {
     // function to prepare JTable
     var makeJTable = function(_csrf) {
-	$('#CurrencyTableContainer').jtable({
-	    title: 'List of available currencies',
+	$('#PricetierTableContainer').jtable({
+	    title: 'List of available pricetiers',
 	    actions: {
-		listAction:   '/currency/list?_csrf='+_csrf,
-		createAction: '/currency/create?_csrf='+_csrf,
-		updateAction: '/currency/update?_csrf='+_csrf,
-		deleteAction: '/currency/destroy?_csrf='+_csrf
+		listAction:   '/pricetier/list?_csrf='+_csrf,
+		createAction: '/pricetier/create?_csrf='+_csrf,
+		updateAction: '/pricetier/update?_csrf='+_csrf,
+		deleteAction: '/pricetier/destroy?_csrf='+_csrf
 	    },
 	    fields: {
 		id: {
@@ -19,17 +19,17 @@ $(document).ready(function () {
 		    width: '20%'
 		},
 		name: {
-		    title: 'Currency',
+		    title: 'Pricetier',
 		    width: '50%'
 		},
-		rate: {
-		    title: 'Rate to SGD',
+		accountCode: {
+		    title: 'Autocount account code',
 		    width: '30%'
 		}
 	    }
 	});
 
-	$('#CurrencyTableContainer').jtable('load');
+	$('#PricetierTableContainer').jtable('load');
     };
 
     // get csrf token before making the JTable
