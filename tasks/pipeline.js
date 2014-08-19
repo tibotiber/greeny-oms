@@ -26,6 +26,7 @@ var cssFilesToInject = [
     'devoops/plugins/select2/select2.css',
     'devoops/css/style.css',
     'jasny-bootstrap/css/jasny-bootstrap.css',
+    'jtable/themes/metro/lightgray/jtable.min.css',
 
     'styles/custom.css'
 
@@ -48,7 +49,8 @@ var jsFilesToInject = [
     'devoops/plugins/tinymce/tinymce.min.js',
     'devoops/plugins/tinymce/jquery.tinymce.min.js',
     'devoops/js/devoops.js',
-    'jasny-bootstrap/js/jasny-bootstrap.min.js'
+    'jasny-bootstrap/js/jasny-bootstrap.min.js',
+    'jtable/jquery.jtable.min.js'
 
 ];
 
