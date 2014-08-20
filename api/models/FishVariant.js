@@ -30,11 +30,11 @@ module.exports = {
 	},
 
 	sizeInMillis: {
-	    type: 'float'
+	    type: 'string'
 	},
 
 	sizeInInches: {
-	    type: 'float'
+	    type: 'string'
 	},
 
 	gender: {
