@@ -11,10 +11,13 @@ var orderedSizes = ['FS','SS','S','SM','M','ML','L','XL','XXL','3XL','4XL','5XL'
 
 module.exports = {
 
+    autoPK: false,
+
     attributes: {
 
 	sku: {
 	    type: 'string',
+	    primaryKey: true,
 	    required: true,
 	    unique: true
 	},
@@ -47,6 +50,10 @@ module.exports = {
 	    enum: ['A', 'AB', 'B']
 	},
 
+	density20h: {
+	    type: 'integer'
+	},
+	
 	density24h: {
 	    type: 'integer'
 	},
