@@ -49,7 +49,10 @@ module.exports = {
 		    code: _.family.substring(0,2).toUpperCase(),
 		    name: _.family
 		}).exec(function(err, created) {
-		    callback(err, created.id);
+		    if(!err)
+			callback(null, created.id);
+		    else
+			callback(err, null);
 		});
 	    } else {
 		callback("Error searching for family:\n"+err, null);
@@ -63,38 +66,50 @@ module.exports = {
 		// found product, store it
 		callback(null, found.id);
 	    } else if(!err & !found) {
-		// build product code
-		var code;
+		
+		var createProduct = function(code, callback) {
+		    // create product
+		    FishProduct.create({
+			family: familyId,
+			code: code,
+			name: _.type,
+			scientificName: _.scientific,
+			chineseName: _.chinese
+		    }).exec(function(err, created) {
+			if(!err)
+			    callback(null, created.id);
+			else
+			    callback("Error creating product:\n"+err, null);
+		    });
+		};
+		
+		// build product code		
 		FishProduct.find({family: familyId}).sort('code DESC').limit(1).exec(function(err, found) {
-		    if(!err && found) {
+		    if(!err && found.length > 0) {
 			// not the first product in the family
-			var familyCode = found.code.substring(0,2);
-			var nextId = parseInt(found.code.substring(2,6))+1;
-			code = familyCode+nextId;
-		    } else if(!err & !found) {
+			// extend Number with zero padding method
+			Number.prototype.pad = function(size) {
+			    var s = String(this);
+			    if(typeof(size) !== "number"){size = 2;}
+			    while (s.length < size) {s = "0" + s;}
+			    return s;
+			};
+			var familyCode = found[0].code.substring(0,2);
+			var nextId = (parseInt(found[0].code.substring(2,6))+1).pad(3);
+			createProduct(familyCode+nextId, callback);
+		    } else if(!err) {
 			// first product in the family
 			FishFamily.findOne(familyId).exec(function(err, found) {
 			    if(!err && found)
-				code = found.code+'001';
+				createProduct(found.code+'001', callback);
 			    else if(!err && !found)
 				callback("Error building product code: no family", null);
 			    else
-				callback("Error building product code:\n"+err, null);
+				callback("Error building product code (search family):\n"+err, null);
 			});
 		    } else {
-			callback("Error building product code:\n"+err);
+			callback("Error building product code (search product):\n"+err);
 		    }
-		});
-		
-		// create product
-		FishProduct.create({
-		    family: familyId,
-		    code: code,
-		    name: _.type,
-		    scientificName: _.scientific,
-		    chineseName: _.chinese
-		}).exec(function(err, created) {
-		    callback("Error creating product:\n"+err, created.id);
 		});
 	    } else {
 		callback("Error searching for family:\n"+err, null);
@@ -104,32 +119,43 @@ module.exports = {
 
     makeVariant: function(_, productId, callback) {
 	// build sku
-	var sku = productId;
-	if(_.size) sku += '/'+size;
-	if(_.gender) sku += '/'+gender.charAt(0);
-	if(_.grade) sku += '/'+grade;
-	
-	FishVariant.create({
-	    sku: sku,
-	    product: productId,
-	    size: _.size,
-	    sizeInMillis: _.mm,
-	    sizeInInches: _.inch,
-	    gender: _.gender,
-	    grade: _. grade,
-	    density20h: _.d20h,
-	    density24h: _.d24h,
-	    density30h: _.d30h,
-	    density36h: _.d36h,
-	    density42h: _.d42h,
-	    individuallyPacked: _.indiv,
-	    needMoreOxygen: _.moreox,
-	    needLessOxygen: _.lessox,
-	    needHighDryness: _.dry,
-	    needKetapangLeaf: _.leaf,
-	    packedAt23Degrees: _.deg23
-	}).exec(function(err, created) {
-	    callback("Error creating variant:\n"+err, created.sku);
+	FishProduct.findOne(productId).exec(function(err, found) {
+	    if(!err && found) {
+		var sku = found.code;
+		if(_.size) sku += '/'+_.size;
+		if(_.gender) sku += '/'+_.gender.charAt(0);
+		if(_.grade) sku += '/'+_.grade;
+		
+		FishVariant.create({
+		    sku: sku,
+		    product: productId,
+		    size: _.size,
+		    sizeInMillis: _.mm,
+		    sizeInInches: _.inch,
+		    gender: _.gender,
+		    grade: _. grade,
+		    density20h: _.d20h,
+		    density24h: _.d24h,
+		    density30h: _.d30h,
+		    density36h: _.d36h,
+		    density42h: _.d42h,
+		    individuallyPacked: _.indiv==='T',
+		    needMoreOxygen: _.moreox==='T',
+		    needLessOxygen: _.lessox==='T',
+		    needHighDryness: _.dry==='T',
+		    needKetapangLeaf: _.leaf==='T',
+		    packedAt23Degrees: _.deg23==='T'
+		}).exec(function(err, created) {
+		    if(!err)
+			callback(null, created.sku);
+		    else
+			callback("Error creating variant:\n"+err, null);
+		});
+	    } else if (!err) {
+		callback("Error creating variant: product not found.", null);
+	    } else {
+		callback("Error creating variant:\n"+err, null);
+	    }
 	});
     },
 
@@ -142,9 +168,7 @@ module.exports = {
 		    pricetier: 2,
 		    price: _.retail,
 		    currency: 1
-		}).exec(function(err, created) {
-		    callback("Error setting retail price:\n"+err);
-		});
+		}).exec(callback);
 	    },
 	    function(callback){
 		// wholesale
@@ -153,9 +177,7 @@ module.exports = {
 		    pricetier: 1,
 		    price: _.wholesale,
 		    currency: 1
-		}).exec(function(err, created) {
-		    callback("Error setting wholesale price:\n"+err);
-		});	
+		}).exec(callback);
 	    },
 	    function(callback){
 		// usd
@@ -164,25 +186,25 @@ module.exports = {
 		    pricetier: 1,
 		    price: _.usd,
 		    currency: 2
-		}).exec(function(err, created) {
-		    callback("Error setting usd price:\n"+err);
-		});
+		}).exec(callback);
 	    }
 	], function(err, results){
-	    callback(err);
+	    if(!err) callback(null);
+	    else callback("Error setting prices:\n"+err);
 	});
     },
     
     find: function(cb) {
 	var that = this;
-	PricelistImport.find({}).exec(function(err, found) {
+	PricelistImport.find({transfer: null}).sort('id ASC').exec(function(err, found) {
 	    if(!err) {
 		async.eachSeries(found, function(_, cb){that._import(_, that, cb);}, function(err){
 		    if(!err) {
 			sails.log("IT IS A FULL SUCCESS!");
+			sails.log("YOU SHOULD CHECK THAT THE FAMILY CODES ARE THE GOOD ONES AND NOT THE AUTO-GENERATED ONES.");
+			sails.log("IF THEY ARE AUTO-GENERATED, MODIFY THEM, EMPTY OTHER DB AND RUN AGAIN!");
 			cb();
 		    } else {
-			sails.log.error(err);
 			cb(err);
 		    }
 		});

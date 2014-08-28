@@ -6,7 +6,7 @@
  */
 
 // define possible sizes here, in order of display
-var orderedSizes = ['FS','SS','S','SM','M','ML','L','XL','XXL','3XL','4XL','5XL','1.25in','1.5in','1.75in','2in','2.25in','2.5in','3in','3.5in','4in','4.5in','5in','6in','7in','8in','9in','10in','11in','12in'];
+var orderedSizes = ['FS','SS','S','SM','M','ML','L','XL','XXL','3XL','4XL','5XL','6XL','1.25in','1.5in','1.75in','2in','2.25in','2.5in','3in','3.5in','4in','4.5in','5in','6in','7in','8in','9in','10in','11in','12in','14in'];
 
 
 module.exports = {
@@ -47,7 +47,7 @@ module.exports = {
 
 	grade: {
 	    type: 'string',
-	    enum: ['A', 'AB', 'B']
+	    enum: ['AA', 'A', 'AB', 'B']
 	},
 
 	density20h: {
@@ -113,7 +113,7 @@ module.exports = {
 		if(typeof(size) !== "number"){size = 2;}
 		while (s.length < size) {s = "0" + s;}
 		return s;
-	    }
+	    };
 	    // replace size by ordered index in sku
 	    var index = orderedSizes.indexOf(this.size).pad(2);
 	    return this.sku.replace('/'+this.size, '/_'+index);
