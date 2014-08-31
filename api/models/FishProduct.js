@@ -7,10 +7,13 @@
 
 module.exports = {
 
+    autoPK: false,
+    
     attributes: {
 
 	code: {
 	    type: 'string',
+	    primaryKey: true,
 	    required: true,
 	    unique: true,
 	    size: 5

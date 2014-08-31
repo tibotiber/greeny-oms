@@ -8,9 +8,7 @@
 module.exports = {
 
     index: function(req, res, next) {
-	FishVariant.find({}).populateAll().exec(function(err, found) {
-	    res.view('fish/index', {fishes: found});
-	});
+	res.view('fish/index');
     }
 	
 };

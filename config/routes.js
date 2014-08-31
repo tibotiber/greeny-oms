@@ -33,6 +33,11 @@ module.exports.routes = {
 	action: 'index'
     },
 
+    '/fish': {
+	controller: 'FishVariantController',
+	action: 'index'
+    },
+
     '/login': {
 	controller: 'SessionController',
 	action: 'new'
