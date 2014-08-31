@@ -26,7 +26,7 @@ var cssFilesToInject = [
     'devoops/plugins/select2/select2.css',
     'devoops/css/style.css',
     'jasny-bootstrap/css/jasny-bootstrap.css',
-    'jtable/themes/metro/lightgray/jtable.min.css',
+    'jtable/themes/metro/lightgray/jtable.css',
 
     'styles/custom.css'
 
