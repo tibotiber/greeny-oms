@@ -20,3 +20,6 @@
 .input-group-addon {
     display: table-cell;
 }
+.child-opener-image {
+    cursor: pointer;
+}

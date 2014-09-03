@@ -8,13 +8,13 @@ $(document).ready(function() {
             openChildAsAccordion: true,
             listClass: 'child-opener-image-column',
             actions: {
-                listAction: '/fishproduct/listFiltered?_csrf=' + _csrf,
-                createAction: '/fishproduct/create?_csrf=' + _csrf,
-                updateAction: '/fishproduct/update?_csrf=' + _csrf,
-                deleteAction: '/fishproduct/destroy?_csrf=' + _csrf
+                listAction	: '/fishproduct/listFiltered?_csrf=' + _csrf,
+                createAction	: '/fishproduct/create?_csrf=' + _csrf,
+                updateAction	: '/fishproduct/update?_csrf=' + _csrf,
+                deleteAction	: '/fishproduct/destroy?_csrf=' + _csrf
             },
             fields: {
-                variants: {
+		variants: {
                     title: '',
                     width: '2%',
                     edit: false,
@@ -24,15 +24,17 @@ $(document).ready(function() {
 			var $img = $('<i class="child-opener-image fa fa-list" title="Show variants" />');
                         //Open child table when user clicks the image
                         $img.click(function() {
-                            $('#FishTableContainer').jtable('openChildTable',
+                 
+			    // JTable for variants
+			    $('#FishTableContainer').jtable('openChildTable',
                                 $img.closest('tr'), //Parent row
                                 {
-                                    title: products.record.getCommonName() + ' - Variants',
+                                    title: products.record.family + ' ' + products.record.name + ' - Variants',
                                     actions: {
-                                        listAction: '/fishvariant/listByProduct?_csrf='+_csrf+'&id='+products.record.id,
-                                        createAction: '/fishvariant/create?_csrf=' + _csrf,
-                                        updateAction: '/fishvariant/update?_csrf=' + _csrf,
-                                        deleteAction: '/fishvariant/destroy?_csrf=' + _csrf
+                                        listAction	: '/fishvariant/listByProduct?_csrf='+_csrf+'&code='+products.record.code,
+                                        createAction	: '/fishvariant/create?_csrf=' + _csrf,
+                                        updateAction	: '/fishvariant/update?_csrf=' + _csrf,
+                                        deleteAction	: '/fishvariant/destroy?_csrf=' + _csrf
                                     },
                                     fields: {
                                         code: {
@@ -47,7 +49,7 @@ $(document).ready(function() {
                                             create: false,
                                             edit: false
                                         },
-                                        skuname: {
+                                        invoicename: {
                                             title: 'Name',
                                             width: '40%',
                                             create: false,
@@ -58,11 +60,11 @@ $(document).ready(function() {
                                             width: '10%',
                                             inputClass: 'validate[required]'
                                         },
-                                        size_mm: {
+                                        sizeInMillis: {
                                             title: 'Size (mm)',
                                             width: '10%'
                                         },
-                                        size_inch: {
+                                        sizeInInches: {
                                             title: 'Size (inch)',
                                             width: '10%',
                                         },
@@ -93,6 +95,7 @@ $(document).ready(function() {
                         return $img;
                     }
                 },
+
                 code: {
                     key: true,
                     title: 'Code',
