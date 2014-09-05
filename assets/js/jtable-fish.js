@@ -105,7 +105,8 @@ $(document).ready(function() {
                 family: {
                     title: 'Family',
                     width: '10%',
-                    inputClass: 'validate[required]'
+                    inputClass: 'validate[required]',
+		    options: '/fishfamily/listnames?_csrf=' + _csrf
                 },
                 name: {
                     title: 'Name',

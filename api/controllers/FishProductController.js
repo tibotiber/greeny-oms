@@ -41,7 +41,7 @@ module.exports = {
 	    async.parallel({
 		records: function(cb) {
 		    // search for products
-		    FishProduct.find(search).skip(req.param('jtStartIndex')).limit(req.param('jtPageSize')).populateAll().exec(cb);
+		    FishProduct.find(search).skip(req.param('jtStartIndex')).limit(req.param('jtPageSize')).exec(cb);
 		},
 		count: function(cb) {
 		    // count records
@@ -49,15 +49,10 @@ module.exports = {
 		}
 	    }, function(err, results) {
 		if(!err) {
-		    // prepare records
-		    var records = results.records.map(function(item) {
-			item.family = item.family.name;
-			return item;
-		    });
 		    // respond to query
 		    res.json({
 			Result: 'OK',
-			Records: records,
+			Records: results.records,
 			TotalRecordCount: results.count
 		    });
 		} else {
