@@ -38,6 +38,11 @@ module.exports.routes = {
 	action: 'index'
     },
 
+    '/fish/family': {
+	controller: 'FishFamilyController',
+	action: 'index'
+    },
+
     '/login': {
 	controller: 'SessionController',
 	action: 'new'
