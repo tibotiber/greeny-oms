@@ -19,6 +19,7 @@ var cssFilesToInject = [
     'styles/autoinject/**/*.css',
     
     'devoops/plugins/bootstrap/bootstrap.css',
+    'devoops/plugins/bootstrapvalidator/bootstrapValidator.min.css',
     'devoops/plugins/jquery-ui/jquery-ui.min.css',
     'devoops/plugins/fancybox/jquery.fancybox.css',
     'devoops/plugins/fullcalendar/fullcalendar.css',
@@ -45,6 +46,7 @@ var jsFilesToInject = [
     'devoops/plugins/jquery/jquery-2.1.0.min.js',
     'devoops/plugins/jquery-ui/jquery-ui.min.js',
     'devoops/plugins/bootstrap/bootstrap.min.js',
+    'devoops/plugins/bootstrapvalidator/bootstrapValidator.min.js',
     'devoops/plugins/justified-gallery/jquery.justifiedgallery.min.js',
     'devoops/plugins/tinymce/tinymce.min.js',
     'devoops/plugins/tinymce/jquery.tinymce.min.js',
