@@ -278,3 +278,64 @@ function SupportFormValidator() {
 	}
     });
 }
+
+function FishFamilyFormValidator() {
+    $('.jtable-dialog-form').bootstrapValidator({
+	message: 'This value is not valid',
+	fields: {
+	    code: {
+		validators: {
+		    notEmpty: {
+			message: 'Please choose a family code.'
+		    },
+		    stringLength: {
+			min: 2,
+			max: 2,
+			message: 'The family code must be 2 letters long.'
+		    },
+		    stringCase: {
+			'case': 'upper',
+			message: 'The family code must be upper case.'
+		    }
+		}
+	    },
+	    name: {
+		validators: {
+		    notEmpty: {
+			message: 'Please choose a family name.'
+		    }
+		}
+	    }
+	}
+    });
+}
+
+function FishProductFormValidator() {
+    $('.jtable-dialog-form').bootstrapValidator({
+	message: 'This value is not valid',
+	fields: {
+	    name: {
+		validators: {
+		    notEmpty: {
+			message: 'Please choose a product name.'
+		    }
+		}
+	    }
+	}
+    });
+}
+
+function FishVariantFormValidator() {
+    $('.jtable-dialog-form').bootstrapValidator({
+	message: 'This value is not valid',
+	fields: {
+	    size: {
+		validators: {
+		    notEmpty: {
+			message: 'Please choose a size for this variant.'
+		    }
+		}
+	    }
+	}
+    });
+}

@@ -49,6 +49,58 @@ module.exports = {
 		});
 	    }
 	});
+    },
+
+    create: function(req, res, next) {
+	var params = JSON.parse(JSON.stringify(req.params.all()));
+	delete params.id;	
+	FishFamily.create(params).exec(function(err, created) {
+	    if(!err) {
+		res.json({
+		    Result: 'OK',
+		    Record: created
+		});
+	    } else {
+		sails.log.error("Error creating fish family: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
+    },
+
+    update: function(req, res, next) {
+	FishFamily.update(req.param('id'), req.params.all()).exec(function(err, updated) {
+	    if(!err) {
+		res.json({
+		    Result: 'OK',
+		    Record: updated
+		});
+	    } else {
+		sails.log.error("Error updating fish family: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
+    },
+
+    destroy: function(req, res, next) {
+	FishFamily.destroy(req.param('id')).exec(function(err, destroyed) {
+	    if(!err) {
+		res.json({
+		    Result: 'OK'
+		});
+	    } else {
+		sails.log.error("Error destroying fish family: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
     }
 
 };

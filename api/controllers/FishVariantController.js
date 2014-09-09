@@ -22,6 +22,7 @@ module.exports = {
 			if(!err) {
 			    item.product.family = family;
 			    item.invoicename = item.getInvoiceName();
+			    item.product = item.product.code;
 			    cb(null, item);
 			} else {
 			    cb(err);
@@ -50,7 +51,82 @@ module.exports = {
 		});
 	    }
 	});
+    },
+
+    create: function(req, res, next) {
+	var params = JSON.parse(JSON.stringify(req.params.all()));
+	delete params.id;	
+	ProductCodingService.getFishVariantCode(params.product, params.size, params.gender, params.grade, function(err, sku) {
+	    if(!err) {
+		params.sku = sku;
+		FishVariant.create(params).exec(function(err, created) {
+		    if(!err) {
+			res.json({
+			    Result: 'OK',
+			    Record: created
+			});
+		    } else {
+			sails.log.error("Error creating fish variant: \n"+err);
+			res.json({
+			    Result: 'Error',
+			    Message: err
+			});
+		    }
+		});
+	    } else {
+		sails.log.error("Error creating fish variant code: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
+    },
+
+    update: function(req, res, next) {
+	var params = JSON.parse(JSON.stringify(req.params.all()));
+	ProductCodingService.getFishVariantCode(params.product, params.size, params.gender, params.grade, function(err, sku) {
+	    if(!err) {
+		params.sku = sku;
+		FishVariant.update(req.param('sku'), params).exec(function(err, updated) {
+		    if(!err) {
+			res.json({
+			    Result: 'OK',
+			    Record: updated
+			});
+		    } else {
+			sails.log.error("Error updating fish variant: \n"+err);
+			res.json({
+			    Result: 'Error',
+			    Message: err
+			});
+		    }
+		});
+	    } else {
+		sails.log.error("Error updating fish variant code: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
+    },
+
+    destroy: function(req, res, next) {
+	FishVariant.destroy(req.param('sku')).exec(function(err, destroyed) {
+	    if(!err) {
+		res.json({
+		    Result: 'OK'
+		});
+	    } else {
+		sails.log.error("Error destroying fish variant: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
     }
-	
+
 };
 

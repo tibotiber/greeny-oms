@@ -1,5 +1,7 @@
 $(document).ready(function() {
     // function to prepare JTable
+    var opennedChildTable;
+
     var makeJTable = function(_csrf) {
         $('#FishTableContainer').jtable({
             title: 'List of fish products (expand rows for variants)',
@@ -29,7 +31,7 @@ $(document).ready(function() {
 			    $('#FishTableContainer').jtable('openChildTable',
                                 $img.closest('tr'), //Parent row
                                 {
-                                    title: products.record.family + ' ' + products.record.name + ' - Variants',
+                                    title: products.record.code + ' - Variants',
                                     actions: {
                                         listAction	: '/fishvariant/listByProduct?_csrf='+_csrf+'&code='+products.record.code,
                                         createAction	: '/fishvariant/create?_csrf=' + _csrf,
@@ -37,10 +39,9 @@ $(document).ready(function() {
                                         deleteAction	: '/fishvariant/destroy?_csrf=' + _csrf
                                     },
                                     fields: {
-                                        code: {
+                                        product: {
                                             type: 'hidden',
-                                            defaultValue: products.record.code,
-                                            inputClass: 'validate[required]'
+                                            defaultValue: products.record.code
                                         },
                                         sku: {
                                             title: 'SKU',
@@ -51,22 +52,22 @@ $(document).ready(function() {
                                         },
                                         invoicename: {
                                             title: 'Name',
-                                            width: '40%',
+                                            width: '25%',
                                             create: false,
                                             edit: false
                                         },
                                         size: {
                                             title: 'Size',
-                                            width: '10%',
-                                            inputClass: 'validate[required]'
+                                            width: '5%',
+					    options: ['FS','SS','S','SM','M','ML','L','XL','XXL','3XL','4XL','5XL','6XL','1.25in','1.5in','1.75in','2in','2.25in','2.5in','3in','3.5in','4in','4.5in','5in','6in','7in','8in','9in','10in','11in','12in','14in']
                                         },
                                         sizeInMillis: {
-                                            title: 'Size (mm)',
-                                            width: '10%'
+                                            title: 'mm',
+                                            width: '5%'
                                         },
                                         sizeInInches: {
-                                            title: 'Size (inch)',
-                                            width: '10%',
+                                            title: 'inch',
+                                            width: '5%',
                                         },
                                         gender: {
                                             title: 'Gender',
@@ -75,21 +76,82 @@ $(document).ready(function() {
                                         },
                                         grade: {
                                             title: 'Grade',
-                                            width: '10%'
-                                        }
+                                            width: '5%',
+					    options: ['', 'AA', 'A', 'AB', 'B']
+                                        },
+					density20h: {
+					    title: '20h',
+					    width: '4%'
+					},
+					density24h: {
+					    title: '24h',
+					    width: '4%'
+					},
+					density30h: {
+					    title: '30h',
+					    width: '4%'
+					},
+					density36h: {
+					    title: '36h',
+					    width: '4%'
+					},
+					density42h: {
+					    title: '42h',
+					    width: '4%'
+					},
+					individuallyPacked: {
+					    title: 'indiv.',
+					    width: '3%',
+					    options: [false, true]
+					},
+					needMoreOxygen: {
+					    title: 'O2+',
+					    width: '3%',
+					    options: [false, true]
+					},
+					needLessOxygen: {
+					    title: 'O2-',
+					    width: '3%',
+					    options: [false, true]
+					},
+					needHighDryness: {
+					    title: 'Dry',
+					    width: '3%',
+					    options: [false, true]
+					},
+					packedAt23Degrees: {
+					    title: '23deg',
+					    width: '3%',
+					    options: [false, true]
+					},
+					needKetapangLeaf: {
+					    title: 'Leaf',
+					    width: '3%',
+					    options: [false, true]
+					}
                                     },
-                                    formCreated: function(event, data) {
-                                        data.form.validationEngine();
-                                    },
-                                    formSubmitting: function(event, data) {
-                                        return data.form.validationEngine('validate');
-                                    },
-                                    formClosed: function(event, data) {
-                                        data.form.validationEngine('hide');
-                                        data.form.validationEngine('detach');
-                                    }
+				    formCreated: function(event, data) {
+					$('.jtable-input-field-container').each(function() {
+					    $(this).addClass('form-group');
+					});
+					$('.jtable-input').each(function() {
+					    $(this).find('*').addClass('form-control');
+					});
+					FishVariantFormValidator();
+				    },
+				    formSubmitting: function(event, data) {
+					$('.jtable-dialog-form').data('bootstrapValidator').validate();
+					return $('.jtable-dialog-form').data('bootstrapValidator').isValid();
+				    },
+				    formClosed: function(event, data) {
+					$('.jtable-dialog-form').data('bootstrapValidator').destroy();
+				    },
+				    recordUpdated: function(event, data) {
+					opennedChildTable.jtable('reload');
+				    }
                                 }, function(data) {
-                                    data.childTable.jtable('load');
+				    opennedChildTable = data.childTable;
+				    opennedChildTable.jtable('load');
                                 });
                         });
                         return $img;
@@ -99,39 +161,42 @@ $(document).ready(function() {
                 code: {
                     key: true,
                     title: 'Code',
-                    width: '10%',
-                    inputClass: 'validate[required]'
+                    width: '10%'
                 },
                 family: {
                     title: 'Family',
                     width: '10%',
-                    inputClass: 'validate[required]',
-		    options: '/fishfamily/listnames?_csrf=' + _csrf
+		    options: '/fishfamily/listnames?_csrf='+_csrf
                 },
                 name: {
                     title: 'Name',
-                    width: '38%',
-                    inputClass: 'validate[required]'
+                    width: '25%'
                 },
                 scientificName: {
                     title: 'Scientific name',
-                    width: '20%'
+                    width: '33%'
                 },
                 chineseName: {
                     title: 'Chinese name',
                     width: '20%'
                 }
             },
-            formCreated: function(event, data) {
-                data.form.validationEngine();
+	    formCreated: function(event, data) {
+		$('.jtable-input-field-container').each(function() {
+		    $(this).addClass('form-group');
+		});
+		$('.jtable-input').each(function() {
+		    $(this).find('*').addClass('form-control');
+		});
+		FishProductFormValidator();
             },
-            formSubmitting: function(event, data) {
-                return data.form.validationEngine('validate');
-            },
-            formClosed: function(event, data) {
-                data.form.validationEngine('hide');
-                data.form.validationEngine('detach');
-            }
+	    formSubmitting: function(event, data) {
+		$('.jtable-dialog-form').data('bootstrapValidator').validate();
+		return $('.jtable-dialog-form').data('bootstrapValidator').isValid();
+	    },
+	    formClosed: function(event, data) {
+		$('.jtable-dialog-form').data('bootstrapValidator').destroy();
+	    }
         });
 
         // re-load records when user click search button.
