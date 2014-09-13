@@ -10,13 +10,13 @@
 
   <% if(session.User.admin || session.User.manager || session.User.sales || session.User.packing || session.User.documentation){ %>
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle">
+    <a href="#" class="dropdown-toggle" id="shipment-toggle">
       <i class="fa fa-plane"></i>
       <span class="hidden-xs">Shipments</span>
     </a>
     <ul class="dropdown-menu">
       <li class="dropdown">
-	<a href="#" class="dropdown-toggle">
+	<a href="#" class="dropdown-toggle" id="shipment-RK102-toggle">
 	  <i class="fa fa-folder-open-o hidden-xs"></i>
 	  <span>RK102</span>
 	</a>
@@ -81,7 +81,7 @@
 
   <% if(session.User.admin || session.User.manager || session.User.purchasing){ %>
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle">
+    <a href="#" class="dropdown-toggle" id="purchase-toggle">
       <i class="fa fa-shopping-cart"></i>
       <span class="hidden-xs">Purchasing</span>
     </a>
@@ -110,26 +110,26 @@
 
   <% if(session.User.admin || session.User.manager || session.User.sales || session.User.purchasing || session.User.quality_check || session.User.packing || session.User.documentation){ %>
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle">
+    <a href="#" class="dropdown-toggle" id="qc-toggle">
       <i class="fa fa-truck"></i>
       <span class="hidden-xs">Fish receive</span>
     </a>
     <ul class="dropdown-menu">
       <li>
-	<a href="/purchase/all-qc">
+	<a href="/qc">
 	  <i class="fa fa-truck"></i>
 	  <span class="hidden-xs">All arrivals</span>
 	</a>
       </li>
       <% if(session.User.admin || session.User.manager || session.User.quality_check){ %>
       <li>
-	<a href="/purchase/SL105/qc">
+	<a href="/qc/SL105">
 	  <i class="fa fa-edit hidden-xs"></i>
 	  <span>SL105</span>
 	</a>
       </li>
       <li>
-	<a href="/purchase/TT78/qc">
+	<a href="/qc/TT78">
 	  <i class="fa fa-edit hidden-xs"></i>
 	  <span>TT78</span>
 	</a>
@@ -141,7 +141,7 @@
 
   <% if(session.User.admin || session.User.manager || session.User.accounts_payable || session.User.accounts_receivable){ %>
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle">
+    <a href="#" class="dropdown-toggle" id="accounts-toggle">
       <i class="fa fa-usd"></i>
       <span class="hidden-xs">Accounts</span>
     </a>
@@ -182,43 +182,43 @@
 
   <% if(session.User.admin || session.User.manager){ %>
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle">
+    <a href="#" class="dropdown-toggle" id="db-toggle">
       <i class="fa fa-hdd-o"></i>
       <span class="hidden-xs">Database</span>
     </a>
     <ul class="dropdown-menu">
       <li>
-	<a href="/fish">
+	<a href="/db/fish">
 	  <i class="fa fa-anchor"></i>
 	  <span class="hidden-xs">Fish items</span>
 	</a>
       </li>      
       <li>
-	<a href="/plants">
+	<a href="/db/plants">
 	  <i class="fa fa-leaf"></i>
 	  <span class="hidden-xs">Plants items</span>
 	</a>
       </li>      
       <li>
-	<a href="/price">
+	<a href="/db/price">
 	  <i class="fa fa-book"></i>
 	  <span class="hidden-xs">Pricelists</span>
 	</a>
       </li>      
       <li>
-	<a href="/customer">
+	<a href="/db/customer">
 	  <i class="fa fa-user"></i>
 	  <span class="hidden-xs">Customers</span>
 	</a>
       </li>      
       <li>
-	<a href="/supplier">
+	<a href="/db/supplier">
 	  <i class="fa fa-user"></i>
 	  <span class="hidden-xs">Suppliers</span>
 	</a>
       </li>      
       <li>
-	<a href="/freight">
+	<a href="/db/freight">
 	  <i class="fa fa-plane"></i>
 	  <span class="hidden-xs">Freight quotations</span>
 	</a>
@@ -229,7 +229,7 @@
 
   <% if(session.User.admin){ %>
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle">
+    <a href="#" class="dropdown-toggle" id="admin-toggle">
       <i class="fa fa-gear"></i>
       <span class="hidden-xs">Admin</span>
     </a>
@@ -253,15 +253,9 @@
 	</a>
       </li>
       <li>
-	<a href="/settings/edit">
+	<a href="/settings">
 	  <i class="fa fa-wrench"></i>
 	  <span class="hidden-xs">Settings</span>
-	</a>
-      </li>
-      <li>
-	<a href="/pricelistimport/find">
-	  <i class="fa fa-wrench"></i>
-	  <span class="hidden-xs">Load pricelist (tmp)</span>
 	</a>
       </li>
     </ul>

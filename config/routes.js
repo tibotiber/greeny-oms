@@ -33,16 +33,6 @@ module.exports.routes = {
 	action: 'index'
     },
 
-    '/fish': {
-	controller: 'FishVariantController',
-	action: 'index'
-    },
-
-    '/fish/family': {
-	controller: 'FishFamilyController',
-	action: 'index'
-    },
-
     '/login': {
 	controller: 'SessionController',
 	action: 'new'
@@ -56,6 +46,21 @@ module.exports.routes = {
     '/oauth2callback': {
 	controller: 'IntegrationController',
 	action: 'oauth2'
+    },
+
+    '/db/fish': {
+	controller: 'FishVariantController',
+	action: 'index'
+    },
+
+    '/db/fish/family': {
+	controller: 'FishFamilyController',
+	action: 'index'
+    },
+
+    '/settings': {
+	controller: 'SettingsController',
+	action: 'edit'
     }
 
     /*

@@ -40,13 +40,13 @@ var jsFilesToInject = [
     
     // Load sails.io before everything else
     'js/autoinject/sails.io.js',
-
-    'js/autoinject/**/*.js',
-
     'devoops/plugins/jquery/jquery-2.1.0.min.js',
     'devoops/plugins/jquery-ui/jquery-ui.min.js',
     'devoops/plugins/bootstrap/bootstrap.min.js',
     'devoops/plugins/bootstrapvalidator/bootstrapValidator.min.js',
+
+    'js/autoinject/**/*.js',
+
     'devoops/plugins/justified-gallery/jquery.justifiedgallery.min.js',
     'devoops/plugins/tinymce/tinymce.min.js',
     'devoops/plugins/tinymce/jquery.tinymce.min.js',
