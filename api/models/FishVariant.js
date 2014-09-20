@@ -105,6 +105,10 @@ module.exports = {
 	    required: true,
 	    defaultsTo: false
 	},
+
+	cachedSkuPicker: {
+	    type: 'string'
+	},
 	
 	getSortedSku: function() {
 	    // extend Number with zero padding method
