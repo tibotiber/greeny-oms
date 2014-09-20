@@ -58,6 +58,11 @@ module.exports.routes = {
 	action: 'index'
     },
 
+    '/db/price': {
+	controller: 'PricelistController',
+	action: 'index'
+    },
+
     '/settings': {
 	controller: 'SettingsController',
 	action: 'edit'

@@ -115,12 +115,12 @@ $(document).ready(function() {
 					    options: [false, true]
 					},
 					needHighDryness: {
-					    title: 'Dry',
+					    title: 'Ca+',
 					    width: '3%',
 					    options: [false, true]
 					},
 					packedAt23Degrees: {
-					    title: '23deg',
+					    title: '23C',
 					    width: '3%',
 					    options: [false, true]
 					},

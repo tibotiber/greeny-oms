@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<div class="row">
+  <div class="col-xs-9">
+    <form>
+      <div class="input-group">
+	<span class="input-group-btn">
+	  <button class="btn btn-default" type="submit" id="SearchButton">Search prices!</button>
+	</span>
+	<input type="text" class="form-control col-6" name="fish" placeholder="fish name, code, family, scientific name">
+	<input type="text" class="form-control col-4" name="thirdparty" placeholder="customer, supplier, pricetier">
+	<input type="text" class="form-control col-2" name="currency" placeholder="[currency]">
+      </div>
+    </form>
+  </div>
+  <div class="col-xs-3">
+    <a class="btn btn-default" href="/db/price/edit">Review & edit pricelist</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div id="PriceTableContainer"></div>
+  </div>
+</div>
+
+
+<script src="/js/jtable-search-price.js"></script>
