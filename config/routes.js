@@ -66,11 +66,6 @@ module.exports.routes = {
     '/settings': {
 	controller: 'SettingsController',
 	action: 'edit'
-    },
-
-    '/job/skucache': {
-	controller: 'FishVariantController',
-	action: 'recalculateSkuPickerCache'
     }
 
     /*

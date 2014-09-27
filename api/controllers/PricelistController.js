@@ -72,7 +72,9 @@ module.exports = {
 		
 		skuPicker: function(cb){
 		    // retrieve fish variants
-		    SkuPickerService.pick(req.param('fish'), true, cb);
+		    SkuPickerService.pick({search: req.param('fish')}, true, function(err, records, count) {
+			cb(err, records);
+		    });
 		}
 	    }, function(err, results) {
 		if(!err && thirdparty && results.findCurrency) {

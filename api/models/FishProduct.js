@@ -37,6 +37,10 @@ module.exports = {
 	    type: 'string'
 	},
 
+	cachedSkuPicker: {
+	    type: 'string'
+	},
+
 	getCommonName: function() {
 	    return this.family.name + ' ' + this.name;
 	}

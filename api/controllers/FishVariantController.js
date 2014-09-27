@@ -126,16 +126,6 @@ module.exports = {
 		});
 	    }
 	});
-    },
-
-    recalculateSkuPickerCache: function(req, res, next) {
-	// start recalculating and respond
-	SkuPickerService.recalculateCache(function(err) {
-	    if(!err)
-		res.ok("Cached sku picker field has been updated for the whole database.");
-	    else
-		res.serverError(err);
-	});
     }
 
 };
