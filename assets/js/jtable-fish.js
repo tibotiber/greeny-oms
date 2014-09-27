@@ -2,7 +2,7 @@ $(document).ready(function() {
     // function to prepare JTable
     var opennedChildTable;
 
-    var makeJTable = function(_csrf) {
+    var makeJTable = function() {
         $('#FishTableContainer').jtable({
             title: 'List of fish products (expand rows for variants)',
             paging: true,
@@ -211,8 +211,6 @@ $(document).ready(function() {
         $('#SearchButton').click();
     };
 
-    // get csrf token before making the JTable
-    io.socket.get('/csrfToken', function(res) {
-        makeJTable(res._csrf);
-    });
+    makeJTable();
+
 });

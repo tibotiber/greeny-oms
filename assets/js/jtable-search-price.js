@@ -1,8 +1,6 @@
 $(document).ready(function() {
     // function to prepare JTable
-    var opennedChildTable;
-
-    var makeJTable = function(_csrf) {
+    var makeJTable = function() {
         $('#PriceTableContainer').jtable({
             title: 'Pricelist search result',
             actions: {
@@ -72,8 +70,6 @@ $(document).ready(function() {
         });
     };
 
-    // get csrf token before making the JTable
-    io.socket.get('/csrfToken', function(res) {
-        makeJTable(res._csrf);
-    });
+    makeJTable();
+
 });

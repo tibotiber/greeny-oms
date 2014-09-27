@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // function to prepare JTable
-    var makeJTable = function(_csrf) {
+    var makeJTable = function() {
 	$('#FishFamilyTableContainer').jtable({
 	    title: 'List of fish families',
 	    actions: {
@@ -44,8 +44,6 @@ $(document).ready(function () {
 	$('#FishFamilyTableContainer').jtable('load');
     };
 
-    // get csrf token before making the JTable
-    io.socket.get('/csrfToken', function(res) {
-	makeJTable(res._csrf);
-    });
+    makeJTable();
+
 });

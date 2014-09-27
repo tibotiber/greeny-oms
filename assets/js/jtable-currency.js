@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // function to prepare JTable
-    var makeJTable = function(_csrf) {
+    var makeJTable = function() {
 	$('#CurrencyTableContainer').jtable({
 	    title: 'List of available currencies',
 	    actions: {
@@ -32,8 +32,6 @@ $(document).ready(function () {
 	$('#CurrencyTableContainer').jtable('load');
     };
 
-    // get csrf token before making the JTable
-    io.socket.get('/csrfToken', function(res) {
-	makeJTable(res._csrf);
-    });
+    makeJTable();
+
 });
