@@ -67,6 +67,11 @@ module.exports.routes = {
 	controller: 'PricelistController',
 	action: 'edit'
     },
+    
+    '/db/customer': {
+	controller: 'CustomerController',
+	action: 'index'
+    },
 
     '/settings': {
 	controller: 'SettingsController',

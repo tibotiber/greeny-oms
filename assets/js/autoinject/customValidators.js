@@ -354,3 +354,18 @@ function FishPriceFormValidator() {
 	}
     });
 }
+
+function ContactFormValidator() {
+    $('.jtable-dialog-form').bootstrapValidator({
+	message: 'This value is not valid',
+	fields: {
+	    // size: {
+	    // 	validators: {
+	    // 	    notEmpty: {
+	    // 		message: 'Please choose a size for this variant.'
+	    // 	    }
+	    // 	}
+	    // }
+	}
+    });
+}
