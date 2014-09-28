@@ -165,27 +165,27 @@ module.exports = {
 		// retail price
 		Pricelist.create({
 		    sku: sku,
-		    pricetier: 2,
+		    pricetier: 'RTL',
 		    price: _.retail,
-		    currency: 1
+		    currency: 'SGD'
 		}).exec(callback);
 	    },
 	    function(callback){
 		// wholesale
 		Pricelist.create({
 		    sku: sku,
-		    pricetier: 1,
+		    pricetier: 'WLS',
 		    price: _.wholesale,
-		    currency: 1
+		    currency: 'SGD'
 		}).exec(callback);
 	    },
 	    function(callback){
 		// usd
 		Pricelist.create({
 		    sku: sku,
-		    pricetier: 1,
+		    pricetier: 'WLS',
 		    price: _.usd,
-		    currency: 2
+		    currency: 'USD'
 		}).exec(callback);
 	    }
 	], function(err, results){

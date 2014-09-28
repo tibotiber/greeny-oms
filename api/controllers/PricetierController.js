@@ -30,7 +30,6 @@ module.exports = {
 
     create: function(req, res, next) {
 	var params = JSON.parse(JSON.stringify(req.params.all()));
-	delete params.id;	
 	Pricetier.create(params).exec(function(err, created) {
 	    if(!err) {
 		res.json({
@@ -48,7 +47,7 @@ module.exports = {
     },
 
     update: function(req, res, next) {
-	Pricetier.update(req.param('id'), req.params.all()).exec(function(err, updated) {
+	Pricetier.update(req.param('code'), req.params.all()).exec(function(err, updated) {
 	    if(!err) {
 		res.json({
 		    Result: 'OK',
@@ -65,7 +64,7 @@ module.exports = {
     },
 
     destroy: function(req, res, next) {
-	Pricetier.destroy(req.param('id')).exec(function(err, destroyed) {
+	Pricetier.destroy(req.param('code')).exec(function(err, destroyed) {
 	    if(!err) {
 		res.json({
 		    Result: 'OK'

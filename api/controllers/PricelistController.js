@@ -94,12 +94,12 @@ module.exports = {
 			// retrieve price for thirdparty
 			Pricelist.findOne({
 			    sku: item.sku,
-			    pricetier: thirdparty.id,
-			    currency: results.findCurrency.id
-			}).populate('currency').exec(function(err, found) {
+			    pricetier: thirdparty.code,
+			    currency: results.findCurrency.code
+			}).exec(function(err, found) {
 			    if(!err && found) {
 				record.price = found.price;
-				record.currency = found.currency.code;
+				record.currency = found.currency;
 				record.discount = found.discount;
 				record.buyingSize = found.buyingSize;
 				cb(null, record);

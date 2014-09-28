@@ -10,13 +10,12 @@ $(document).ready(function () {
 		deleteAction: '/currency/destroy?_csrf='+_csrf
 	    },
 	    fields: {
-		id: {
-		    key: true,
-		    list: false
-		},
 		code: {
+		    key: true,
 		    title: 'Code',
-		    width: '20%'
+		    width: '20%',
+		    create: true,
+		    edit: true
 		},
 		name: {
 		    title: 'Currency',
