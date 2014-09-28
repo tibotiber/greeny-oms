@@ -147,6 +147,137 @@ module.exports = {
 		}
 	    });
 	}
+    },
+
+    edit: function(req, res, next) {
+	res.view();	
+    },
+
+    list: function(req, res, next) {
+	// sku picker with pricetiers price retrieval
+	if(req.param('fish').length < 2) {
+	    res.json({
+		Result: 'Error',
+		Message: "Search field too short."
+	    });
+	} else {
+	    SkuPickerService.pick({
+		search: req.param('fish'),
+		skip   : req.param('jtStartIndex'),
+		limit  : req.param('jtPageSize')
+	    }, true, function(err, records, count) {
+		if(!err) {
+		    async.map(records, function(item, cb) {
+			var record = {};
+			record.sku = item.sku;
+			record.name = item.getInvoiceName();
+			record.density20h = item.density20h;
+			record.density24h = item.density24h;
+			record.density30h = item.density30h;
+			record.density36h = item.density36h;
+			record.density42h = item.density42h;
+			
+			// retrieve prices
+			async.parallel({
+			    wls: function(cb) {
+				Pricelist.findOne({
+				    sku: item.sku,
+				    pricetier: 'WLS',
+				    currency: 'SGD'
+				}).exec(cb);
+			    },
+			    usd: function(cb) {
+				Pricelist.findOne({
+				    sku: item.sku,
+				    pricetier: 'WLS',
+				    currency: 'USD'
+				}).exec(cb);
+			    },
+			    rtl: function(cb) {
+				Pricelist.findOne({
+				    sku: item.sku,
+				    pricetier: 'RTL',
+				    currency: 'SGD'
+				}).exec(cb);
+			    }
+			}, function(err, results) {
+			    if(!err) {
+				if(results.wls)
+				    record.wholesale = results.wls.price;
+				else
+				    record.wholesale = '-';
+				if(results.usd)
+				    record.wholesaleUSD = results.usd.price;
+				else
+				    record.wholesaleUSD = '-';
+				if(results.rtl)
+				    record.retail = results.rtl.price;
+				else
+				    record.retail = '-';
+				cb(null, record);
+			    } else {
+				cb("Error finding price:\n"+err);
+			    }
+			});
+		    }, function(err, records) {
+			if(!err) {
+		 	    res.json({
+				Result: 'OK',
+				Records: records,
+				TotalRecordCount: count
+			    });   
+			} else {
+			    sails.log.error(err);
+			    res.json({
+				Result: 'Error',
+				Message: err
+			    });
+			}
+		    });
+		} else {
+		    sails.log.error(err);
+		    res.json({
+			Result: 'Error',
+			Message: err
+		    });
+		}
+	    });
+	}
+    },
+
+    listByVariant: function(req, res, next) {
+	// list all prices for one variant
+	Pricelist.find({sku: req.param('sku')}).populateAll().exec(function(err, found) {
+	    if(!err) {
+		var records = found.map(function(item) {
+		    item.currency = item.currency.code;
+		    if(item.pricetier) {
+			item.type = 'Pricetier';
+			item.thirdparty = item.pricetier.name;
+			item.thirdpartyCode = item.pricetier.code;
+		    } else if(item.supplier) {
+			item.type = 'Supplier';
+			item.thirdparty = item.supplier.name;
+			item.thirdpartyCode = item.supplier.code;
+		    } else if(item.customer) {
+			item.type = 'Customer';
+			item.thirdparty = item.customer.name;
+			item.thirdpartyCode = item.customer.code;
+		    }
+		    return item;
+		});
+		res.json({
+		    Result: 'OK',
+		    Records: records
+		});
+	    } else {
+		sails.log.error("Error listing fish prices: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
     }
     
 };
