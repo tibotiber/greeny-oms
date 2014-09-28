@@ -23,13 +23,12 @@ $(document).ready(function() {
 			var $img = $('<i class="child-opener-image fa fa-list" title="Show all prices" />');
                         //Open child table when user clicks the image
                         $img.click(function() {
-                 
-			    // JTable for prices
-			    $('#PriceTableContainer').jtable('openChildTable',
-                                $img.closest('tr'), //Parent row
-                                {
+			    if(!$('#PriceTableContainer').jtable('isChildRowOpen', $img.closest('tr'))) {
+				// JTable for prices
+				$('#PriceTableContainer').jtable('openChildTable', $img.closest('tr'), {
                                     title: variants.record.sku + ' - All Prices',
-                                    actions: {
+                                    showCloseButton: false,
+				    actions: {
 					listAction    : '/pricelist/listByVariant?_csrf=' + _csrf+'&sku='+variants.record.sku,
 					createAction  : '/pricelist/create?_csrf=' + _csrf,
 					updateAction  : '/pricelist/update?_csrf=' + _csrf,
@@ -92,6 +91,11 @@ $(document).ready(function() {
 				    opennedChildTable = data.childTable;
 				    opennedChildTable.jtable('load');
                                 });
+			    } else {
+				$('#PriceTableContainer').jtable('closeChildTable', $img.closest('tr'), function(data) {
+				    opennedChildTable = null;
+				});
+			    }
                         });
                         return $img;
                     }

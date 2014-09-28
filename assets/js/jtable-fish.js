@@ -26,12 +26,11 @@ $(document).ready(function() {
 			var $img = $('<i class="child-opener-image fa fa-list" title="Show variants" />');
                         //Open child table when user clicks the image
                         $img.click(function() {
-                 
-			    // JTable for variants
-			    $('#FishTableContainer').jtable('openChildTable',
-                                $img.closest('tr'), //Parent row
-                                {
+			    if(!$('#FishTableContainer').jtable('isChildRowOpen', $img.closest('tr'))) {
+				// JTable for variants
+				$('#FishTableContainer').jtable('openChildTable', $img.closest('tr'), {
                                     title: products.record.code + ' - Variants',
+				    showCloseButton: false,
                                     actions: {
                                         listAction	: '/fishvariant/listByProduct?_csrf='+_csrf+'&code='+products.record.code,
                                         createAction	: '/fishvariant/create?_csrf=' + _csrf,
@@ -153,6 +152,11 @@ $(document).ready(function() {
 				    opennedChildTable = data.childTable;
 				    opennedChildTable.jtable('load');
                                 });
+			    } else {
+				$('#FishTableContainer').jtable('closeChildTable', $img.closest('tr'), function(data) {
+				    opennedChildTable = null;
+				});
+			    }
                         });
                         return $img;
                     }
