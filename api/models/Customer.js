@@ -20,7 +20,7 @@ module.exports = {
 	},
 	
 	company: {
-	    model: 'Company',
+	    model: 'company',
 	    required: true
 	},
 

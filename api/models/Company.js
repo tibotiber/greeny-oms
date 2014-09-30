@@ -64,8 +64,13 @@ module.exports = {
 	firstShipment: {
 	    type: 'date'
 	}
-	
-	    
+		    
+    },
+
+    beforeValidate: function(values, cb) {
+	if(values.firstShipment === "")
+	    delete values.firstShipment;
+	cb();
     }
     
 };

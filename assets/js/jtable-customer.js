@@ -5,12 +5,12 @@ $(document).ready(function() {
     var makeJTable = function() {
         $('#CustomerTableContainer').jtable({
             title: 'List of customers',
-	    paging: true,
-	    pageSize: 50,
+	    //paging: true,
+	    //pageSize: 50,
             openChildAsAccordion: true,
             listClass: 'child-opener-image-column',
             actions: {
-                listAction: '/customer/list?_csrf=' + _csrf,
+                listAction  : '/customer/list?_csrf=' + _csrf,
 		createAction: '/customer/create?_csrf=' + _csrf,
 		updateAction: '/customer/update?_csrf=' + _csrf,
 		deleteAction: '/customer/destroy?_csrf=' + _csrf
@@ -160,7 +160,7 @@ $(document).ready(function() {
 		    list: false
 		},
 		mixedCodes: {
-		    title: 'Allow mixed codes in one box',
+		    title: 'Allow mixed codes in one box (transhipper)',
 		    type: 'checkbox',
 		    values: { 'false': 'No', 'true': 'Yes' },
 		    defaultValue: 'false',
@@ -168,7 +168,9 @@ $(document).ready(function() {
 		},
 		boxSize: {
 		    title: 'Preferred box size',
+		    type: 'radiobutton',
 		    options: ['small', 'big'],
+		    defaultValue: 'small',
 		    list: false
 		}
 	    }
