@@ -30,7 +30,7 @@ module.exports = {
 		    FishVariant.count(ormSearch).exec(cb);
 		},
 		records: function(cb) {
-	    // perform search
+		    // perform search
 		    var query = FishVariant.find(ormSearch).sort('cachedSkuPicker');
 		    if(options.skip) query = query.skip(options.skip);
 		    if(options.limit) query = query.limit(options.limit);

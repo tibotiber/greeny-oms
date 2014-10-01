@@ -4,6 +4,19 @@
  * @description :: Server-side logic for managing customers
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
+var _flatten = function(customer, cb) {
+    // flatten a customer object for jtable display
+    customer.name = customer.company.name;
+    customer.country = customer.company.country;
+    customer.email = customer.company.email;
+    customer.phone = customer.company.phone;
+    customer.fax = customer.company.fax;
+    customer.website = customer.company.website;
+    customer.address = customer.company.address;
+    customer.firstShipment = customer.company.firstShipment;
+    cb(null, customer);
+};
+
 
 module.exports = {
 
@@ -12,33 +25,11 @@ module.exports = {
     },
 
     list: function(req, res, next) {
-	//TODO: replace this by customer picker service
-	Customer.find({}).populateAll().exec(function(err, found) {
+	var search = req.param('search') || '';
+	CompanyPickerService.pickCustomer(search, true, function(err, found) {
 	    if(!err) {
 		// prepare records
-		async.map(found, function(item, cb) {
-		    item.name = item.company.name;
-		    item.country = item.company.country;
-		    item.email = item.company.email;
-		    item.phone = item.company.phone;
-		    item.fax = item.company.fax;
-		    item.website = item.company.website;
-		    item.address = item.company.address;
-		    item.firstShipment = item.company.firstShipment;
-		    
-		    // manual n-2 population (until waterline handles it)
-		    Contact.findOne({
-			company: item.code,
-			main: true
-		    }).exec(function(err, contact) {
-			if(!err) {
-			    if(contact) item.mainContact = contact.name;
-			    cb(null, item);
-			} else {
-			    cb(err);
-			}
-		    });
-		}, function(err, records) {
+		async.map(found, _flatten, function(err, records) {
 		    if(!err) {
 			// respond to query
 			res.json({
@@ -46,7 +37,7 @@ module.exports = {
 			    Records: records
 			});
 		    } else {
-			sails.log.error("Error finding company's main contact: \n"+err);
+			sails.log.error(err);
 			res.json({
 			    Result: 'Error',
 			    Message: err
@@ -71,10 +62,23 @@ module.exports = {
 	    if(!err) {
 		Customer.create(params).exec(function(err, customer) {
 		    if(!err) {
-			//TODO: get populated customer via customer picker 
-			res.json({
-			    Result: 'OK',
-			    Record: customer
+			// retrieve fully populated record
+			CompanyPickerService.pickCustomer(company.name, true, function(err, found) {
+			    if(!err) {
+				_flatten(found[0], function(err, flatCustomer) {
+				    // no error possible in _flatten()
+				    res.json({
+					Result: 'OK',
+					Record: flatCustomer
+				    });
+				});
+			    } else {
+				sails.log.error("Error retrieving customer after creation: \n"+err);
+				res.json({
+				    Result: 'Error',
+				    Message: err
+				});
+			    }
 			});
 		    } else {
 			sails.log.error("Error creating customer: \n"+err);
@@ -149,5 +153,5 @@ module.exports = {
 	    }
 	});
     }
-    
+
 };
