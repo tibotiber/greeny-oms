@@ -38,6 +38,10 @@ $(document).ready(function() {
 					deleteAction  : '/contact/destroy?_csrf=' + _csrf
                                     },
                                     fields: {
+					id: {
+					    key: true,
+					    list: false
+					},
                                         company: {
                                             type: 'hidden',
                                             defaultValue: customers.record.code
@@ -61,6 +65,8 @@ $(document).ready(function() {
 					main: {
 					    title: 'Main contact',
 					    type: 'checkbox',
+					    values: { 'false': 'No', 'true': 'Yes' },
+					    defaultValue: false,
 					    list: false
 					}
 				    },
