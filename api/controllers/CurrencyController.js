@@ -28,6 +28,28 @@ module.exports = {
 	});
     },
 
+    picker: function(req, res, next) {
+	Currency.find({}).exec(function(err, found) {
+	    if(!err) {
+		res.json({
+		    Result: 'OK',
+		    Options: _.map(found, function(item) {
+			return {
+			    DisplayText: item.code,
+			    Value: item.code
+			};
+		    })
+		});
+	    } else {
+		sails.log.error("Error listing currencies: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
+    },
+
     create: function(req, res, next) {
 	var params = JSON.parse(JSON.stringify(req.params.all()));
 	Currency.create(params).exec(function(err, created) {

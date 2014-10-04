@@ -101,32 +101,38 @@ $(document).ready(function() {
 					individuallyPacked: {
 					    title: 'indiv.',
 					    width: '3%',
-					    options: [false, true]
+					    type: 'checkbox',
+					    values: { 'false': 'No', 'true': 'Yes' }
 					},
 					needMoreOxygen: {
 					    title: 'O2+',
 					    width: '3%',
-					    options: [false, true]
+					    type: 'checkbox',
+					    values: { 'false': 'No', 'true': 'Yes' }
 					},
 					needLessOxygen: {
 					    title: 'O2-',
 					    width: '3%',
-					    options: [false, true]
+					    type: 'checkbox',
+					    values: { 'false': 'No', 'true': 'Yes' }
 					},
 					needHighDryness: {
 					    title: 'Ca+',
 					    width: '3%',
-					    options: [false, true]
+					    type: 'checkbox',
+					    values: { 'false': 'No', 'true': 'Yes' }
 					},
 					packedAt23Degrees: {
 					    title: '23C',
 					    width: '3%',
-					    options: [false, true]
+					    type: 'checkbox',
+					    values: { 'false': 'No', 'true': 'Yes' }
 					},
 					needKetapangLeaf: {
 					    title: 'Leaf',
 					    width: '3%',
-					    options: [false, true]
+					    type: 'checkbox',
+					    values: { 'false': 'No', 'true': 'Yes' }
 					}
                                     },
 				    formCreated: function(event, data) {

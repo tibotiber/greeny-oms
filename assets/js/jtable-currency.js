@@ -25,6 +25,22 @@ $(document).ready(function () {
 		    title: 'Rate to SGD',
 		    width: '30%'
 		}
+	    },
+	    formCreated: function(event, data) {
+		$('.jtable-input-field-container').each(function() {
+		    $(this).addClass('form-group');
+		});
+		$('.jtable-input').each(function() {
+		    $(this).find('*').addClass('form-control');
+		});
+		CurrencyFormValidator();
+	    },
+	    formSubmitting: function(event, data) {
+		$('.jtable-dialog-form').data('bootstrapValidator').validate();
+		return $('.jtable-dialog-form').data('bootstrapValidator').isValid();
+	    },
+	    formClosed: function(event, data) {
+		$('.jtable-dialog-form').data('bootstrapValidator').destroy();
 	    }
 	});
 

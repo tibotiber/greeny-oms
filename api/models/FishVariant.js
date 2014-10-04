@@ -29,6 +29,7 @@ module.exports = {
 
 	size: {
 	    type: 'string',
+	    required: true,
 	    enum: orderedSizes
 	},
 

@@ -314,6 +314,13 @@ function FishProductFormValidator() {
     $('.jtable-dialog-form').bootstrapValidator({
 	message: 'This value is not valid',
 	fields: {
+	    family: {
+		validators: {
+		    notEmpty: {
+			message: 'Please choose a family.'
+		    }
+		}
+	    },
 	    name: {
 		validators: {
 		    notEmpty: {
@@ -335,6 +342,41 @@ function FishVariantFormValidator() {
 			message: 'Please choose a size for this variant.'
 		    }
 		}
+	    },
+	    density20h: {
+		validators: {
+		    integer: {
+			message: 'The value is not an integer'
+		    }
+		}
+	    },
+	    density24h: {
+		validators: {
+		    integer: {
+			message: 'The value is not an integer'
+		    }
+		}
+	    },
+	    density30h: {
+		validators: {
+		    integer: {
+			message: 'The value is not an integer'
+		    }
+		}
+	    },
+	    density36h: {
+		validators: {
+		    integer: {
+			message: 'The value is not an integer'
+		    }
+		}
+	    },
+	    density42h: {
+		validators: {
+		    integer: {
+			message: 'The value is not an integer'
+		    }
+		}
 	    }
 	}
     });
@@ -344,13 +386,161 @@ function FishPriceFormValidator() {
     $('.jtable-dialog-form').bootstrapValidator({
 	message: 'This value is not valid',
 	fields: {
-	    // size: {
-	    // 	validators: {
-	    // 	    notEmpty: {
-	    // 		message: 'Please choose a size for this variant.'
-	    // 	    }
-	    // 	}
-	    // }
+	    type: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please choose a type of price.'
+	    	    }
+	    	}
+	    },
+	    thirdparty: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please choose a thirdparty.'
+	    	    }
+	    	}
+	    },
+	    price: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate a price.'
+	    	    },
+		    numeric: {
+			message: 'The value is not numeric.'
+		    }
+	    	}
+	    },
+	    currency: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please choose a currency.'
+	    	    }
+	    	}
+	    },
+	    discount: {
+		validators: {
+		    integer: {
+			message: 'The value is not an integer.'
+		    }
+		}
+	    }
+	}
+    });
+}
+
+function CurrencyFormValidator() {
+    $('.jtable-dialog-form').bootstrapValidator({
+	message: 'This value is not valid',
+	fields: {
+	    code: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate a currency code.'
+	    	    },
+		    stringLength: {
+			min: 3,
+			max: 3,
+			message: 'The currency code must be 3 letters long.'
+		    },
+		    stringCase: {
+			'case': 'upper',
+			message: 'The currency code must be upper case.'
+		    }
+	    	}
+	    },
+	    name: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate a currency name.'
+	    	    }
+		}
+	    },
+	    rate: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the rate to SGD (e.g. 2.45 for MYR).'
+	    	    },
+		    numeric: {
+	    		message: 'The rate must be numeric.'
+	    	    },
+		}
+	    }
+	}
+    });
+}
+
+function PricetierFormValidator() {
+    $('.jtable-dialog-form').bootstrapValidator({
+	message: 'This value is not valid',
+	fields: {
+	    code: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate a pricetier code.'
+	    	    },
+		    stringLength: {
+			min: 3,
+			max: 3,
+			message: 'The pricetier code must be 3 letters long.'
+		    },
+		    stringCase: {
+			'case': 'upper',
+			message: 'The pricetier code must be upper case.'
+		    }
+	    	}
+	    },
+	    name: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate a pricetier name.'
+	    	    }
+		}
+	    },
+	    accountCode: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the account code for this price tier. Default is 000.'
+	    	    }
+		}
+	    }
+	}
+    });
+}
+
+function CustomerFormValidator() {
+    $('.jtable-dialog-form').bootstrapValidator({
+	message: 'This value is not valid',
+	fields: {
+	    code: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please choose a customer code.'
+	    	    },
+		    stringLength: {
+			min: 2,
+			max: 2,
+			message: 'The customer code must be 2 letters long.'
+		    },
+		    stringCase: {
+			'case': 'upper',
+			message: 'The customer code must be upper case.'
+		    }
+	    	}
+	    },
+	    name: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate a company name.'
+	    	    }
+		}
+	    },
+	    email: {
+		validators: {
+		    emailAddress: {
+			message: 'The value is not a valid email address.'
+		    }
+		}
+	    }
 	}
     });
 }
@@ -359,13 +549,21 @@ function ContactFormValidator() {
     $('.jtable-dialog-form').bootstrapValidator({
 	message: 'This value is not valid',
 	fields: {
-	    // size: {
-	    // 	validators: {
-	    // 	    notEmpty: {
-	    // 		message: 'Please choose a size for this variant.'
-	    // 	    }
-	    // 	}
-	    // }
+	    name: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the name of the contact person.'
+	    	    }
+	    	}
+	    },
+	    email: {
+		validators: {
+		    emailAddress: {
+			message: 'The value is not a valid email address.'
+		    }
+		}
+	    }
+
 	}
     });
 }

@@ -41,15 +41,21 @@ $(document).ready(function() {
                                         },
 					type: {
 					    title:'Type',
+					    options: ['Pricetier', 'Customer', 'Supplier'],
 					    width: '10%'
 					},
 					thirdparty: {
 					    title: 'Thirdparty',
+					    //TODO: options dep. on type field
+					    //TODO: automatic code based on this
+					    // or better single field with value-display pairs
 					    width: '10%'
 					},
 					thirdpartyCode: {
 					    title: 'Code',
-					    width: '5%'
+					    width: '5%',
+					    create: false,
+					    edit: false
 					},
 					price: {
 					    title: 'Price',
@@ -57,7 +63,8 @@ $(document).ready(function() {
 					},
 					currency: {
 					    title: 'Currency',
-					    width: '6%'
+					    width: '6%',
+					    options: '/currency/picker?_csrf='+_csrfURL
 					},
 					discount: {
 					    title: '% disc.',
@@ -65,7 +72,8 @@ $(document).ready(function() {
 					},
 					buyingSize: {
 					    title: 'Buy size',
-					    width: '10%'
+					    width: '10%',
+					    options: ['', 'FS','SS','S','SM','M','ML','L','XL','XXL','3XL','4XL','5XL','6XL','1.25in','1.5in','1.75in','2in','2.25in','2.5in','3in','3.5in','4in','4.5in','5in','6in','7in','8in','9in','10in','11in','12in','14in']
 					}
 				    },
 				    formCreated: function(event, data) {
