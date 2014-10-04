@@ -80,23 +80,28 @@ $(document).ready(function() {
                                         },
 					density20h: {
 					    title: '20h',
-					    width: '4%'
+					    width: '4%',
+					    defaultValue: '0'
 					},
 					density24h: {
 					    title: '24h',
-					    width: '4%'
+					    width: '4%',
+					    defaultValue: '0'
 					},
 					density30h: {
 					    title: '30h',
-					    width: '4%'
+					    width: '4%',
+					    defaultValue: '0'
 					},
 					density36h: {
 					    title: '36h',
-					    width: '4%'
+					    width: '4%',
+					    defaultValue: '0'
 					},
 					density42h: {
 					    title: '42h',
-					    width: '4%'
+					    width: '4%',
+					    defaultValue: '0'
 					},
 					individuallyPacked: {
 					    title: 'indiv.',
@@ -150,6 +155,9 @@ $(document).ready(function() {
 				    },
 				    formClosed: function(event, data) {
 					$('.jtable-dialog-form').data('bootstrapValidator').destroy();
+				    },
+				    recordAdded: function(event, data) {
+					opennedChildTable.jtable('reload');
 				    },
 				    recordUpdated: function(event, data) {
 					opennedChildTable.jtable('reload');

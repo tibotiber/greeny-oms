@@ -30,7 +30,7 @@ module.exports = function CronHook(sails) {
 	    var mailOptions = {
 		to: 'thibaut@planecq.com',
 		subject: 'New database backup for Greeny OMS'
-	    }
+	    };
 
 	    async.series([
 		function(cb){
@@ -79,5 +79,5 @@ module.exports = function CronHook(sails) {
 	    return cb();
 	}
 	
-    }
+    };
 };

@@ -138,6 +138,48 @@ module.exports = {
 	    return iNWC;
 	}
 
+    },
+    
+    afterCreate: function(variant, cb) {
+	// calculate sku picker cache
+	FishVariant.cacheSkuPicker(variant, cb);
+    },
+
+    afterUpdate: function(variant, cb) {
+	// calculate sku picker cache
+	FishVariant.cacheSkuPicker(variant, cb);
+    },
+
+    cacheSkuPicker: function(variant, cb) {
+	// compute cache for sku picker
+	FishVariant.findOne(variant.sku).populateAll().exec(function(err, item) {
+	    if(!err && item) {
+		// manual n-2 population (until waterline handles it)
+		FishFamily.findOne(item.product.family).exec(function(err, family) {
+		    if(!err) {
+			item.product.family = family;
+			var cachedSkuPicker = '';
+			cachedSkuPicker += item.getSortedSku();
+			cachedSkuPicker += ' | ' + item.sku;
+			cachedSkuPicker += ' | ' + item.getInvoiceName();
+			cachedSkuPicker += ' | ' + item.product.scientificName;
+			if(item.cachedSkuPicker !== cachedSkuPicker) {
+			    item.product = item.product.code;
+			    item.cachedSkuPicker = cachedSkuPicker;
+			    item.save(cb);
+			} else {
+			    cb(null, item);
+			}
+		    } else {
+			cb("Error finding family for "+item.sku+":\n"+err);
+		    }
+		});
+	    } else if(!err) {
+		cb("No variant found to cache sku picker.");
+	    } else {
+		cb(err);
+	    }
+	});
     }
 
 };
