@@ -44,7 +44,8 @@ module.exports = {
 	Company.find({
 	    or : [
 		{code: {contains: search}},
-		{name: {contains: search}}
+		{name: {contains: search}},
+		{country: {contains: search}}
 	    ]
 	}).sort('name').exec(cb);	
     }
