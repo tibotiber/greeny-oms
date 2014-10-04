@@ -14,7 +14,6 @@
  *
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
-var uu = require('underscore');
 var fs = require('fs');
 var bcrypt = require('bcrypt');
 
@@ -34,7 +33,7 @@ module.exports = {
 	// then create first user in app
 	// then use psql to give admin rights
 	// then put back user controller default policy to 'isAdmin'
-	res.view('user/new', {layout: 'basic_layout'})
+	res.view('user/new', {layout: 'basic_layout'});
     },
 
     index: function(req,res, next) {

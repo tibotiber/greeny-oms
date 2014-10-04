@@ -1,6 +1,6 @@
 // SkuPickerService.js
 var ProgressBar = require('progress');
-var uu = require('underscore');
+
 
 module.exports = {
 
@@ -40,12 +40,12 @@ module.exports = {
 			if(!err) {
 			    //TWEAK: part 2
 			    var containsAllCriteria = function(item) {
-				var noMatch = uu.reject(tweak2, function(criteria) {
+				var noMatch = _.reject(tweak2, function(criteria) {
 				    return item.cachedSkuPicker.toLowerCase().indexOf(criteria.toLowerCase()) > -1;
 				});
 				return noMatch.length === 0;
 			    };
-			    found = uu.filter(found, containsAllCriteria);
+			    found = _.filter(found, containsAllCriteria);
 			    //TWEAK: end
 			    if(populate) {
 				async.map(found, function(item, cb) {
@@ -111,12 +111,12 @@ module.exports = {
 			if(!err) {
 			    //TWEAK: part 2
 			    var containsAllCriteria = function(item) {
-				var noMatch = uu.reject(tweak2, function(criteria) {
+				var noMatch = _.reject(tweak2, function(criteria) {
 				    return item.cachedSkuPicker.toLowerCase().indexOf(criteria.toLowerCase()) > -1;
 				});
 				return noMatch.length === 0;
 			    };
-			    found = uu.filter(found, containsAllCriteria);
+			    found = _.filter(found, containsAllCriteria);
 			    //TWEAK: end
 			    cb(null, found);
 			} else {
