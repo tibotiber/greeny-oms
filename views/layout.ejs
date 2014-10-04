@@ -86,7 +86,10 @@
   </head>
 
   <body>
-    <script>var _csrf = '<%= _csrf %>'</script>
+    <script>
+      var _csrf = '<%= _csrf %>';
+      var _csrfURL = encodeURIComponent(_csrf);
+    </script>
     <!--Start Header-->
     <div id="screensaver">
       <canvas id="canvas"></canvas>

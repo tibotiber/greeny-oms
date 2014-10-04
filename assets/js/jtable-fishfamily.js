@@ -4,10 +4,10 @@ $(document).ready(function () {
 	$('#FishFamilyTableContainer').jtable({
 	    title: 'List of fish families',
 	    actions: {
-		listAction:   '/fishfamily/list?_csrf='+_csrf,
-		createAction: '/fishfamily/create?_csrf='+_csrf,
-		updateAction: '/fishfamily/update?_csrf='+_csrf,
-		deleteAction: '/fishfamily/destroy?_csrf='+_csrf
+		listAction:   '/fishfamily/list?_csrf='+_csrfURL,
+		createAction: '/fishfamily/create?_csrf='+_csrfURL,
+		updateAction: '/fishfamily/update?_csrf='+_csrfURL,
+		deleteAction: '/fishfamily/destroy?_csrf='+_csrfURL
 	    },
 	    fields: {
 		id: {
