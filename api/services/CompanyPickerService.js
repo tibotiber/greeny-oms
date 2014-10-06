@@ -1,6 +1,6 @@
 // CompanyPickerService.js
 module.exports = {
-
+    
     pickCustomer: function(search, populate, cb) {
 	// search for customers based on code or name
 	// populate is a boolean indicating whether the results should be populated
@@ -10,7 +10,12 @@ module.exports = {
 	    populate = false;
 	}
 
-	this._pickCompany(search, function(err, found) {
+	var options = {
+	    search: search,
+	    type: 'customer'
+	};
+	
+	this._pickCompany(options, function(err, found) {
 	    if(!err) {
 		async.map(found, function(company, cb) {
 		    var query = Customer.findOne(company.code);
@@ -40,12 +45,57 @@ module.exports = {
 	});
     },
 
-    _pickCompany: function(search, cb) {
+    pickSupplier: function(search, populate, cb) {
+	// search for suppliers based on code or name
+	// populate is a boolean indicating whether the results should be populated
+	if(!cb) {
+	    // shift arguments (populate defaults to false)
+	    cb = populate;
+	    populate = false;
+	}
+
+	var options = {
+	    search: search,
+	    type: 'supplier'
+	};
+
+	this._pickCompany(options, function(err, found) {
+	    if(!err) {
+		async.map(found, function(company, cb) {
+		    var query = Supplier.findOne(company.code);
+		    if(populate) query = query.populateAll();
+		    query.exec(function(err, supplier) {
+			if(!err) {
+			    // manual population of main contact
+			    Contact.findOne({
+				company: supplier.code,
+				main: true
+			    }).exec(function(err, contact) {
+				if(!err) {
+				    if(contact) supplier.mainContact = contact.name;
+				    cb(null, supplier);
+				} else {
+				    cb(err);
+				}
+			    });
+			} else {
+			    cb(err);
+			}
+		    });
+		}, cb);
+	    } else {
+		cb(err);
+	    }
+	});
+    },
+
+    _pickCompany: function(options, cb) {
 	Company.find({
+	    type: options.type,
 	    or : [
-		{code: {contains: search}},
-		{name: {contains: search}},
-		{country: {contains: search}}
+		{code: {contains: options.search}},
+		{name: {contains: options.search}},
+		{country: {contains: options.search}}
 	    ]
 	}).sort('name').exec(cb);	
     }

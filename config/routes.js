@@ -73,6 +73,11 @@ module.exports.routes = {
 	action: 'index'
     },
 
+    '/db/supplier': {
+	controller: 'SupplierController',
+	action: 'index'
+    },
+
     '/settings': {
 	controller: 'SettingsController',
 	action: 'edit'

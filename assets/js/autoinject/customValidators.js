@@ -545,6 +545,44 @@ function CustomerFormValidator() {
     });
 }
 
+function SupplierFormValidator() {
+    $('.jtable-dialog-form').bootstrapValidator({
+	message: 'This value is not valid',
+	fields: {
+	    code: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please choose a supplier code.'
+	    	    },
+		    stringLength: {
+			min: 2,
+			max: 2,
+			message: 'The supplier code must be 2 letters long.'
+		    },
+		    stringCase: {
+			'case': 'upper',
+			message: 'The supplier code must be upper case.'
+		    }
+	    	}
+	    },
+	    name: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate a company name.'
+	    	    }
+		}
+	    },
+	    email: {
+		validators: {
+		    emailAddress: {
+			message: 'The value is not a valid email address.'
+		    }
+		}
+	    }
+	}
+    });
+}
+
 function ContactFormValidator() {
     $('.jtable-dialog-form').bootstrapValidator({
 	message: 'This value is not valid',
