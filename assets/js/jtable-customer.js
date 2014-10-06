@@ -68,6 +68,11 @@ $(document).ready(function() {
 					    values: { 'false': 'No', 'true': 'Yes' },
 					    defaultValue: false,
 					    list: false
+					},
+					notes: {
+					    title: 'Notes',
+					    type: 'textarea',
+					    list: false
 					}
 				    },
 				    formCreated: function(event, data) {
@@ -177,6 +182,11 @@ $(document).ready(function() {
 		    type: 'radiobutton',
 		    options: ['small', 'big'],
 		    defaultValue: 'small',
+		    list: false
+		},
+		notes: {
+		    title: 'Notes',
+		    type: 'textarea',
 		    list: false
 		}
 	    },

@@ -14,6 +14,7 @@ var _flatten = function(customer, cb) {
     customer.website = customer.company.website;
     customer.address = customer.company.address;
     customer.firstShipment = customer.company.firstShipment;
+    customer.notes = customer.company.notes;
     cb(null, customer);
 };
 

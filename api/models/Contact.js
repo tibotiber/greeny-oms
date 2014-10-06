@@ -34,6 +34,10 @@ module.exports = {
 	main: {
 	    type: 'boolean',
 	    defaultsTo: false
+	},
+
+	notes: {
+	    type: 'text'
 	}
 	
     }

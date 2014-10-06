@@ -63,6 +63,10 @@ module.exports = {
 
 	firstShipment: {
 	    type: 'date'
+	},
+
+	notes: {
+	    type: 'text'
 	}
 		    
     },

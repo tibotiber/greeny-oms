@@ -34,7 +34,7 @@ module.exports = {
 	    onlyOneMain: function(cb) {
 		// remove other main contacts if needed
 		if(params.main) 
-		    Contact.update({main: true}, {main: false}).exec(cb);
+		    Contact.update({company: params.company, main: true}, {main: false}).exec(cb);
 		else
 		    cb();
 	    }
@@ -64,6 +64,7 @@ module.exports = {
 		// remove other main contacts if needed
 		if(params.main) {
 		    Contact.update({
+			company: params.company,
 			main: true,
 			id: {'!': params.id}
 		    }, {main: false}).exec(cb);
