@@ -69,3 +69,11 @@ form.jtable-dialog-form span.jtable-option-text-clickable {
     box-shadow: none;
     background-color: transparent;
 }
+form.jtable-dialog-form span.jtable-option-text-clickable {
+    position: relative;
+    top: -6px;
+    padding-left: 8px;
+}
+.ui-dialog-title {
+    font-family: 'Segoe UI Semilight', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+}

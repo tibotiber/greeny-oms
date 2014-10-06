@@ -52,7 +52,7 @@ var jsFilesToInject = [
     'devoops/plugins/tinymce/jquery.tinymce.min.js',
     'devoops/js/devoops.js',
     'jasny-bootstrap/js/jasny-bootstrap.min.js',
-    'jtable/jquery.jtable.min.js'
+    'jtable/jquery.jtable.js'
 
 ];
 

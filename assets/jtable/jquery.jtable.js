@@ -2023,7 +2023,7 @@ THE SOFTWARE.
             //Prepare dialog
             self._$addRecordDiv.dialog({
                 autoOpen: false,
-                show: self.options.dialogShowEffect,
+		show: self.options.dialogShowEffect,
                 hide: self.options.dialogHideEffect,
                 width: 'auto',
                 minWidth: '300',
@@ -2048,7 +2048,14 @@ THE SOFTWARE.
                     self._trigger("formClosed", null, { form: $addRecordForm, formType: 'create' });
                     self._setEnabledOfDialogButton($saveButton, true, self.options.messages.save);
                     $addRecordForm.remove();
-                }
+                },
+		open: function() {
+		    self._$addRecordDiv.parent().css({
+			'top': "60px",
+			'max-height': $(window).height() - 100,
+			'overflow-y': "scroll"
+		    });
+		}
             });
 
             if (self.options.addRecordButton) {
@@ -2402,7 +2409,14 @@ THE SOFTWARE.
                     self._trigger("formClosed", null, { form: $editForm, formType: 'edit', row: self._$editingRow });
                     self._setEnabledOfDialogButton($saveButton, true, self.options.messages.save);
                     $editForm.remove();
-                }
+                },
+		open: function() {
+		    self._$editDiv.parent().css({
+			'top': "60px",
+			'max-height': $(window).height() - 100,
+			'overflow-y': "scroll"
+		    });
+		}
             });
         },
 
