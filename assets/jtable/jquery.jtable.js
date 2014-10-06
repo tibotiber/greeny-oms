@@ -2055,6 +2055,15 @@ THE SOFTWARE.
 			'max-height': $(window).height() - 100,
 			'overflow-y': "scroll"
 		    });
+		    var $addRecordForm = self._$addRecordDiv.find('form').first();
+		    $addRecordForm.find('input[type="text"], select').keydown(function (event) {
+		    	if (event.keyCode == 13) {
+		    	    var saveButton = $addRecordForm.parent().parent().find('#AddRecordDialogSaveButton');
+		    	    $(saveButton).click();
+		    	    event.preventDefault();
+		    	    return false;
+		    	}
+		    });
 		}
             });
 
@@ -2415,6 +2424,15 @@ THE SOFTWARE.
 			'top': "60px",
 			'max-height': $(window).height() - 100,
 			'overflow-y': "scroll"
+		    });
+		    var $editForm = self._$editDiv.find('form:first');
+		    $editForm.find('input[type="text"], select').keydown(function (event) {
+		    	if (event.keyCode == 13) {
+		    	    var saveButton = $editForm.parent().parent().find('#EditDialogSaveButton');
+		    	    $(saveButton).click();
+		    	    event.preventDefault();
+		    	    return false;
+		    	}
 		    });
 		}
             });

@@ -34,6 +34,7 @@ $(document).ready(function () {
 		    width: '20%',
 		    input: function (data) {
 			return $('<input>').attr({
+			    type: 'text',
 			    name: 'timezone',
 			    value: data.value
 			}).autocomplete({
