@@ -77,3 +77,8 @@ form.jtable-dialog-form span.jtable-option-text-clickable {
 .ui-dialog-title {
     font-family: 'Segoe UI Semilight', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
 }
+.ui-autocomplete {
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

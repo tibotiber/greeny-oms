@@ -605,3 +605,46 @@ function ContactFormValidator() {
 	}
     });
 }
+
+function AirportFormValidator() {
+    $('.jtable-dialog-form').bootstrapValidator({
+	message: 'This value is not valid',
+	fields: {
+	    code: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the code of the airport.'
+	    	    }
+	    	}
+	    },
+	    name: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the name of the airport.'
+	    	    }
+	    	}
+	    },
+	    town: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the town of the airport.'
+	    	    }
+	    	}
+	    },
+	    country: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the country of the airport.'
+	    	    }
+	    	}
+	    },
+	    timezone: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the timezone of the airport. This field has autocomplete.'
+	    	    }
+	    	}
+	    }
+	}
+    });
+}
