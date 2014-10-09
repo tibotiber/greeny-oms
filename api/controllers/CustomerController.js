@@ -55,6 +55,39 @@ module.exports = {
 	});
     },
 
+    picker: function(req, res, next) {
+	var search = req.param('search') || '';
+	CompanyPickerService.pickCustomer(search, true, function(err, found) {
+	    if(!err) {
+		var options = _.map(found, function(item) {
+		    return {
+			value: item.code,
+			label: item.company.name+' ('+item.code+')'
+		    };
+		});
+		if(req.param('format')==='jtable') {
+		    res.json({
+			Result: 'OK',
+			Options: _.map(options, function(item) {
+			    return {
+				DisplayText: item.label,
+				Value: item.value
+			    };
+			})
+		    });
+		} else {
+		    res.json(options);
+		}
+	    } else {
+		sails.log.error("Error listing customers: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
+    },
+
     create: function(req, res, next) {
 	var params = req.params.all();
 	params.type = 'customer';

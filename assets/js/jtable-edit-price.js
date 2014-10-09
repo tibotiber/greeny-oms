@@ -64,7 +64,7 @@ $(document).ready(function() {
 					currency: {
 					    title: 'Currency',
 					    width: '6%',
-					    options: '/currency/picker?_csrf='+_csrfURL
+					    options: '/currency/picker?format=jtable&_csrf='+_csrfURL
 					},
 					discount: {
 					    title: '% disc.',

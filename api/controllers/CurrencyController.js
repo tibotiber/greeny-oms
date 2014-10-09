@@ -31,15 +31,25 @@ module.exports = {
     picker: function(req, res, next) {
 	Currency.find({}).exec(function(err, found) {
 	    if(!err) {
-		res.json({
-		    Result: 'OK',
-		    Options: _.map(found, function(item) {
-			return {
-			    DisplayText: item.code,
-			    Value: item.code
-			};
-		    })
+		var options = _.map(found, function(item) {
+		    return {
+			value: item.code,
+			label: item.code
+		    };
 		});
+		if(req.param('format')==='jtable') {
+		    res.json({
+			Result: 'OK',
+			Options: _.map(options, function(item) {
+			    return {
+				DisplayText: item.label,
+				Value: item.value
+			    };
+			})
+		    });
+		} else {
+		    res.json(options);
+		}
 	    } else {
 		sails.log.error("Error listing currencies: \n"+err);
 		res.json({

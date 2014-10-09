@@ -15,7 +15,7 @@ module.exports = {
 	    type: 'customer'
 	};
 	
-	this._pickCompany(options, function(err, found) {
+	this.pickCompany(options, function(err, found) {
 	    if(!err) {
 		async.map(found, function(company, cb) {
 		    var query = Customer.findOne(company.code);
@@ -59,7 +59,7 @@ module.exports = {
 	    type: 'supplier'
 	};
 
-	this._pickCompany(options, function(err, found) {
+	this.pickCompany(options, function(err, found) {
 	    if(!err) {
 		async.map(found, function(company, cb) {
 		    var query = Supplier.findOne(company.code);
@@ -89,15 +89,14 @@ module.exports = {
 	});
     },
 
-    _pickCompany: function(options, cb) {
-	Company.find({
-	    type: options.type,
-	    or : [
-		{code: {contains: options.search}},
-		{name: {contains: options.search}},
-		{country: {contains: options.search}}
-	    ]
-	}).sort('name').exec(cb);	
+    pickCompany: function(options, cb) {
+	var criteria = {or : [
+	    {code: {contains: options.search}},
+	    {name: {contains: options.search}},
+	    {country: {contains: options.search}}
+	]};
+	if(options.type) criteria.type = options.type;
+	Company.find(criteria).sort('name').exec(cb);	
     }
 
 };
