@@ -164,23 +164,24 @@ $(document).ready(function() {
 			    text: 'Add weight break rate',
 			    click: function(e) {
 				e.preventDefault();
-				var removeButton = $('<a href="#"><i class="fa fa-trash-o inline-trash"></i></a>').click(function(e) {
+				var template = $('#wbTemplate');
+				var clone = template.clone().removeClass('hide').removeAttr('id').css('overflow', 'auto').addClass('wb');
+				clone.find('#remove').click(function(e) {
 				    e.preventDefault();
-				    $(this).parent('div').remove();
+				    var row = $(this).parents('.wb');
+				    // remove validator's field
+				    $('.jtable-dialog-form').bootstrapValidator('removeField', row.find('[name="wbweight[]"]'));
+				    $('.jtable-dialog-form').bootstrapValidator('removeField', row.find('[name="wbrate[]"]'));
+				    // Remove element containing the option
+				    row.remove();
 				});
-				var wbweight = $('<input type="text" class="inline-form-control form-control" name="wbweight[]" placeholder="min weight (ex: 300)"/>');
-				var wbrate = $('<input type="text" class="inline-form-control form-control" name="wbrate[]" placeholder="rate (ex: 3.02)"/>');
-				$('<div>').addClass('wb').append(wbweight).append(wbrate).append(removeButton).appendTo('.'+wrapperClass);
-				//$('.jtable-dialog-form').bootstrapValidator('addField', wbweight);
-				//$('.jtable-dialog-form').bootstrapValidator('addField', wbrate);
-
-				//TODO: to get the validation to work on dynamically added field,
-				// there must be an existing/hidden similar field
-				// see http://bootstrapvalidator.com/examples/adding-dynamic-field/
-				// so must reorganise all this!
-				// go bye row and bootstrap columns with each a form-group also!
-				//END OF TODO.
-
+				clone.insertBefore(template);
+				$('.jtable-dialog-form').bootstrapValidator('addField', clone.find('[name="wbweight[]"]'));
+				$('.jtable-dialog-form').bootstrapValidator('addField', clone.find('[name="wbrate[]"]'));
+				// remove form-group shared by all wb fields
+				var container = template.parents('.jtable-input-field-container');
+				container.removeClass('form-group');
+								
 				//TODO: move this to form submission
 				var wb = {};
 				$('.wb').each(function() {
@@ -191,9 +192,21 @@ $(document).ready(function() {
 				$('input[name="weightBreak"]').val(JSON.stringify(wb));
 			    }
 			});
+			addButton.css('margin-bottom', '15px');
+			var template = $('<div class="form-group hide" id="wbTemplate">' +
+					 '<div class="col-sm-6">' +
+					 '<input class="form-control" type="text" name="wbweight[]" placeholder="starting weight" />' +
+					 '</div>' +
+					 '<div class="col-sm-5">' +
+					 '<input class="form-control" type="text" name="wbrate[]" placeholder="rate" />' +
+					 '</div>' +
+					 '<div class="col-sm-1">' +
+					 '<a href="#" id="remove"><i class="fa fa-trash-o"></i></a>' +
+					 '</div>' +
+					 '</div>');
 			var wrapper = $('<div>').addClass(wrapperClass).append(
 			    '<input type="hidden" name="weightBreak" value="{}"/>'
-			).append(addButton);			
+			).append(addButton).append(template);
 			return wrapper;
 		    }
 		},
@@ -219,10 +232,7 @@ $(document).ready(function() {
 		    $(this).addClass('form-group');
 		});
 		$('.jtable-input').each(function() {
-		    $(this).find('*:not(div)').addClass('form-control');
-		    $(this).find('div').each(function() {
-			$(this).find('*').addClass('form-control');
-		    });
+		    $(this).find('input,select,textarea,button').addClass('form-control');
 		});
 		FreightQuotationFormValidator();
 	    },
