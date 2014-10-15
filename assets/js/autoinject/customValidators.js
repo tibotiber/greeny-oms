@@ -648,3 +648,103 @@ function AirportFormValidator() {
 	}
     });
 }
+
+function FreightQuotationFormValidator() {
+    $('.jtable-dialog-form').bootstrapValidator({
+	message: 'This value is not valid',
+	fields: {
+	    company: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please choose a customer or supplier.'
+	    	    },
+		    stringLength: {
+			min: 2,
+			max: 2,
+			message: 'The company code must be 2 letters long.'
+		    },
+		    stringCase: {
+			'case': 'upper',
+			message: 'The company code must be upper case.'
+		    }
+	    	}
+	    },
+	    carrier: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate an airline as carrier.'
+	    	    }
+		}
+	    },
+	    agent: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate a freight agent company.'
+	    	    }
+		}
+	    },
+	    rate: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the normal rate applicable (winter rate).'
+	    	    },
+		    numeric: {
+			message: 'The value is not numeric.'
+		    }
+		}
+	    },
+	    summerRate: {
+	    	validators: {
+	    	    numeric: {
+			message: 'The value is not numeric.'
+		    }
+		}
+	    },
+	    'wbrate[]': {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the rate applicable from this weight onward.'
+	    	    },
+		    numeric: {
+			message: 'The value is not numeric.'
+		    }
+		}
+	    },
+	    'wbweight[]': {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the starting weight for this rate.'
+	    	    },
+		    integer: {
+			message: 'The value is not an integer.'
+		    }
+		}
+	    },
+	    currency: {
+	    	validators: {
+	    	    notEmpty: {
+	    		message: 'Please choose a currency.'
+	    	    },
+		    stringLength: {
+			min: 3,
+			max: 3,
+			message: 'The currency must be 3 letters long.'
+		    },
+		    stringCase: {
+			'case': 'upper',
+			message: 'The currency  must be upper case.'
+		    }
+	    	}
+	    }
+	}
+    });
+}
+
+function FreightRouteFormValidator() {
+    $('.jtable-dialog-form').bootstrapValidator({
+	message: 'This value is not valid',
+	fields: {
+	    //TODO
+	}
+    });
+}

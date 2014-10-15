@@ -78,6 +78,10 @@ module.exports.routes = {
 	action: 'index'
     },
 
+    '/db/freight': {
+	view: 'freight/index'
+    },
+    
     '/settings': {
 	controller: 'SettingsController',
 	action: 'edit'
