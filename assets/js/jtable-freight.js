@@ -160,36 +160,32 @@ $(document).ready(function() {
 		    width: '20%',
 		    input: function(data) {
 			var wrapperClass = 'weightBreakWrapper';
+			var cloneTemplate = function(template, weight, rate) {
+			    template = template || $('#wbTemplate');
+			    var clone = template.clone().removeClass('hide').removeAttr('id').css('overflow', 'auto').addClass('wb');
+			    if(weight) clone.find('input[name="wbweight[]"]').val(weight);
+			    if(rate) clone.find('input[name="wbrate[]"]').val(rate);
+			    clone.find('#remove').click(function(e) {
+				e.preventDefault();
+				var row = $(this).parents('.wb');
+				// remove validator's field
+				$('.jtable-dialog-form').bootstrapValidator('removeField', row.find('[name="wbweight[]"]'));
+				$('.jtable-dialog-form').bootstrapValidator('removeField', row.find('[name="wbrate[]"]'));
+				// Remove element containing the option
+				row.remove();
+			    });
+			    clone.insertBefore(template);
+			    $('.jtable-dialog-form').bootstrapValidator('addField', clone.find('[name="wbweight[]"]'));
+			    $('.jtable-dialog-form').bootstrapValidator('addField', clone.find('[name="wbrate[]"]'));
+			    // remove form-group shared by all wb fields
+			    var container = template.parents('.jtable-input-field-container');
+			    container.removeClass('form-group');
+			};
 			var addButton = $('<button/>', {
 			    text: 'Add weight break rate',
 			    click: function(e) {
 				e.preventDefault();
-				var template = $('#wbTemplate');
-				var clone = template.clone().removeClass('hide').removeAttr('id').css('overflow', 'auto').addClass('wb');
-				clone.find('#remove').click(function(e) {
-				    e.preventDefault();
-				    var row = $(this).parents('.wb');
-				    // remove validator's field
-				    $('.jtable-dialog-form').bootstrapValidator('removeField', row.find('[name="wbweight[]"]'));
-				    $('.jtable-dialog-form').bootstrapValidator('removeField', row.find('[name="wbrate[]"]'));
-				    // Remove element containing the option
-				    row.remove();
-				});
-				clone.insertBefore(template);
-				$('.jtable-dialog-form').bootstrapValidator('addField', clone.find('[name="wbweight[]"]'));
-				$('.jtable-dialog-form').bootstrapValidator('addField', clone.find('[name="wbrate[]"]'));
-				// remove form-group shared by all wb fields
-				var container = template.parents('.jtable-input-field-container');
-				container.removeClass('form-group');
-								
-				//TODO: move this to form submission
-				var wb = {};
-				$('.wb').each(function() {
-				    var weight = $(this).find('input[name="wbweight[]"]').val();
-				    if(weight !==  '')
-					wb[weight] = $(this).find('input[name="wbrate[]"]').val();
-				});
-				$('input[name="weightBreak"]').val(JSON.stringify(wb));
+				cloneTemplate();
 			    }
 			});
 			addButton.css('margin-bottom', '15px');
@@ -207,8 +203,16 @@ $(document).ready(function() {
 			var wrapper = $('<div>').addClass(wrapperClass).append(
 			    '<input type="hidden" name="weightBreak" value="{}"/>'
 			).append(addButton).append(template);
+			if(data.formType === 'edit') {
+			    if(typeof(data.value) === 'string')
+				data.value = JSON.parse(data.value);
+			    _.each(data.value, function(value, key) {
+				cloneTemplate(template, key, value);
+			    });
+			}
 			return wrapper;
-		    }
+		    },
+		    list: false
 		},
 		currency: {
 		    title: 'Currency',
@@ -218,7 +222,7 @@ $(document).ready(function() {
 		'default': {
 		    title: 'Default freight choice?',
 		    type: 'checkbox',
-		    values: {'0': 'No', '1': 'Yes'},
+		    values: {false: 'No', true: 'Yes'},
 		    list: false
 		},
 		notes: {
@@ -237,6 +241,15 @@ $(document).ready(function() {
 		FreightQuotationFormValidator();
 	    },
 	    formSubmitting: function(event, data) {
+		// combine weight break rates in json
+		var wb = {};
+		$('.wb').each(function() {
+		    var weight = $(this).find('input[name="wbweight[]"]').val();
+		    if(weight !==  '')
+			wb[weight] = $(this).find('input[name="wbrate[]"]').val();
+		});
+		$('input[name="weightBreak"]').val(JSON.stringify(wb));
+		// validate and submit
 		$('.jtable-dialog-form').data('bootstrapValidator').validate();
 		return $('.jtable-dialog-form').data('bootstrapValidator').isValid();
 	    },

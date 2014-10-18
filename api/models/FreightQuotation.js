@@ -30,7 +30,8 @@ module.exports = {
 	},
 
 	summerRate: {
-	    type: 'float'
+	    type: 'float',
+	    required: false
 	},
 
 	currency: {
@@ -56,6 +57,12 @@ module.exports = {
 	    via: 'quotation'
 	}
 	
+    },
+
+    beforeValidate: function(values, cb) {
+	if(typeof(values.summerRate) === 'undefined')
+	    delete values.summerRate;
+	cb();
     }
     
 };
