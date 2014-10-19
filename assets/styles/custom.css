@@ -87,3 +87,6 @@ form.jtable-dialog-form span.jtable-option-text-clickable {
     background-size: 18px;
     background-origin: content-box;
 }
+.ui-dialog {
+    min-width: 500px;
+}

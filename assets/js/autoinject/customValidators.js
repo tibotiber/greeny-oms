@@ -614,7 +614,16 @@ function AirportFormValidator() {
 	    	validators: {
 	    	    notEmpty: {
 	    		message: 'Please indicate the code of the airport.'
-	    	    }
+	    	    },
+		    stringLength: {
+			min: 3,
+			max: 3,
+			message: 'The airport code must be 3 letters long.'
+		    },
+		    stringCase: {
+			'case': 'upper',
+			message: 'The airport code must be upper case.'
+		    }
 	    	}
 	    },
 	    name: {
@@ -744,7 +753,101 @@ function FreightRouteFormValidator() {
     $('.jtable-dialog-form').bootstrapValidator({
 	message: 'This value is not valid',
 	fields: {
-	    //TODO
+	    segments: {
+		validators: {
+	    	    notEmpty: {
+	    		message: 'Please add segments to this route.'
+	    	    }
+		}
+	    },
+	    description: {
+		validators: {
+	    	    notEmpty: {
+	    		message: 'Please provide an easy to remember description/name for this route.'
+	    	    }
+		}
+	    },
+	    'flight[]': {
+		validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the flight number for this segment.'
+	    	    }
+		}
+	    },
+	    'dA[]': {
+		validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the airport of departure for this segment.'
+	    	    },
+		    stringLength: {
+			min: 3,
+			max: 3,
+			message: 'The airport code must be 3 letters long.'
+		    },
+		    stringCase: {
+			'case': 'upper',
+			message: 'The airport code must be upper case.'
+		    }
+		}
+	    },
+	    'dT[]': {
+		validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the time of departure for this segment.'
+	    	    },
+		    regexp: {
+			regexp: /^[0-2][0-9][0-5][0-9]$/,
+			message: 'Wrong format, please use "hhmm" timeformat (e.g. 1825).'
+		    }
+		}
+	    },
+	    'aA[]': {
+		validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the airport of arrival for this segment.'
+	    	    },
+		    stringLength: {
+			min: 3,
+			max: 3,
+			message: 'The airport code must be 3 letters long.'
+		    },
+		    stringCase: {
+			'case': 'upper',
+			message: 'The airport code must be upper case.'
+		    }
+		}
+	    },
+	    'aT[]': {
+		validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the time of arrival for this segment.'
+	    	    },
+		    regexp: {
+			regexp: /^[0-2][0-9][0-5][0-9]$/,
+			message: 'Wrong format, please use "hhmm" timeformat (e.g. 1825).'
+		    }
+		}
+	    },
+	    door_to_door: {
+		validators: {
+	    	    notEmpty: {
+	    		message: 'Please estimate the door to door duration for this route.'
+	    	    },
+		    integer: {
+			message: 'The value is not an integer.'
+		    }
+		}
+	    },
+	    logInPeriod: {
+		validators: {
+	    	    notEmpty: {
+	    		message: 'Please indicate the log in period. Default is 5.'
+	    	    },
+		    integer: {
+			message: 'The value is not an integer.'
+		    }
+		}
+	    }	    
 	}
     });
 }

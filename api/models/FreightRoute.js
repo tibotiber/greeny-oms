@@ -24,6 +24,11 @@ module.exports = {
 	    required: true
 	},
 
+	description: {
+	    type: 'string',
+	    required: true
+	},
+	
 	segments: {
 	    type: 'array',
 	    required: true,
@@ -31,16 +36,16 @@ module.exports = {
 	    /* e.g.
 	    [{
 		"flight": "EY473",
-		"departureAirport": "SIN",
-		"departureTime": "20:20",
-		"arrivalAirport": "AUH",
-		"arrivalTime": "23:45"
+		"departureAirport (dA)": "SIN",
+		"departureTime (dT)": "20:20",
+		"arrivalAirport (aA)": "AUH",
+		"arrivalTime (aT)": "23:45"
 	    }, {
 		"flight": "EY065",
-		"departureAirport": "AUH",
-		"departureTime": "02:05",
-		"arrivalAirport": "DME",
-		"arrivalTime": "07:25"
+		"dA": "AUH",
+		"dT": "02:05",
+		"aA": "DME",
+		"aT": "07:25"
 	    }]*/
 	},
 
@@ -51,8 +56,7 @@ module.exports = {
 
 	logInPeriod: {
 	    /* duration before flight in hours */
-	    type: 'integer',
-	    defaultsTo: 5
+	    type: 'integer'
 	},
 
 	'default': {

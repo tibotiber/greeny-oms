@@ -28,6 +28,7 @@ var cssFilesToInject = [
     'devoops/css/style.css',
     'jasny-bootstrap/css/jasny-bootstrap.css',
     'jtable/themes/metro/lightgray/jtable.css',
+    'styles/jquery-ui-timepicker-addon.css',
 
     'styles/custom.css'
 

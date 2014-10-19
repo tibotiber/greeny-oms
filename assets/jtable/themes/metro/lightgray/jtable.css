@@ -257,7 +257,7 @@ form.jtable-dialog-form span.jtable-option-text-clickable {
   top: -2px;
 }
 form.jtable-dialog-form div.jtable-textarea-input textarea {
-  width: 300px;
+  width: 100%;
   min-height: 60px;
 }
 form.jtable-dialog-form div.jtable-checkbox-input span,

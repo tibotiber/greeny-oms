@@ -18,7 +18,7 @@ $(document).ready(function() {
 		deleteAction: '/freightQuotation/destroy?_csrf=' + _csrfURL
 	    },
             fields: {
-		prices: {
+		routes: {
                     title: '',
                     width: '2%',
                     edit: false,
@@ -31,10 +31,10 @@ $(document).ready(function() {
 			    if(!$('#FreightTableContainer').jtable('isChildRowOpen', $img.closest('tr'))) {
 				// JTable for prices
 				$('#FreightTableContainer').jtable('openChildTable', $img.closest('tr'), {
-                                    title: freightQuotations.record.code + ' - Routes',
+                                    title: freightQuotations.record.company + ' by ' + freightQuotations.record.carrier + ' - Routes',
                                     showCloseButton: false,
 				    actions: {
-					listAction    : '/freightRoute/listByCompany?_csrf=' + _csrfURL+'&company='+freightQuotations.record.code,
+					listAction    : '/freightRoute/listByQuotation?_csrf=' + _csrfURL+'&quotation='+freightQuotations.record.id,
 					createAction  : '/freightRoute/create?_csrf=' + _csrfURL,
 					updateAction  : '/freightRoute/update?_csrf=' + _csrfURL,
 					deleteAction  : '/freightRoute/destroy?_csrf=' + _csrfURL
@@ -44,31 +44,131 @@ $(document).ready(function() {
 					    key: true,
 					    list: false
 					},
-                                        company: {
+                                        quotation: {
                                             type: 'hidden',
-                                            defaultValue: freightQuotations.record.code
+                                            defaultValue: freightQuotations.record.id
                                         },
-					name: {
-					    title:'Name',
+					description: {
+					    title: 'Description',
+					    width: '50%'
+					},
+					segments: {
+					    title:'Route segments',
+					    list: false,
+					    input: function(data) {
+						var wrapperClass = 'segmentsWrapper';
+						var cloneTemplate = function(add, template, flight, dA, dT, aA, aT) {
+						    template = template || $('#segTemplate');
+						    var clone = template.clone().removeClass('hide').removeAttr('id').addClass('seg');
+						    // add value if already set
+						    if(flight) {
+							clone.find('input[name="flight[]"]').val(flight);
+							clone.find('input[name="dA[]"]').val(dA);
+							clone.find('input[name="dT[]"]').val(dT);
+							clone.find('input[name="aA[]"]').val(aA);
+							clone.find('input[name="aT[]"]').val(aT);
+						    }
+						    if(add) {
+							// add button on first row
+							clone.find('#add-remove').append('<i class="fa fa-plus-square-o"></i>').click(function(e) {
+							    e.preventDefault();
+							    cloneTemplate(false);
+							});
+						    } else {
+							// remove button on other row
+							clone.find('#add-remove').append('<i class="fa fa-trash-o"></i>').click(function(e) {
+							    e.preventDefault();
+							    var row = $(this).parents('.seg');
+							    // remove validator's field
+							    $('.jtable-dialog-form').bootstrapValidator('removeField', row.find('[name="flight[]"]'));
+							    $('.jtable-dialog-form').bootstrapValidator('removeField', row.find('[name="dA[]"]'));
+							    $('.jtable-dialog-form').bootstrapValidator('removeField', row.find('[name="dT[]"]'));
+							    $('.jtable-dialog-form').bootstrapValidator('removeField', row.find('[name="aA[]"]'));
+							    $('.jtable-dialog-form').bootstrapValidator('removeField', row.find('[name="aT[]"]'));
+							    // Remove element containing the option
+							    row.remove();
+							});
+						    }
+						    // autocomplete airport field
+						    clone.find('input[name="dA[]"], input[name="aA[]"]').autocomplete({
+							minLength: 0,
+							source: airports,
+							select: function(event, ui) {
+							    $(event.target).val(ui.item.value);
+							    $('.jtable-dialog-form').bootstrapValidator('revalidateField', $(event.target));
+							}
+						    });
+						    // timepicker
+						    clone.find('input[name="dT[]"], input[name="aT[]"]').timepicker({
+							timeFormat: "HHmm",
+							onSelect: function(text, instance) {
+							    $('.jtable-dialog-form').bootstrapValidator('revalidateField', $(instance.$input[0]));
+							}
+						    });
+						    clone.insertBefore(template);
+						    $('.jtable-dialog-form').bootstrapValidator('addField', clone.find('[name="flight[]"]'));
+						    $('.jtable-dialog-form').bootstrapValidator('addField', clone.find('[name="dA[]"]'));
+						    $('.jtable-dialog-form').bootstrapValidator('addField', clone.find('[name="dT[]"]'));
+						    $('.jtable-dialog-form').bootstrapValidator('addField', clone.find('[name="aA[]"]'));
+						    $('.jtable-dialog-form').bootstrapValidator('addField', clone.find('[name="aT[]"]'));
+						    // remove form-group shared by all wb fields
+						    var container = template.parents('.jtable-input-field-container');
+						    container.removeClass('form-group');
+						};
+						var template = $('<div class="form-group hide" id="segTemplate" >' +
+								 '<div class="row">' +
+								 '<div class="col-sm-11">' +
+								 '<input class="form-control" type="text" name="flight[]" placeholder="flight number" />' +
+								 '</div>' +
+								 '<div class="col-sm-1">' +
+								 '<a href="#" id="add-remove"></a>' +
+								 '</div>' +
+								 '</div>' +
+								 '<div class="row">' +
+								 '<div class="col-sm-6">' +
+								 '<input class="form-control" type="text" name="dA[]" placeholder="airport of departure" />' +
+								 '</div>' +
+								 '<div class="col-sm-5">' +
+								 '<input class="form-control" type="text" name="dT[]" placeholder="time of departure" />' +
+								 '</div>' +
+								 '</div>' +
+								 '<div class="row">' +
+								 '<div class="col-sm-6">' +
+								 '<input class="form-control" type="text" name="aA[]" placeholder="airport of arrival" />' +
+								 '</div>' +
+								 '<div class="col-sm-5">' +
+								 '<input class="form-control" type="text" name="aT[]" placeholder="time of arrival" />' +
+								 '</div>' +
+								 '</div>' +
+								 '</div>');
+						var wrapper = $('<div>').addClass(wrapperClass).append(
+						    '<input type="hidden" name="segments" value="[]" />'
+						).append(template);
+						if(data.formType === 'create') {
+						    cloneTemplate(true, template);
+						} else {
+						    var firstRow = true;
+						    _.each(JSON.parse('['+data.value+']'), function(item) {
+							cloneTemplate(firstRow, template, item.flight, item.dA, item.dT, item.aA, item.aT);
+							firstRow = false;
+						    });
+						}
+						return wrapper;
+					    }
+					},
+					door_to_door: {
+					    title: 'Door to door duration in hours',
 					    width: '25%'
 					},
-					position: {
-					    title: 'Position',
-					    width: '20%'
+					logInPeriod: {
+					    title: 'Log in period in hours',
+					    width: '25%',
+					    defaultValue: 5
 					},
-					email: {
-					    title: 'Email',
-					    width: '40%'
-					},
-					phone: {
-					    title: 'Phone',
-					    width: '15%'
-					},
-					main: {
-					    title: 'Main contact',
+					'default': {
+					    title: 'Default freight choice?',
 					    type: 'checkbox',
-					    values: { 'false': 'No', 'true': 'Yes' },
-					    defaultValue: false,
+					    values: {false: 'No', true: 'Yes'},
 					    list: false
 					},
 					notes: {
@@ -82,11 +182,27 @@ $(document).ready(function() {
 					    $(this).addClass('form-group');
 					});
 					$('.jtable-input').each(function() {
-					    $(this).find('*').addClass('form-control');
+					    $(this).find('input,select,textarea,button').addClass('form-control');
 					});
 					FreightRouteFormValidator();
 				    },
 				    formSubmitting: function(event, data) {
+					// combine segments in array (done client-side to ensure index mapped between arrays)
+					var seg = [];
+					$('.seg').each(function() {
+					    var flight = $(this).find('input[name="flight[]"]').val();
+					    if(flight !==  '') {
+						seg.push(JSON.stringify({
+						    flight: flight,
+						    dA: $(this).find('input[name="dA[]"]').val(),
+						    dT: $(this).find('input[name="dT[]"]').val(),
+						    aA: $(this).find('input[name="aA[]"]').val(),
+						    aT: $(this).find('input[name="aT[]"]').val()
+						}));
+					    }
+					});
+					$('input[name="segments"]').val(seg);
+					// validate and submit
 					$('.jtable-dialog-form').data('bootstrapValidator').validate();
 					return $('.jtable-dialog-form').data('bootstrapValidator').isValid();
 				    },
@@ -105,10 +221,10 @@ $(document).ready(function() {
 				    opennedChildTable = null;
 				});
 			    }
-                        });
-                        return $img;
+			});
+			return $img;
                     }
-                },
+		},
 
 		id: {
                     key: true,
@@ -162,7 +278,7 @@ $(document).ready(function() {
 			var wrapperClass = 'weightBreakWrapper';
 			var cloneTemplate = function(template, weight, rate) {
 			    template = template || $('#wbTemplate');
-			    var clone = template.clone().removeClass('hide').removeAttr('id').css('overflow', 'auto').addClass('wb');
+			    var clone = template.clone().removeClass('hide').removeAttr('id').addClass('wb');
 			    if(weight) clone.find('input[name="wbweight[]"]').val(weight);
 			    if(rate) clone.find('input[name="wbrate[]"]').val(rate);
 			    clone.find('#remove').click(function(e) {
@@ -190,6 +306,7 @@ $(document).ready(function() {
 			});
 			addButton.css('margin-bottom', '15px');
 			var template = $('<div class="form-group hide" id="wbTemplate">' +
+					 '<div class="row">' +
 					 '<div class="col-sm-6">' +
 					 '<input class="form-control" type="text" name="wbweight[]" placeholder="starting weight" />' +
 					 '</div>' +
@@ -198,6 +315,7 @@ $(document).ready(function() {
 					 '</div>' +
 					 '<div class="col-sm-1">' +
 					 '<a href="#" id="remove"><i class="fa fa-trash-o"></i></a>' +
+					 '</div>' +
 					 '</div>' +
 					 '</div>');
 			var wrapper = $('<div>').addClass(wrapperClass).append(
@@ -241,7 +359,7 @@ $(document).ready(function() {
 		FreightQuotationFormValidator();
 	    },
 	    formSubmitting: function(event, data) {
-		// combine weight break rates in json
+		// combine weight break rates in json (done client-side to ensure index mapped between arrays)
 		var wb = {};
 		$('.wb').each(function() {
 		    var weight = $(this).find('input[name="wbweight[]"]').val();
@@ -261,6 +379,13 @@ $(document).ready(function() {
 	$('#FreightTableContainer').jtable('load');
     };
 
+    // preload airports list
+    var airports = [];
+    io.socket.get('/airport/picker', {_csrf: _csrfURL}, function (data, jwres) {
+	airports = data;
+    });
+
+    // make table
     makeJTable();
 
 });
