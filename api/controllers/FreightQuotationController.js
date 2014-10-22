@@ -65,8 +65,18 @@ module.exports = {
 	var params = req.params.all();
 	FreightQuotation.destroy(params.id).exec(function(err, destroyed) {
 	    if(!err) {
-		res.json({
-		    Result: 'OK'
+		FreightRoute.destroy({quotation: params.id}).exec(function(err, destroyed) {
+		    if(!err) {
+			res.json({
+			    Result: 'OK'
+			});
+		    } else {
+			sails.log.error("Error deleting freight routes: \n"+err);
+			res.json({
+			    Result: 'Error',
+			    Message: err
+			});
+		    }
 		});
 	    } else {
 		sails.log.error("Error deleting freight quotation:\n"+err);

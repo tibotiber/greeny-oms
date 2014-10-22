@@ -166,13 +166,20 @@ module.exports = {
 	var code = req.param('code');
 	Company.destroy(code).exec(function(err, company) {
 	    if(!err) {
-		Supplier.destroy(code).exec(function(err, supplier) {
+		async.parallel([
+		    function(cb) {
+			Supplier.destroy(code).exec(cb);
+		    },
+		    function(cb) {
+			Contact.destroy({company: code}).exec(cb);
+		    }
+		], function(err, results) {
 		    if(!err) {
 			res.json({
 			    Result: 'OK'
 			});
 		    } else {
-			sails.log.error("Error deleting supplier: \n"+err);
+			sails.log.error("Error deleting supplier or contacts: \n"+err);
 			res.json({
 			    Result: 'Error',
 			    Message: err

@@ -165,13 +165,20 @@ module.exports = {
 	var code = req.param('code');
 	Company.destroy(code).exec(function(err, company) {
 	    if(!err) {
-		Customer.destroy(code).exec(function(err, customer) {
+		async.parallel([
+		    function(cb) {
+			Customer.destroy(code).exec(cb);
+		    },
+		    function(cb) {
+			Contact.destroy({company: code}).exec(cb);
+		    }
+		], function(err, results) {
 		    if(!err) {
 			res.json({
 			    Result: 'OK'
 			});
 		    } else {
-			sails.log.error("Error deleting customer: \n"+err);
+			sails.log.error("Error deleting customer or contacts: \n"+err);
 			res.json({
 			    Result: 'Error',
 			    Message: err
