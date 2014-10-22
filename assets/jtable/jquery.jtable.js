@@ -383,7 +383,7 @@ THE SOFTWARE.
         * PUBLIC METHODS                                                        *
         *************************************************************************/
 
-        /* Loads data using AJAX call, clears table and fills with new data.
+        /* Loads data using socket call, clears table and fills with new data.
         *************************************************************************/
         load: function (postData, completeCallback) {
             this._lastPostData = postData;
@@ -427,7 +427,7 @@ THE SOFTWARE.
 
         /* LOADING RECORDS  *****************************************************/
 
-        /* Performs an AJAX call to reload data of the table.
+        /* Performs a socket call to reload data of the table.
         *************************************************************************/
         _reloadTable: function (completeCallback) {
             var self = this;
@@ -480,8 +480,8 @@ THE SOFTWARE.
                 //Generate URL (with query string parameters) to load records
                 var loadUrl = self._createRecordLoadUrl();
 
-                //Load data from server using AJAX
-                self._ajax({
+                //Load data from server using socket.io
+                self._socket({
                     url: loadUrl,
                     data: self._lastPostData,
                     success: function (data) {
@@ -1215,6 +1215,42 @@ THE SOFTWARE.
             $.ajax(opts);
         },
 
+        /* This method is used to perform sockets calls in jTable instead of using
+         * AJAX. It was added by Thibaut Tiberghien for Greeny OMS
+        *************************************************************************/
+        _socket: function (options) {
+            var self = this;
+
+	    // make post data as json if it is a string
+	    if(typeof(options.data) === 'string') {
+		var pairs = options.data.split('&');
+		options.data = {};
+		pairs.forEach(function(pair) {
+		    var kv = pair.split('=');
+		    if(kv.length === 2)
+			options.data[kv[0]] = decodeURIComponent(kv[1].replace(/\+/g, ' '));
+		});
+	    }
+	    
+	    // prepare callback
+	    var responseReceived = function(data, jwres) {
+		if(jwres.statusCode === 401) {
+		    // test for unauthorized error status first
+		    self._unAuthorizedRequestHandler();
+		} else if(jwres.statusCode !== 200) {
+		    // test for other error status
+		    if(options.error) options.error(arguments);
+		} else {
+		    // handle successful response
+		    if(options.success) options.success(data);
+		}
+	    };
+
+	    // make socket call
+	    io.socket.post(options.url, options.data, responseReceived);
+	    
+        },
+
         /* Gets value of key field of a record.
         *************************************************************************/
         _getKeyValueOfRecord: function (record) {
@@ -1494,6 +1530,19 @@ THE SOFTWARE.
         *************************************************************************/
         _submitFormUsingAjax: function (url, formData, success, error) {
             this._ajax({
+                url: url,
+                data: formData,
+                success: success,
+                error: error
+            });
+        },
+
+	/* Submits a form asynchronously using socket.io.
+        *  This method is needed, since form submitting logic can be overrided
+        *  by extensions. Added by Thibaut Tiberghien for Greeny OMS.
+        *************************************************************************/
+        _submitFormUsingSocket: function (url, formData, success, error) {
+            this._socket({
                 url: url,
                 data: formData,
                 success: success,
@@ -2179,8 +2228,8 @@ THE SOFTWARE.
 
             } else { //Assume it's a URL string
 
-                //Make an Ajax call to create record
-                self._submitFormUsingAjax(
+                //Make a socket call to create record
+                self._submitFormUsingSocket(
                     options.url || self.options.actions.createAction,
                     $.param(options.record),
                     function (data) {
@@ -2305,8 +2354,8 @@ THE SOFTWARE.
 
             } else { //Assume it's a URL string
 
-                //Make an Ajax call to create record
-                self._submitFormUsingAjax(
+                //Make a socket call to create record
+                self._submitFormUsingSocket(
                     self.options.actions.createAction,
                     $addRecordForm.serialize(),
                     function (data) {
@@ -2541,8 +2590,8 @@ THE SOFTWARE.
 
             } else { //Assume it's a URL string
 
-                //Make an Ajax call to create record
-                self._submitFormUsingAjax(
+                //Make a socket call to create record
+                self._submitFormUsingSocket(
                     options.url || self.options.actions.updateAction,
                     $.param(options.record),
                     function (data) {
@@ -2716,8 +2765,8 @@ THE SOFTWARE.
 
             } else { //Assume it's a URL string
 
-                //Make an Ajax call to update record
-                self._submitFormUsingAjax(
+                //Make a socket call to update record
+                self._submitFormUsingSocket(
                     self.options.actions.updateAction,
                     $editForm.serialize(),
                     function(data) {
@@ -3130,8 +3179,8 @@ THE SOFTWARE.
             this._$deleteRecordDiv.dialog('open');
         },
 
-        /* Performs an ajax call to server to delete record
-        *  and removes row of the record from table if ajax call success.
+        /* Performs a socket call to server to delete record
+        *  and removes row of the record from table if ajax socket success.
         *************************************************************************/
         _deleteRecordFromServer: function ($row, success, error, url) {
             var self = this;
@@ -3185,8 +3234,8 @@ THE SOFTWARE.
                 }
 
             } else { //Assume it's a URL string
-                //Make ajax call to delete the record from server
-                this._ajax({
+                //Make socket call to delete the record from server
+                this._socket({
                     url: (url || self.options.actions.deleteAction),
                     data: postData,
                     success: function (data) {
