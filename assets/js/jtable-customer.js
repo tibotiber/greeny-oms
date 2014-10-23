@@ -10,10 +10,10 @@ $(document).ready(function() {
             openChildAsAccordion: true,
             listClass: 'child-opener-image-column',
             actions: {
-                listAction  : '/customer/list?_csrf=' + _csrfURL,
-		createAction: '/customer/create?_csrf=' + _csrfURL,
-		updateAction: '/customer/update?_csrf=' + _csrfURL,
-		deleteAction: '/customer/destroy?_csrf=' + _csrfURL
+                listAction  : '/customer/list',
+		createAction: '/customer/create',
+		updateAction: '/customer/update',
+		deleteAction: '/customer/destroy'
 	    },
             fields: {
 		prices: {
@@ -32,10 +32,10 @@ $(document).ready(function() {
                                     title: customers.record.code + ' - Contacts',
                                     showCloseButton: false,
 				    actions: {
-					listAction    : '/contact/listByCompany?_csrf=' + _csrfURL+'&company='+customers.record.code,
-					createAction  : '/contact/create?_csrf=' + _csrfURL,
-					updateAction  : '/contact/update?_csrf=' + _csrfURL,
-					deleteAction  : '/contact/destroy?_csrf=' + _csrfURL
+					listAction    : '/contact/listByCompany?company='+customers.record.code,
+					createAction  : '/contact/create',
+					updateAction  : '/contact/update',
+					deleteAction  : '/contact/destroy'
                                     },
                                     fields: {
 					id: {

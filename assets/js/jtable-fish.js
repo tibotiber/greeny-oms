@@ -10,10 +10,10 @@ $(document).ready(function() {
             openChildAsAccordion: true,
             listClass: 'child-opener-image-column',
             actions: {
-                listAction	: '/fishproduct/listFiltered?_csrf=' + _csrfURL,
-                createAction	: '/fishproduct/create?_csrf=' + _csrfURL,
-                updateAction	: '/fishproduct/update?_csrf=' + _csrfURL,
-                deleteAction	: '/fishproduct/destroy?_csrf=' + _csrfURL
+                listAction	: '/fishproduct/listFiltered',
+                createAction	: '/fishproduct/create',
+                updateAction	: '/fishproduct/update',
+                deleteAction	: '/fishproduct/destroy'
             },
             fields: {
 		variants: {
@@ -32,10 +32,10 @@ $(document).ready(function() {
                                     title: products.record.code + ' - Variants',
 				    showCloseButton: false,
                                     actions: {
-                                        listAction	: '/fishvariant/listByProduct?_csrf='+_csrfURL+'&code='+products.record.code,
-                                        createAction	: '/fishvariant/create?_csrf=' + _csrfURL,
-                                        updateAction	: '/fishvariant/update?_csrf=' + _csrfURL,
-                                        deleteAction	: '/fishvariant/destroy?_csrf=' + _csrfURL
+                                        listAction	: '/fishvariant/listByProduct?code='+products.record.code,
+                                        createAction	: '/fishvariant/create',
+                                        updateAction	: '/fishvariant/update',
+                                        deleteAction	: '/fishvariant/destroy'
                                     },
                                     fields: {
                                         product: {

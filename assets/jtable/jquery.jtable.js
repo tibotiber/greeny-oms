@@ -1231,6 +1231,12 @@ THE SOFTWARE.
 			options.data[kv[0]] = decodeURIComponent(kv[1].replace(/\+/g, ' '));
 		});
 	    }
+
+	    // add csrf if available
+	    if(_csrf) {
+		if(!options.data) options.data = {};
+		options.data._csrf = _csrf;
+	    }
 	    
 	    // prepare callback
 	    var responseReceived = function(data, jwres) {

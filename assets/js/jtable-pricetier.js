@@ -4,10 +4,10 @@ $(document).ready(function () {
 	$('#PricetierTableContainer').jtable({
 	    title: 'List of available pricetiers',
 	    actions: {
-		listAction:   '/pricetier/list?_csrf='+_csrfURL,
-		createAction: '/pricetier/create?_csrf='+_csrfURL,
-		updateAction: '/pricetier/update?_csrf='+_csrfURL,
-		deleteAction: '/pricetier/destroy?_csrf='+_csrfURL
+		listAction:   '/pricetier/list',
+		createAction: '/pricetier/create',
+		updateAction: '/pricetier/update',
+		deleteAction: '/pricetier/destroy'
 	    },
 	    fields: {
 		code: {

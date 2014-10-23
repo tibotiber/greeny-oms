@@ -10,7 +10,7 @@ $(document).ready(function() {
             openChildAsAccordion: true,
             listClass: 'child-opener-image-column',
             actions: {
-                listAction: '/pricelist/list?_csrf=' + _csrfURL
+                listAction: '/pricelist/list'
 	    },
             fields: {
 		prices: {
@@ -29,10 +29,10 @@ $(document).ready(function() {
                                     title: variants.record.sku + ' - All Prices',
                                     showCloseButton: false,
 				    actions: {
-					listAction    : '/pricelist/listByVariant?_csrf=' + _csrfURL+'&sku='+variants.record.sku,
-					createAction  : '/pricelist/create?_csrf=' + _csrfURL,
-					updateAction  : '/pricelist/update?_csrf=' + _csrfURL,
-					deleteAction  : '/pricelist/destroy?_csrf=' + _csrfURL
+					listAction    : '/pricelist/listByVariant?sku='+variants.record.sku,
+					createAction  : '/pricelist/create',
+					updateAction  : '/pricelist/update',
+					deleteAction  : '/pricelist/destroy'
                                     },
                                     fields: {
                                         sku: {

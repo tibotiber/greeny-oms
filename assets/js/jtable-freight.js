@@ -12,10 +12,10 @@ $(document).ready(function() {
             openChildAsAccordion: true,
             listClass: 'child-opener-image-column',
             actions: {
-                listAction  : '/freightQuotation/list?_csrf=' + _csrfURL,
-		createAction: '/freightQuotation/create?_csrf=' + _csrfURL,
-		updateAction: '/freightQuotation/update?_csrf=' + _csrfURL,
-		deleteAction: '/freightQuotation/destroy?_csrf=' + _csrfURL
+                listAction  : '/freightQuotation/list',
+		createAction: '/freightQuotation/create',
+		updateAction: '/freightQuotation/update',
+		deleteAction: '/freightQuotation/destroy'
 	    },
             fields: {
 		routes: {
@@ -34,10 +34,10 @@ $(document).ready(function() {
                                     title: freightQuotations.record.company + ' by ' + freightQuotations.record.carrier + ' - Routes',
                                     showCloseButton: false,
 				    actions: {
-					listAction    : '/freightRoute/listByQuotation?_csrf=' + _csrfURL+'&quotation='+freightQuotations.record.id,
-					createAction  : '/freightRoute/create?_csrf=' + _csrfURL,
-					updateAction  : '/freightRoute/update?_csrf=' + _csrfURL,
-					deleteAction  : '/freightRoute/destroy?_csrf=' + _csrfURL
+					listAction    : '/freightRoute/listByQuotation?quotation='+freightQuotations.record.id,
+					createAction  : '/freightRoute/create',
+					updateAction  : '/freightRoute/update',
+					deleteAction  : '/freightRoute/destroy'
                                     },
                                     fields: {
 					id: {

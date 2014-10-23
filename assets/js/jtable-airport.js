@@ -4,10 +4,10 @@ $(document).ready(function () {
 	$('#AirportTableContainer').jtable({
 	    title: 'List of registered airports',
 	    actions: {
-		listAction:   '/airport/list?_csrf='+_csrfURL,
-		createAction: '/airport/create?_csrf='+_csrfURL,
-		updateAction: '/airport/update?_csrf='+_csrfURL,
-		deleteAction: '/airport/destroy?_csrf='+_csrfURL
+		listAction:   '/airport/list',
+		createAction: '/airport/create',
+		updateAction: '/airport/update',
+		deleteAction: '/airport/destroy'
 	    },
 	    fields: {
 		code: {
