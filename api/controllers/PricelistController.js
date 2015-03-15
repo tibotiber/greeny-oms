@@ -58,11 +58,64 @@ module.exports = {
 			var record = {};
 			record.sku = item.sku;
 			record.name = item.getInvoiceName();
-			record.density20h = item.density20h;
-			record.density24h = item.density24h;
-			record.density30h = item.density30h;
-			record.density36h = item.density36h;
-			record.density42h = item.density42h;
+
+			// fill density according to customer default route
+			var fillAllDensities = function() {
+			    record.density20h = item.density20h;
+			    record.density24h = item.density24h;
+			    record.density30h = item.density30h;
+			    record.density36h = item.density36h;
+			    record.density42h = item.density42h;
+			};
+			var fillNoDensity = function() {
+			    record.density20h = '-';
+			    record.density24h = '-';
+			    record.density30h = '-';
+			    record.density36h = '-';
+			    record.density42h = '-';
+			};
+			if(results.thirdparty.type === 'customer') {
+			    // find duration of default route
+			    FreightQuotation.findOne({company: results.thirdparty.code, 'default': true}).exec(function(err, defaultFreight) {
+				if(!err && defaultFreight) {
+				    FreightRoute.findOne({quotation: defaultFreight.id, 'default': true}).exec(function(err, defaultRoute) {
+					if(!err && defaultRoute) {
+					    var duration = defaultRoute.door_to_door;
+					    switch (true) {
+					    case (duration <= 20 ):
+						fillNoDensity();
+						record.density20h = item.density20h;
+						break;
+					    case (duration <= 24 ):
+						fillNoDensity();
+						record.density24h = item.density24h;
+						break;
+					    case (duration <= 30 ):
+						fillNoDensity();
+						record.density30h = item.density30h;
+						break;
+					    case (duration <= 36 ):
+						fillNoDensity();
+						record.density36h = item.density36h;
+						break;
+					    case (duration <= 42 ):
+						fillNoDensity();
+						record.density42h = item.density42h;
+						break;
+					    default:
+						break;
+					    }
+					} else {
+					    fillAllDensities();
+					}
+				    });
+				} else {
+				    fillAllDensities();
+				}
+			    });
+			} else {
+			    fillAllDensities();
+			}
 			
 			// use thirdparty
 			record.thirdparty = results.thirdparty.name;
