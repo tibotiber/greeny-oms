@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # This script:
 # - installs postgresql along with common tools on ubuntu
 # - sets up a database for greeny oms
