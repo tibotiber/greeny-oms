@@ -4,7 +4,7 @@
     "version": "0.1.1",
     "description": "Order Management System for Greeny Aquaculture",
     "dependencies": {
-	"sails": "~0.10.2",
+	"sails": "~0.11.0",
 	"sails-disk": "~0.10.0",
 	"rc": "~0.5.0",
 	"include-all": "~0.1.3",
