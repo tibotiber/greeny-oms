@@ -209,6 +209,9 @@ $(document).ready(function() {
 				    formClosed: function(event, data) {
 					$('.jtable-dialog-form').data('bootstrapValidator').destroy();
 				    },
+				    recordAdded: function(event, data) {
+					opennedChildTable.jtable('reload');
+				    },
 				    recordUpdated: function(event, data) {
 					opennedChildTable.jtable('reload');
 				    }
@@ -373,8 +376,14 @@ $(document).ready(function() {
 	    },
 	    formClosed: function(event, data) {
 		$('.jtable-dialog-form').data('bootstrapValidator').destroy();
+	    },
+	    recordAdded: function(event, data) {
+		$('#FreightTableContainer').jtable('reload');
+	    },
+	    recordUpdated: function(event, data) {
+		$('#FreightTableContainer').jtable('reload');
 	    }
-        });
+ 	});
 
 	$('#FreightTableContainer').jtable('load');
     };

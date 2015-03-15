@@ -59,10 +59,10 @@ module.exports = {
 	
     },
 
-    beforeValidate: function(values, cb) {
-	if(typeof(values.summerRate) === 'undefined')
+    beforeValidate: function(values, next) {
+	if(isNaN(values.summerRate))
 	    delete values.summerRate;
-	cb();
+	next();
     }
     
 };

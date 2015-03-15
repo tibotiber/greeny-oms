@@ -29,10 +29,31 @@ module.exports = {
 	delete params.id;
 	FreightRoute.create(params).exec(function(err, created) {
 	    if(!err) {
-		res.json({
-		    Result: 'OK',
-		    Record: created
-		});
+		if(created['default']) {
+		    FreightRoute.update({
+			quotation: created.quotation,
+			id: {'!': created.id},
+			'default': true
+		    }, {'default': false}).exec(function(err) {
+			if(!err) {
+			    res.json({
+				Result: 'OK',
+				Record: created
+			    });
+			} else {
+			    sails.log.error("Error creating freight route:\n"+err);
+			    res.json({
+				Result: 'Error',
+				Message: err
+			    });
+			}
+		    });
+		} else {
+		    res.json({
+			Result: 'OK',
+			Record: created
+		    });
+		}
 	    } else {
 		sails.log.error("Error creating freight route:\n"+err);
 		res.json({
@@ -47,10 +68,31 @@ module.exports = {
 	var params = req.params.all();
 	FreightRoute.update(params.id, params).exec(function(err, updated) {
 	    if(!err) {
-		res.json({
-		    Result: 'OK',
-		    Record: updated
-		});
+		if(updated[0]['default']) {
+		    FreightRoute.update({
+			quotation: updated[0].quotation,
+			id: {'!': updated[0].id},
+			'default': true
+		    }, {'default': false}).exec(function(err) {
+			if(!err) {
+			    res.json({
+				Result: 'OK',
+				Record: updated
+			    });
+			} else {
+			    sails.log.error("Error updating freight route:\n"+err);
+			    res.json({
+				Result: 'Error',
+				Message: err
+			    });
+			}
+		    });
+		} else {
+		    res.json({
+			Result: 'OK',
+			Record: updated
+		    });
+		}
 	    } else {
 		sails.log.error("Error updating freight route:\n"+err);
 		res.json({
