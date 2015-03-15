@@ -150,6 +150,11 @@ $(document).ready(function() {
 		    type: 'textarea',
 		    list: false
 		},
+		preferredCurrency: {
+		    title: 'Preferred Currency',
+		    options: '/currency/picker?format=jtable&_csrf='+_csrfURL,
+		    list: false
+		},
 		firstShipment: {
 		    title: 'Date of 1st shipment',
 		    type: 'date',

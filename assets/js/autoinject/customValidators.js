@@ -385,6 +385,7 @@ function FishVariantFormValidator() {
 function FishPriceFormValidator() {
     $('.jtable-dialog-form').bootstrapValidator({
 	message: 'This value is not valid',
+	excluded: [':hidden', ':not(:visible)'],
 	fields: {
 	    type: {
 	    	validators: {

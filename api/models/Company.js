@@ -67,6 +67,10 @@ module.exports = {
 
 	notes: {
 	    type: 'text'
+	},
+
+	preferredCurrency: {
+	    model: 'currency'
 	}
 		    
     },

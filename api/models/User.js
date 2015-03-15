@@ -110,7 +110,7 @@ module.exports = {
 		else if(values[property+'_cb'][1] === 'on')
 		    values[property] = true;
 	    }
-	}
+	};
 	booleans.forEach(boolify);
 	next();
     },
@@ -119,7 +119,7 @@ module.exports = {
 	if(!values.password || values.password!=values.confirmPassword){
 	    return next({err: ["Password doesn't match password confirmation"]});
 	}
-	require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword){
+	require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
 	    if(err) return next(err);
 	    values.encryptedPassword = encryptedPassword;
 
@@ -129,7 +129,7 @@ module.exports = {
 
     beforeUpdate: function(values, next) {
 	if(values.password && values.password == values.confirmPassword) {
-	    require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword){
+	    require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
 		if(err) return next(err);
 		values.encryptedPassword = encryptedPassword;
 		next();

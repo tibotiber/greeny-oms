@@ -244,12 +244,12 @@ $(document).ready(function() {
 				io.socket.get('/company/picker', {
 				    search: req.term,
 				    _csrf: _csrfURL				    
-				}, function (data, jwres){
+				}, function (data, jwres) {
 				    res(data);
 				});
 			    },
 			    select: function(event, ui) {
-				$("input [name=company]").val(ui.item.value);
+				$("input[name=company]").val(ui.item.value);
 				$('.jtable-dialog-form').bootstrapValidator('revalidateField', 'company');
 			    }
 			});

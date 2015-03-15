@@ -23,7 +23,7 @@ module.exports = {
     'new': function(req, res) {
 	res.view({
 	    layout: "basic_layout"
-	})
+	});
     },
 
     create: function(req, res, next){

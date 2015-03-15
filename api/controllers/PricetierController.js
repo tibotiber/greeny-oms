@@ -28,6 +28,30 @@ module.exports = {
 	});
     },
 
+    picker: function(req, res, next) {
+	var criteria = {or : [
+	    {code: {contains: req.param('search')}},
+	    {name: {contains: req.param('search')}}
+	]};
+	Pricetier.find(criteria).exec(function(err, found) {
+	    if(!err) {
+		var options = _.map(found, function(item) {
+		    return {
+			value: item.code,
+			label: item.name + ' (' + item.code + ')'
+		    };
+		});
+		res.json(options);
+	    } else {
+		sails.log.error("Error listing pricetiers: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
+    },
+
     create: function(req, res, next) {
 	var params = JSON.parse(JSON.stringify(req.params.all()));
 	Pricetier.create(params).exec(function(err, created) {

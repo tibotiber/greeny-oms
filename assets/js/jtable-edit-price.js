@@ -35,21 +35,93 @@ $(document).ready(function() {
 					deleteAction  : '/pricelist/destroy'
                                     },
                                     fields: {
-                                        sku: {
+                                        id: {
+					    key: true,
+					    list: false
+					},
+					sku: {
                                             type: 'hidden',
                                             defaultValue: variants.record.sku
                                         },
-					type: {
-					    title:'Type',
-					    options: ['Pricetier', 'Customer', 'Supplier'],
-					    width: '10%'
-					},
 					thirdparty: {
 					    title: 'Thirdparty',
-					    //TODO: options dep. on type field
-					    //TODO: automatic code based on this
-					    // or better single field with value-display pairs
-					    width: '10%'
+					    width: '10%',
+					    input: function(data) {
+						return $('<input>').attr({
+						    type: 'text',
+						    name: 'thirdparty',
+						    value: data.value
+						}).addClass('form-control').autocomplete({
+						    minLength: 2,
+						    source: function(req, res) {
+							async.parallel({
+							    customers: function(cb) {
+								io.socket.get('/customer/picker', {
+								    search: req.term,
+								    _csrf: _csrfURL
+								}, function(data, jwres) {
+								    data.forEach(function(item) {
+									item.type = 'Customer';
+								    });
+								    cb(null, data);
+								});
+							    },
+							    suppliers: function(cb) {
+								io.socket.get('/supplier/picker', {
+								    search: req.term,
+								    _csrf: _csrfURL
+								}, function(data, jwres) {
+								    data.forEach(function(item) {
+									item.type = 'Supplier';
+								    });
+								    cb(null, data);
+								});
+							    },
+							    pricetiers: function(cb) {
+								io.socket.get('/pricetier/picker', {
+								    search: req.term,
+								    _csrf: _csrfURL
+								}, function(data, jwres) {
+								    data.forEach(function(item) {
+									item.type = 'Pricetier';
+								    });
+								    cb(null, data);
+								});
+							    }
+							}, function (err, results) {
+							    res(results.customers.concat(results.suppliers, results.pricetiers));
+							});
+						    },
+						    select: function(event, ui) {
+							$("input[name=thirdparty]").val(ui.item.value);
+							$("input[name=type]").val(ui.item.type);
+							if(ui.item.type === 'Pricetier') {
+							    io.socket.get('/pricetier/'+ui.item.value, function(data, jwres) {
+								if(data && data.preferredCurrency) {
+								    $("select[name=currency]").val(data.preferredCurrency.code);
+								    $('.jtable-dialog-form').bootstrapValidator('revalidateField', 'currency');
+								}
+							    });
+							} else {
+							    io.socket.get('/company/'+ui.item.value, function(data, jwres) {
+								if(data && data.preferredCurrency) {
+								    $("select[name=currency]").val(data.preferredCurrency.code);
+								    $('.jtable-dialog-form').bootstrapValidator('revalidateField', 'currency');
+								}
+							    });
+							}
+							$('.jtable-dialog-form').bootstrapValidator('revalidateField', 'thirdparty');
+							$('.jtable-dialog-form').bootstrapValidator('revalidateField', 'type');
+						    }
+						});
+					    }
+					},
+					type: {
+					    title:'Type',
+					    width: '10%',
+					    input: function(data) {
+						return '<input class="form-control" type="text" name="type" readonly>';
+					    }
 					},
 					thirdpartyCode: {
 					    title: 'Code',
@@ -83,6 +155,10 @@ $(document).ready(function() {
 					$('.jtable-input').each(function() {
 					    $(this).find('*').addClass('form-control');
 					});
+					if(data.record) {
+					    $("input[name=type]").val(data.record.type);
+					    $("input[name=thirdparty]").val(data.record.thirdpartyCode);
+					}
 					FishPriceFormValidator();
 				    },
 				    formSubmitting: function(event, data) {
@@ -91,6 +167,9 @@ $(document).ready(function() {
 				    },
 				    formClosed: function(event, data) {
 					$('.jtable-dialog-form').data('bootstrapValidator').destroy();
+				    },
+				    recordAdded: function(event, data) {
+					opennedChildTable.jtable('reload');
 				    },
 				    recordUpdated: function(event, data) {
 					opennedChildTable.jtable('reload');

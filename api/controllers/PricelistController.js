@@ -247,31 +247,109 @@ module.exports = {
 
     listByVariant: function(req, res, next) {
 	// list all prices for one variant
-	Pricelist.find({sku: req.param('sku')}).populateAll().exec(function(err, found) {
+	Pricelist.find({sku: req.param('sku')}).populate('pricetier').populate('supplier').populate('customer').exec(function(err, found) {
 	    if(!err) {
-		var records = found.map(function(item) {
-		    item.currency = item.currency.code;
+		async.map(found, function(item, cb) {
 		    if(item.pricetier) {
 			item.type = 'Pricetier';
 			item.thirdparty = item.pricetier.name;
 			item.thirdpartyCode = item.pricetier.code;
+			cb(null, item);
 		    } else if(item.supplier) {
 			item.type = 'Supplier';
-			item.thirdparty = item.supplier.name;
 			item.thirdpartyCode = item.supplier.code;
+			Company.findOne(item.supplier.code).exec(function(err, found) {
+			    if(!err && found) {
+				item.thirdparty = found.name;
+				cb(null, item);
+			    } else if(!err) {
+				cb('Error: Could not find company name.');
+			    } else {
+				cb(err);
+			    }
+			});
 		    } else if(item.customer) {
 			item.type = 'Customer';
-			item.thirdparty = item.customer.name;
 			item.thirdpartyCode = item.customer.code;
+			Company.findOne(item.customer.code).exec(function(err, found) {
+			    if(!err && found) {
+				item.thirdparty = found.name;
+				cb(null, item);
+			    } else if(!err) {
+				cb('Error: Could not find company name.');
+			    } else {
+				cb(err);
+			    }
+			});
 		    }
-		    return item;
-		});
-		res.json({
-		    Result: 'OK',
-		    Records: records
+		}, function(err, records) {
+		    if(!err) {
+			res.json({
+			    Result: 'OK',
+			    Records: records
+			});
+		    } else {
+			res.json({
+			    Result: 'Error',
+			    Message: err
+			});
+		    }
 		});
 	    } else {
 		sails.log.error("Error listing fish prices: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
+    },
+
+    create: function(req, res, next) {
+	var params = JSON.parse(JSON.stringify(req.params.all()));
+	Pricelist.create(params).exec(function(err, created) {
+	    if(!err) {
+		res.json({
+		    Result: 'OK',
+		    Record: created
+		});
+	    } else {
+		sails.log.error("Error creating price: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
+    },
+
+    update: function(req, res, next) {
+	var params = JSON.parse(JSON.stringify(req.params.all()));
+	Pricelist.update(params.id, params).exec(function(err, updated) {
+	    if(!err) {
+		res.json({
+		    Result: 'OK',
+		    Record: updated
+		});
+	    } else {
+		sails.log.error("Error updating price: \n"+err);
+		res.json({
+		    Result: 'Error',
+		    Message: err
+		});
+	    }
+	});
+    },
+
+    destroy: function(req, res, next) {
+	var params = JSON.parse(JSON.stringify(req.params.all()));
+	Pricelist.destroy(params.id).exec(function(err) {
+	    if(!err) {
+		res.json({
+		    Result: 'OK'
+		});
+	    } else {
+		sails.log.error("Error deleting price: \n"+err);
 		res.json({
 		    Result: 'Error',
 		    Message: err

@@ -25,6 +25,10 @@ module.exports = {
 	    unique: true
 	},
 
+	preferredCurrency: {
+	    model: 'currency'
+	},
+	
 	accountCode: {
 	    type: 'string',
 	    required: true,

@@ -19,11 +19,16 @@ $(document).ready(function () {
 		},
 		name: {
 		    title: 'Pricetier',
-		    width: '50%'
+		    width: '40%'
+		},
+		preferredCurrency: {
+		    title: 'Preferred Currency',
+		    options: '/currency/picker?format=jtable&_csrf='+_csrfURL,
+		    width: '20%'
 		},
 		accountCode: {
 		    title: 'Autocount account code',
-		    width: '30%'
+		    width: '20%'
 		}
 	    },
 	    formCreated: function(event, data) {
