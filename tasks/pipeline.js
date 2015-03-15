@@ -16,7 +16,7 @@
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
 
-    'styles/autoinject/**/*.css',
+    'styles/dependencies/**/*.css',
     
     'devoops/plugins/bootstrap/bootstrap.css',
     'devoops/plugins/bootstrapvalidator/bootstrapValidator.min.css',
@@ -40,13 +40,13 @@ var cssFilesToInject = [
 var jsFilesToInject = [
     
     // Load sails.io before everything else
-    'js/autoinject/sails.io.js',
+    'js/dependencies/sails.io.js',
     'devoops/plugins/jquery/jquery-2.1.0.min.js',
     'devoops/plugins/jquery-ui/jquery-ui.min.js',
     'devoops/plugins/bootstrap/bootstrap.min.js',
     'devoops/plugins/bootstrapvalidator/bootstrapValidator.min.js',
 
-    'js/autoinject/**/*.js',
+    'js/dependencies/**/*.js',
 
     'devoops/plugins/justified-gallery/jquery.justifiedgallery.min.js',
     'devoops/plugins/tinymce/tinymce.min.js',
