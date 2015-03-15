@@ -24,6 +24,11 @@ module.exports = {
 	    required: true
 	},
 
+	pricetier: {
+	    model: 'pricetier',
+	    required: true
+	},
+
 	transhipper: {
 	    type: 'boolean',
 	    defaultsTo: false

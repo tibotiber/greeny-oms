@@ -19,52 +19,28 @@ module.exports = {
 		Message: "Search fields incomplete or too short."
 	    });
 	} else {
-	    var thirdparty;
-
+	    var criteria = {
+		or: [
+		    {code: {contains: req.param('thirdparty')}},
+		    {name: {contains: req.param('thirdparty')}}
+		]
+	    };
 	    async.series({
-		findCustomer: function(cb){
-		    // retrieve customer
-		    //TODO search and update thirdparty if found
-		    cb(null, null);
+		thirdparty: function(cb){
+		    // retrieve customer or supplier
+		    Company.findOne(criteria).exec(function(err, found) {
+			if(!err && found) {
+			    cb(null, found);
+			} else if(!err) {
+			    // no company found, search for pricetier
+			    Pricetier.findOne(criteria).exec(cb);
+			} else {
+			    cb(err);
+			}
+		    });
 		},
 
-		findSupplier: function(cb){
-		    // retrieve supplier if no customer
-		    if(!thirdparty) {
-			//TODO search and update thirdparty if found
-			cb(null, null);
-		    } else {
-			cb(null, null);
-		    }
-		},
-
-		findPricetier: function(cb){
-		    // retrieve pricetier if none of the above
-		    if(!thirdparty) {
-			Pricetier.findOne({
-			    or: [{
-				code: {
-				    contains: req.param('thirdparty')
-				}
-			    }, {
-				name: {
-				    contains: req.param('thirdparty')
-				}
-			    }]
-			}).exec(function(err, found) {
-			    if(!err && found) {
-				thirdparty = found;
-				cb(null, null);
-			    } else {
-				cb(err, null);
-			    }
-			});
-		    } else {
-			cb(null, null);
-		    }
-		},
-
-		findCurrency: function(cb){
+		currency: function(cb){
 		    // retrieve currency (default SGD)
 		    var currency = req.param('currency') || 'SGD';
 		    Currency.findOne({code: {contains: currency}}).exec(cb);
@@ -77,7 +53,7 @@ module.exports = {
 		    });
 		}
 	    }, function(err, results) {
-		if(!err && thirdparty && results.findCurrency) {
+		if(!err && results.thirdparty && results.currency) {
 		    async.map(results.skuPicker, function(item, cb) {
 			var record = {};
 			record.sku = item.sku;
@@ -89,26 +65,63 @@ module.exports = {
 			record.density42h = item.density42h;
 			
 			// use thirdparty
-			record.thirdparty = thirdparty.name;
+			record.thirdparty = results.thirdparty.name;
 
+			// prepare utility methods
+			var copyPrice = function(foundItem, returnedRecord) {
+			    returnedRecord.price = foundItem.price;
+			    returnedRecord.currency = foundItem.currency;
+			    returnedRecord.discount = foundItem.discount;
+			    returnedRecord.buyingSize = foundItem.buyingSize;
+			};
+			var noPrice = function(returnedRecord) {
+			    returnedRecord.price = '-';
+			    returnedRecord.currency = '-';
+			    returnedRecord.discount = '-';
+			    returnedRecord.buyingSize = null;
+			};
+			
 			// retrieve price for thirdparty
 			Pricelist.findOne({
 			    sku: item.sku,
-			    pricetier: thirdparty.code,
-			    currency: results.findCurrency.code
+			    or: [
+				{pricetier : results.thirdparty.code},
+				{customer  : results.thirdparty.code},
+				{supplier  : results.thirdparty.code}
+			    ],
+			    currency: results.currency.code
 			}).exec(function(err, found) {
 			    if(!err && found) {
-				record.price = found.price;
-				record.currency = found.currency;
-				record.discount = found.discount;
-				record.buyingSize = found.buyingSize;
+				copyPrice(found, record);
 				cb(null, record);
 			    } else if(!err) {
-				record.price = '-';
-				record.currency = '-';
-				record.discount = '-';
-				record.buyingSize = null;
-				cb(null, record);
+				// no price found
+				// fall back to pricetier for customers
+				if(results.thirdparty.type === 'customer') {
+				    // find pricetier
+				    Customer.findOne(results.thirdparty.code).populate('pricetier').exec(function(err, customer) {
+					// search price for price tier
+					Pricelist.findOne({
+					    sku: item.sku,
+					    pricetier: customer.pricetier.code,
+					    currency: results.currency.code
+					}).exec(function(err, found) {
+					    if(!err && found) {
+						record.thirdparty = customer.pricetier.name;
+						copyPrice(found, record);
+						cb(null, record);
+					    } else if(!err) {
+						noPrice(record);
+						cb(null, record);
+					    } else {
+						cb(err);
+					    }
+					});
+				    });
+				} else {
+				    noPrice(record);
+				    cb(null, record);
+				}
 			    } else {
 				cb("Error finding price:\n"+err);
 			    }
@@ -128,12 +141,12 @@ module.exports = {
 			    });
 			}
 		    });
-		} else if(!thirdparty) {
+		} else if(!results.thirdparty) {
 		    res.json({
 			Result: 'Error',
 			Message: "No thirdparty found."
 		    });
-		} else if(!results.findCurrency) {
+		} else if(!results.currency) {
 		    res.json({
 			Result: 'Error',
 			Message: "No currency found."

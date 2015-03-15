@@ -29,10 +29,15 @@ module.exports = {
     },
 
     picker: function(req, res, next) {
-	var criteria = {or : [
-	    {code: {contains: req.param('search')}},
-	    {name: {contains: req.param('search')}}
-	]};
+	var criteria;
+	if(req.param('search')) {
+	    criteria = {or : [
+		{code: {contains: req.param('search')}},
+		{name: {contains: req.param('search')}}
+	    ]};
+	} else {
+	    criteria = {};
+	}
 	Pricetier.find(criteria).exec(function(err, found) {
 	    if(!err) {
 		var options = _.map(found, function(item) {
@@ -41,7 +46,19 @@ module.exports = {
 			label: item.name + ' (' + item.code + ')'
 		    };
 		});
-		res.json(options);
+		if(req.param('format')==='jtable') {
+		    res.json({
+			Result: 'OK',
+			Options: _.map(options, function(item) {
+			    return {
+				DisplayText: item.label,
+				Value: item.value
+			    };
+			})
+		    });
+		} else {
+		    res.json(options);
+		}
 	    } else {
 		sails.log.error("Error listing pricetiers: \n"+err);
 		res.json({

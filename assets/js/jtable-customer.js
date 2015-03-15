@@ -150,6 +150,11 @@ $(document).ready(function() {
 		    type: 'textarea',
 		    list: false
 		},
+		pricetier: {
+		    title: 'Pricetier',
+		    options: '/pricetier/picker?format=jtable&_csrf='+_csrfURL,
+		    list: false
+		},
 		preferredCurrency: {
 		    title: 'Preferred Currency',
 		    options: '/currency/picker?format=jtable&_csrf='+_csrfURL,
