@@ -9,7 +9,8 @@ module.exports = {
 
     timezone: "Asia/Singapore",
     
-    port: process.env.PORT || 1337,
+    // moved to config/env
+    // port: process.env.PORT || 1337,
 
     environment: process.env.NODE_ENV || 'development',
 
