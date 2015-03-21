@@ -37,7 +37,8 @@
     },
     "scripts": {
         "start": "node app.js",
-        "debug": "node debug app.js"
+        "debug": "node debug app.js",
+	"forever": "sudo forever start --uid 'g-oms' -l ~/greeny-oms/forever.log app.js"
     },
     "main": "app.js",
     "repository": "https://github.com/tibotiber/greeny-oms",
