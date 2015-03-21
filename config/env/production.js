@@ -33,7 +33,7 @@ module.exports = {
      ***************************************************************************/
 
     log: {
-	level: 'trace'
+	level: 'info'
     },
 
     /* leave more time for grunt to load */
