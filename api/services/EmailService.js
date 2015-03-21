@@ -24,7 +24,7 @@ module.exports = {
 	    subject: options.subject,
 	    text: options.text,
 	    html: options.html
-	}
+	};
 	defaultTransporter.sendMail(mailOptions, cb);
     },
 

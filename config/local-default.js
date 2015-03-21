@@ -5,9 +5,13 @@ var fs = require('fs');
 
 module.exports = {
 
-    appName: "Greeny OMS",
+    appName: 'Greeny OMS',
 
-    timezone: "Asia/Singapore",
+    appHost: {
+	name: '',
+	user: '',
+	timezone: 'Asia/Singapore',
+    },
     
     // moved to config/env
     // port: process.env.PORT || 1337,

@@ -23,4 +23,9 @@ module.exports = {
 
     port: process.env.PORT || 1337,
 
+    /* define cron jobs timings here */
+    cronJobs: {
+	clock		: '0 0 * * * *',   // display time each hour
+    }
+    
 };
