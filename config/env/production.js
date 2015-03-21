@@ -32,9 +32,9 @@ module.exports = {
      * Set the log level in production environment to "silent"                 *
      ***************************************************************************/
 
-    // log: {
-    //   level: "silent"
-    // }
+    log: {
+	level: 'trace'
+    },
 
     /* leave more time for grunt to load */
     grunt: {
