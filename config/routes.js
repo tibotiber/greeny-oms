@@ -58,6 +58,11 @@ module.exports.routes = {
 	action: 'index'
     },
 
+    '/db/plants/*': {
+	controller: 'SessionController',
+	action: 'comingSoon'
+    },
+
     '/db/price': {
 	controller: 'PricelistController',
 	action: 'index'
