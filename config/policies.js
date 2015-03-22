@@ -16,19 +16,19 @@ module.exports.policies = {
 
     // Default policy for all controllers and actions
     // (`true` allows public access) 
-    '*': 'isAdmin',
+    '*': 'admin',
 
     SessionController: {
 	'*': true,
-	'new': 'isNotAuthenticated',
-	destroy: 'isAuthenticated'
+	'new': 'notAuthenticated',
+	destroy: 'authenticated'
     },
 
     UserController: {
-	'*': 'isAdmin',
-	show: 'userOwnProfile',
-	update: 'userOwnProfile',
-	edit: 'userOwnProfile'
+	'*': 'admin',
+	show: 'ownProfile',
+	update: 'ownProfile',
+	edit: 'ownProfile'
     }
     
 
