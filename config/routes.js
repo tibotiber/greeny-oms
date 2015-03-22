@@ -86,7 +86,27 @@ module.exports.routes = {
     '/settings': {
 	controller: 'SettingsController',
 	action: 'edit'
-    }
+    },
+
+    '/shipment/*': {
+	controller: 'SessionController',
+	action: 'comingSoon'
+    },
+
+    '/purchase/*': {
+	controller: 'SessionController',
+	action: 'comingSoon'
+    },
+
+    '/qc/*': {
+	controller: 'SessionController',
+	action: 'comingSoon'
+    },
+
+    '/accounts/*': {
+	controller: 'SessionController',
+	action: 'comingSoon'
+    },
 
     /*
     // Let's say you're building an email client, like Gmail
