@@ -1,2 +1,0 @@
-#!/bin/sh
-~/greeny-oms/node_modules/.bin/sails lift $1

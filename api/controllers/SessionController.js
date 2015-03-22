@@ -61,6 +61,13 @@ module.exports = {
 	    res.redirect('/login');
 	else
 	    res.view('home/index');
+    },
+
+    comingSoon: function(req, res, next) {
+	if(!req.session.authenticated)
+	    res.redirect('/login');
+	else
+	    res.ok("This part is still under construction. Coming soon!");
     }
   
 };

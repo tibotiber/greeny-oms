@@ -487,9 +487,9 @@ THE SOFTWARE.
                     success: function (data) {
                         completeReload(data);
                     },
-                    error: function () {
+                    error: function (err) {
                         self._hideBusy();
-                        self._showError(self.options.messages.serverCommunicationError);
+                        self._showError(err);
                     }
                 });
 
@@ -1245,7 +1245,7 @@ THE SOFTWARE.
 		    self._unAuthorizedRequestHandler();
 		} else if(jwres.statusCode !== 200) {
 		    // test for other error status
-		    if(options.error) options.error(arguments);
+		    if(options.error) options.error(data);
 		} else {
 		    // handle successful response
 		    if(options.success) options.success(data);
@@ -2241,8 +2241,8 @@ THE SOFTWARE.
                     function (data) {
                         completeAddRecord(data);
                     },
-                    function () {
-                        self._showError(self.options.messages.serverCommunicationError);
+                    function (err) {
+                        self._showError(err);
                         options.error();
                     });
 
@@ -2367,8 +2367,8 @@ THE SOFTWARE.
                     function (data) {
                         completeAddRecord(data);
                     },
-                    function () {
-                        self._showError(self.options.messages.serverCommunicationError);
+                    function (err) {
+                        self._showError(err);
                         self._setEnabledOfDialogButton($saveButton, true, self.options.messages.save);
                     });
             }
@@ -2603,8 +2603,8 @@ THE SOFTWARE.
                     function (data) {
                         completeEdit(data);
                     },
-                    function () {
-                        self._showError(self.options.messages.serverCommunicationError);
+                    function (err) {
+                        self._showError(err);
                         options.error();
                     });
 
@@ -2778,8 +2778,8 @@ THE SOFTWARE.
                     function(data) {
                         completeEdit(data);
                     },
-                    function() {
-                        self._showError(self.options.messages.serverCommunicationError);
+                    function(err) {
+                        self._showError(err);
                         self._setEnabledOfDialogButton($saveButton, true, self.options.messages.save);
                     });
             }
@@ -3247,10 +3247,10 @@ THE SOFTWARE.
                     success: function (data) {
                         completeDelete(data);
                     },
-                    error: function () {
+                    error: function (err) {
                         $row.data('deleting', false);
                         if (error) {
-                            error(self.options.messages.serverCommunicationError);
+                            error(err);
                         }
                     }
                 });

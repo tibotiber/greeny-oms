@@ -5,11 +5,16 @@ var fs = require('fs');
 
 module.exports = {
 
-    appName: "Greeny OMS",
+    appName: 'Greeny OMS',
 
-    timezone: "Asia/Singapore",
+    appHost: {
+	name: '',
+	user: '',
+	timezone: 'Asia/Singapore',
+    },
     
-    port: process.env.PORT || 1337,
+    // moved to config/env
+    // port: process.env.PORT || 1337,
 
     environment: process.env.NODE_ENV || 'development',
 
@@ -27,6 +32,7 @@ module.exports = {
     },
 
     emailAccount: {
+	from: 'Name <email>',
         service: 'Gmail',
 	auth: {
 	    user: '',

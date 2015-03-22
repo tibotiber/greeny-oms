@@ -16,8 +16,14 @@ module.exports = {
 	// build search
 	var ormSearch = {cachedSkuPicker: {contains: []}};
 	//TWEAK: while waiting for answer to https://github.com/balderdashy/waterline/issues/648
-	var tweak1 = options.search.split('+').slice(0, 1);
-	var tweak2 = options.search.split('+').slice(1);
+	var tweak1, tweak2;
+	if(options.search) {
+	    tweak1 = options.search.split('+').slice(0, 1);
+	    tweak2 = options.search.split('+').slice(1);
+	} else {
+	    tweak1 = [];
+	    tweak2 = [];
+	}
 	async.eachSeries(tweak1, function(criteria, cb) {
 	//async.eachSeries(options.search.split('+'), function(criteria, cb) {  
 	//TWEAK: end
@@ -87,8 +93,14 @@ module.exports = {
 	// build search
 	var ormSearch = {cachedSkuPicker: {contains: []}};
 	//TWEAK: while waiting for answer to https://github.com/balderdashy/waterline/issues/648
-	var tweak1 = options.search.split('+').slice(0, 1);
-	var tweak2 = options.search.split('+').slice(1);
+	var tweak1, tweak2;
+	if(options.search) {
+	    tweak1 = options.search.split('+').slice(0, 1);
+	    tweak2 = options.search.split('+').slice(1);
+	} else {
+	    tweak1 = [];
+	    tweak2 = [];
+	}
 	async.eachSeries(tweak1, function(criteria, cb) {
 	//async.eachSeries(options.search.split('+'), function(criteria, cb) {  
 	//TWEAK: end

@@ -6,6 +6,10 @@
  */
 
 module.exports = {
+    
+    index: function(req, res, next) {
+	res.view('freight/index');
+    },
 
     list: function(req, res, next) {
 	FreightQuotation.find({}).sort('company').exec(function(err, found) {

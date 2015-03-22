@@ -2,8 +2,9 @@ module.exports = function CronHook(sails) {
     
     var CronJob = require('cron').CronJob;
     var exec = require('child_process').exec;
-
-    var timezone = sails.config.timezone;
+    var moment = require('moment');
+    
+    var timezone = sails.config.appHost.timezone;
 
     
     return {
@@ -31,49 +32,27 @@ module.exports = function CronHook(sails) {
 		to: 'thibaut@planecq.com',
 		subject: 'New database backup for Greeny OMS'
 	    };
-
-	    async.series([
-		function(cb){
-		    if(!couldNotBackup) {
-			var command = "db_bak/writeEmail.sh";
-			exec(command, function (err, stdout, stderr) {
-			    if(!err)
-				mailOptions.text = stdout;
-			    else
-				sails.log.error("Error in cron job: could not send email about database backup.\n"+stderr);
-			    cb();
-			});
-		    } else {
-			mailOptions.text = "Error backing up database:\n"+error;
-			cb();
-		    }
-		},
-		function(cb){
-		    EmailService.send(mailOptions, function(err, info) {
-			if(!err)
-			    sails.log.info("Email sent to "+mailOptions.to+" concerning the backup.");
-			else
-			    sails.log.error("Error in cron job: could not send email about database backup.\n"+stderr);
-			cb();
-		    });
-		}
-	    ]);
-
+	    if(!couldNotBackup)
+		mailOptions.html = "<p>A new backup is available for the Greeny OMS database.<p>" +
+		"<p>Please ssh copy it from the server at "+sails.config.appHost.name+" by executing:</p>" +
+		"<code>scp -i ~/.ssh/do_rsa "+sails.config.appHost.user+"@"+sails.config.appHost.name+":~/greeny-oms/db_bak/greeny_oms_"+moment().format('YYYY-MM-DD')+".sql.gz ~/Box\\ Sync/Planecq/Greeny\\ OMS/db_bak/</code>";
+	    else
+		mailOptions.html = "<p>Error backing up database:</p><code>"+error+"</code>";
+	    EmailService.send(mailOptions, function(err, info) {
+		if(!err)
+		    sails.log.info("Email sent to "+mailOptions.to+" concerning the backup.");
+		else
+		    sails.log.error("Error in cron job: could not send email about database backup.\n"+err);
+	    });
 	},
 
 	initialize: function (cb) {
 	    // Runs automatically when the hook initializes
 	    var hook = this;
+	    _.each(sails.config.cronJobs, function(cronTime, cronJob) {
+		new CronJob(cronTime, hook[cronJob], null, true, timezone);
+	    });
 
-	    // clock ticking every minute
-	    // new CronJob('0 * * * * *', hook.clock, null, true, timezone);
-
-	    // backup database every day at 3am
-	    new CronJob('0 0 3 * * 0-6', hook.backupDB, null, true, timezone);
-	    
-	    // declare more cron jobs here
-	    // ...
-	    
 	    // confirm hook loaded
 	    sails.log.info("CRON hook: all jobs started.");
 	    return cb();

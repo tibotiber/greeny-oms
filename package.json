@@ -32,14 +32,16 @@
 	"cron": "1.0.4",
 	"time": "0.11.0",
 	"progress": "1.1.8",
-	"connect-mongo": "0.7.0"
+	"connect-mongo": "0.7.0",
+	"moment": "2.9.0"
     },
     "scripts": {
         "start": "node app.js",
-        "debug": "node debug app.js"
+        "debug": "node debug app.js",
+	"forever": "sudo forever start --uid 'g-oms' -l ~/greeny-oms/forever.log app.js"
     },
     "main": "app.js",
-    "repository": "",
+    "repository": "https://github.com/tibotiber/greeny-oms",
     "author": "Thibaut Tiberghien, Planecq",
     "license": "Copyright. All rights reserved."
 }

@@ -70,10 +70,10 @@ function UserFormValidator() {
 	    profile_pic: {
 		validators: {
 		    file: {
-			extension: 'jpeg',
+			extension: 'jpg,jpeg',
 			type: 'image/jpeg',
 			maxSize: 1024*1024,//1MB
-			message: 'The profile picture must a jpeg file of 1MB maximum.'
+			message: 'The profile picture must a jpg file of 1MB maximum.'
 		    }/*,
 		    callback: {
 			callback: function(value, validator) {

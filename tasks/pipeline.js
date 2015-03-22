@@ -20,7 +20,7 @@ var cssFilesToInject = [
     
     'devoops/plugins/bootstrap/bootstrap.css',
     'devoops/plugins/bootstrapvalidator/bootstrapValidator.min.css',
-    'devoops/plugins/jquery-ui/jquery-ui.min.css',
+    'devoops/plugins/jquery-ui/jquery-ui.css',
     'devoops/plugins/fancybox/jquery.fancybox.css',
     'devoops/plugins/fullcalendar/fullcalendar.css',
     'devoops/plugins/xcharts/xcharts.min.css',

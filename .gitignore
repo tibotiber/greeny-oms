@@ -46,3 +46,4 @@ config/local.js
 assets/upload/profile-pics/*
 !assets/upload/profile-pics/avatar.png
 assets/devoops/plugins/bootstrapvalidator/v0.2.3/
+ssl
