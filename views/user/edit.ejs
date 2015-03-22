@@ -11,7 +11,7 @@
       </div>
       <div class="box-content">
         <div class="card">
-          <form id="userForm" action="/user/update/<%=user.id %>" enctype="multipart/form-data" method="POST" class="form-horizontal">
+          <form id="userForm" action="/user/update/<%=user.id %>?_csrf=<%=_csrf%>&username=<%=user.username%>" enctype="multipart/form-data" method="POST" class="form-horizontal">
             <div class="form-group">
 	      <label class="col-sm-3 control-label">Username</label>
 	      <div class="col-sm-9">
@@ -103,7 +103,6 @@
 	    </div>
 	    <h4 class="page-header">&nbsp;</h4>
 	    <% } %>
-	    <input type="hidden" name="_csrf" value="<%= _csrf %>">
 	    <div class="form-group">
 	      <label class="col-sm-3 control-label">Profile picture</label>
 	      <div class="col-sm-9">
@@ -146,6 +145,6 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    LoadBootstrapValidatorScript(UserFormValidator);
+    UserFormValidator();
   });  
 </script>

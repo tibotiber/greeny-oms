@@ -16,21 +16,102 @@ module.exports.policies = {
 
     // Default policy for all controllers and actions
     // (`true` allows public access) 
-    '*': 'isAuthenticated',
+    '*': 'admin',
 
     SessionController: {
 	'*': true,
-	'new': 'isNotAuthenticated',
-	destroy: 'isAuthenticated'
+	'new': 'notAuthenticated',
+	destroy: 'authenticated'
     },
 
     UserController: {
-	'*': 'isAdmin',
-	show: 'userOwnProfile',
-	update: 'userOwnProfile',
-	edit: 'userOwnProfile'
-    }
-    
+	'*': 'admin',
+	show: 'ownProfile',
+	update: 'ownProfile',
+	edit: 'ownProfile'
+    },
+
+    AirportController: {
+	'*': 'admin',
+	picker: 'authenticated'
+    },
+
+    CompanyController: {
+	picker: 'authenticated'
+    },
+
+    ContactController: {
+	'*': 'p_001',
+	listByCompany: 'authenticated'
+    },
+
+    CurrencyController: {
+	'*': 'admin',
+	picker: 'authenticated'
+    },
+
+    CustomerController: {
+	'*': 'p_001',
+	index: 'authenticated',
+	list: 'authenticated',
+	picker: 'authenticated'
+    },
+
+    FishFamilyController: {
+	'*': 'admin',
+	index: 'authenticated',
+	listNames: 'authenticated',
+	list: 'authenticated'
+    },
+
+    FishProductController: {
+	'*': 'p_001',
+	index: 'admin',
+	listFiltered: 'authenticated'
+    },
+
+    FishVariantController: {
+	'*': 'p_001',
+	index: 'authenticated',
+	listByProduct: 'authenticated'
+    },
+
+    FreightQuotationController: {
+	'*': 'p_001',
+	index: 'authenticated',
+	list: 'authenticated'
+    },
+
+    FreightRouteController: {
+	'*': 'p_001',
+	listByQuotation: 'authenticated'
+    },
+
+    IntegrationController: {
+	'*': 'authenticated',
+    },
+
+    PricelistController: {
+	'*': 'p_001'
+    },
+
+    PricetierController: {
+	'*': 'admin',
+	index: 'p_001',
+	list: 'p_001',
+	picker: 'authenticated'
+    },
+
+    SupplierController: {
+	'*': 'p_001',
+	index: 'authenticated',
+	list: 'authenticated',
+	picker: 'authenticated'
+    },
+
+    SupportController: {
+	'*': 'authenticated'
+    },
 
     /*
     // Here's an example of adding some policies to a controller

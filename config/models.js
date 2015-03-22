@@ -20,7 +20,7 @@ module.exports.models = {
 
     connection: 'postgresql',
 
-    migrate: 'alter',
+    migrate: 'safe',
 
     schema: true,
 

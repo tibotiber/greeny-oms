@@ -23,7 +23,7 @@ module.exports = {
     'new': function(req, res) {
 	res.view({
 	    layout: "basic_layout"
-	})
+	});
     },
 
     create: function(req, res, next){
@@ -61,6 +61,13 @@ module.exports = {
 	    res.redirect('/login');
 	else
 	    res.view('home/index');
+    },
+
+    comingSoon: function(req, res, next) {
+	if(!req.session.authenticated)
+	    res.redirect('/login');
+	else
+	    res.ok("This part is still under construction. Coming soon!");
     }
   
 };

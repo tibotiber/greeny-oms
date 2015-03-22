@@ -46,7 +46,72 @@ module.exports.routes = {
     '/oauth2callback': {
 	controller: 'IntegrationController',
 	action: 'oauth2'
-    }
+    },
+
+    '/db/fish': {
+	controller: 'FishVariantController',
+	action: 'index'
+    },
+
+    '/db/fish/family': {
+	controller: 'FishFamilyController',
+	action: 'index'
+    },
+
+    '/db/plants/*': {
+	controller: 'SessionController',
+	action: 'comingSoon'
+    },
+
+    '/db/price': {
+	controller: 'PricelistController',
+	action: 'index'
+    },
+
+    '/db/price/edit': {
+	controller: 'PricelistController',
+	action: 'edit'
+    },
+    
+    '/db/customer': {
+	controller: 'CustomerController',
+	action: 'index'
+    },
+
+    '/db/supplier': {
+	controller: 'SupplierController',
+	action: 'index'
+    },
+
+    '/db/freight': {
+	controller: 'FreightQuotationController',
+	action: 'index'
+    },
+    
+    '/settings': {
+	controller: 'SettingsController',
+	action: 'edit'
+    },
+
+    '/shipment/*': {
+	controller: 'SessionController',
+	action: 'comingSoon'
+    },
+
+    '/purchase/*': {
+	controller: 'SessionController',
+	action: 'comingSoon'
+    },
+
+    '/qc/*': {
+	controller: 'SessionController',
+	action: 'comingSoon'
+    },
+
+    '/accounts/*': {
+	controller: 'SessionController',
+	action: 'comingSoon'
+    },
 
     /*
     // Let's say you're building an email client, like Gmail

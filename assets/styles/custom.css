@@ -20,3 +20,73 @@
 .input-group-addon {
     display: table-cell;
 }
+.child-opener-image {
+    cursor: pointer;
+}
+.form-control.col-1 {
+    width: 8.3333%;
+}
+.form-control.col-2 {
+    width: 16.6666%;
+}
+.form-control.col-3 {
+    width: 25%;
+}
+.form-control.col-4 {
+    width: 33.3333%;
+}
+.form-control.col-5 {
+    width: 41.6666%;
+}
+.form-control.col-6 {
+    width: 50%;
+}
+.form-control.col-7 {
+    width: 58.3333%;
+}
+.form-control.col-8 {
+    width: 66.6666%;
+}
+.form-control.col-9 {
+    width: 75%;
+}
+.form-control.col-10 {
+    width: 83.3333%;
+}
+.form-control.col-11 {
+    width: 91.6666%;
+}
+.form-control.col-12 {
+    width: 100%;
+}
+form.jtable-dialog-form div.jtable-checkbox-input input,
+form.jtable-dialog-form div.jtable-radio-input input,
+form.jtable-dialog-form div.jtable-radio-input,
+form.jtable-dialog-form span.jtable-option-text-clickable {
+    display: inline-block;
+    width: auto;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+}
+form.jtable-dialog-form span.jtable-option-text-clickable {
+    position: relative;
+    top: -6px;
+    padding-left: 8px;
+}
+.ui-dialog-title {
+    font-family: 'Segoe UI Semilight', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+}
+.ui-autocomplete {
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.ui-autocomplete-loading {
+    background: url("/images/loading.gif") right center no-repeat;
+    background-size: 18px;
+    background-origin: content-box;
+}
+.ui-dialog {
+    min-width: 500px;
+}

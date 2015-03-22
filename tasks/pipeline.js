@@ -16,16 +16,19 @@
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
 
-    'styles/autoinject/**/*.css',
+    'styles/dependencies/**/*.css',
     
     'devoops/plugins/bootstrap/bootstrap.css',
-    'devoops/plugins/jquery-ui/jquery-ui.min.css',
+    'devoops/plugins/bootstrapvalidator/bootstrapValidator.min.css',
+    'devoops/plugins/jquery-ui/jquery-ui.css',
     'devoops/plugins/fancybox/jquery.fancybox.css',
     'devoops/plugins/fullcalendar/fullcalendar.css',
     'devoops/plugins/xcharts/xcharts.min.css',
     'devoops/plugins/select2/select2.css',
     'devoops/css/style.css',
     'jasny-bootstrap/css/jasny-bootstrap.css',
+    'jtable/themes/metro/lightgray/jtable.css',
+    'styles/jquery-ui-timepicker-addon.css',
 
     'styles/custom.css'
 
@@ -37,18 +40,20 @@ var cssFilesToInject = [
 var jsFilesToInject = [
     
     // Load sails.io before everything else
-    'js/autoinject/sails.io.js',
-
-    'js/autoinject/**/*.js',
-
+    'js/dependencies/sails.io.js',
     'devoops/plugins/jquery/jquery-2.1.0.min.js',
     'devoops/plugins/jquery-ui/jquery-ui.min.js',
     'devoops/plugins/bootstrap/bootstrap.min.js',
+    'devoops/plugins/bootstrapvalidator/bootstrapValidator.min.js',
+
+    'js/dependencies/**/*.js',
+
     'devoops/plugins/justified-gallery/jquery.justifiedgallery.min.js',
     'devoops/plugins/tinymce/tinymce.min.js',
     'devoops/plugins/tinymce/jquery.tinymce.min.js',
     'devoops/js/devoops.js',
-    'jasny-bootstrap/js/jasny-bootstrap.min.js'
+    'jasny-bootstrap/js/jasny-bootstrap.min.js',
+    'jtable/jquery.jtable.js'
 
 ];
 
