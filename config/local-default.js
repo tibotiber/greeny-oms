@@ -27,12 +27,12 @@ module.exports = {
     },
 
     ssl: {
-	key  : fs.readFileSync('ssl/key.pem'),
-	cert : fs.readFileSync('ssl/cert.pem')
+	key  : fs.readFileSync('ssl/selfsigned.key'),
+	cert : fs.readFileSync('ssl/selfsigned.cert')
     },
 
     emailAccount: {
-	from: 'Name <email>',
+	from: 'Example <noreply@example.com>',
         service: 'Gmail',
 	auth: {
 	    user: '',
