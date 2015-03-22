@@ -3,8 +3,6 @@ var nodemailer = require('nodemailer');
 var xoauth2 = require('xoauth2');
 
 var defaultTransporter = nodemailer.createTransport(sails.config.emailAccount);
-var planecq_support = 'Planecq Support <support@planecq.com>';
-var planecq_noreply = 'Planecq <no-reply@planecq.com>';
 
 
 module.exports = {
@@ -19,7 +17,7 @@ module.exports = {
 	//     html: '<b>Hello world</b>'
 	// };
 	var mailOptions = {
-	    from: planecq_noreply,
+	    from: sails.config.emailAccount.from,
 	    to: options.to,
 	    subject: options.subject,
 	    text: options.text,

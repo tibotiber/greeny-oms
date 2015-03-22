@@ -32,6 +32,7 @@ module.exports = {
     },
 
     emailAccount: {
+	from: 'Name <email>',
         service: 'Gmail',
 	auth: {
 	    user: '',
