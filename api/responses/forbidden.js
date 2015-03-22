@@ -27,7 +27,7 @@ module.exports = function forbidden (data, options) {
 	sails.log.verbose('Sending 403 ("Forbidden") response: \n',data);
     } else {
 	sails.log.verbose('Sending 403 ("Forbidden") response');
-	data = "You do not have permission to see the page you are trying to reach.";
+	data = "You do not have permission to execute this request.";
     }
 
     /*
