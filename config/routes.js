@@ -79,7 +79,8 @@ module.exports.routes = {
     },
 
     '/db/freight': {
-	view: 'freight/index'
+	controller: 'FreightQuotationController',
+	action: 'index'
     },
     
     '/settings': {
