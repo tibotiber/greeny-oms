@@ -45,6 +45,11 @@ module.exports = {
 	clientId     : '',
 	clientSecret : '',
 	redirectUri  : ''
+    },
+    
+    cors: {
+	allRoutes: true,
+	origin: 'http://...:...'
     }
 
 };
