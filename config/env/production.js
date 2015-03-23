@@ -41,11 +41,6 @@ module.exports = {
 	_hookTimeout: 600000
     },
 
-    /* deactivate dev autoreload hook */
-    autoreload: {
-	active: false
-    },
-
     /* define cron jobs timings here */
     cronJobs: {
 	backupDB	: '0 0 3 * * 0-6', // backup db every day at 3am
