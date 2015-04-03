@@ -50,6 +50,10 @@ module.exports = {
     cors: {
 	allRoutes: true,
 	origin: 'http://...:...'
+    },
+    
+    csrf: {
+	origin: 'http://...:...'    
     }
 
 };

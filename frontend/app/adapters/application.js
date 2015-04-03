@@ -1,8 +1,6 @@
-import SailsRESTAdapter from 'ember-data-sails/adapters/sails-rest';
+import SailsSocketAdapter from 'ember-data-sails/adapters/sails-socket';
 
-export default SailsRESTAdapter.extend({
-    host: 'https://dev.planecq.com:1337',
-    namespace: '',
+export default SailsSocketAdapter.extend({
     useCSRF: true,
     coalesceFindRequests: true
 });

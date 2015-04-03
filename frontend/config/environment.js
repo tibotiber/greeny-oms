@@ -45,7 +45,7 @@ module.exports = function(environment) {
 	// allow to fetch the script
 	ENV.contentSecurityPolicy['script-src'] += ' https://dev.planecq.com:1337';
 	// allow the websocket to connect
-	ENV.contentSecurityPolicy['connect-src'] += ' https://dev.planecq.com:1337 ws://dev.planecq.com:1337';
+	ENV.contentSecurityPolicy['connect-src'] += ' https://dev.planecq.com:1337 wss://dev.planecq.com:1337';
 	/* end of config for ember-data-sails */
 	
     }
