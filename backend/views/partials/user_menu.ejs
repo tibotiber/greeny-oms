@@ -23,24 +23,24 @@
   <li class="dropdown">
     <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
       <div class="avatar">
-	<img src="/upload/profile-pics/<%= session.User['profile_pic'] %>" class="img-rounded" alt="avatar" />
+	<img src="/upload/profile-pics/<%= session.user['profile_pic'] %>" class="img-rounded" alt="avatar" />
       </div>
       <i class="fa fa-angle-down pull-right"></i>
       <div class="user-mini pull-right">
 	<span class="welcome">Welcome,</span>
-	<span><%= session.User.name %></span>
+	<span><%= session.user.name %></span>
       </div>
     </a>
     <ul class="dropdown-menu">
       <li>
-	<a href="/user/show/<%= session.User.id %>">
+	<a href="/user/show/<%= session.user.id %>">
 	  <i class="fa fa-user"></i>
 	  <span>Profile</span>
 	</a>
       </li>
-      <% if(session.User.admin) { %>
+      <% if(session.user.admin) { %>
       <li>
-	<a href="/user/changePwd/<%= session.User.id %>">
+	<a href="/user/changePwd/<%= session.user.id %>">
 	  <i class="fa fa-lock"></i>
 	  <span>Change password</span>
 	</a>
@@ -74,7 +74,7 @@
       </li>-->
 
       <li>
-	<a href="/logout">
+	<a href="/auths/logout">
 	  <i class="fa fa-power-off"></i>
 	  <span>Logout</span>
 	</a>

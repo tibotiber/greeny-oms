@@ -54,6 +54,13 @@ module.exports = {
     
     csrf: {
 	origin: 'http://...:...'    
+    },
+
+    waterlock: {
+	baseUrl: 'https://...:...',
+	jsonWebTokens: {
+	    secret: '...'
+	}
     }
 
 };

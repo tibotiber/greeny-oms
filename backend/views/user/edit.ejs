@@ -11,11 +11,11 @@
       </div>
       <div class="box-content">
         <div class="card">
-          <form id="userForm" action="/user/update/<%=user.id %>?_csrf=<%=_csrf%>&username=<%=user.username%>" enctype="multipart/form-data" method="POST" class="form-horizontal">
+          <form id="userForm" action="/user/update/<%=user.id %>?_csrf=<%=_csrf%>&username=<%=user.auth.username%>" enctype="multipart/form-data" method="POST" class="form-horizontal">
             <div class="form-group">
 	      <label class="col-sm-3 control-label">Username</label>
 	      <div class="col-sm-9">
-	        <input type="text" class="form-control" name="username" value="<%=user.username %>" readonly="readonly" />
+	        <input type="text" class="form-control" name="username" value="<%=user.auth.username %>" readonly="readonly" />
 	      </div>
 	    </div>
             <div class="form-group">
@@ -30,7 +30,7 @@
 	    	<input type="text" class="form-control" name="email" value="<%=user.email %>" />
 	      </div>
 	    </div>
-	    <% if(session.User.admin) { %>
+	    <% if(session.user.admin) { %>
 	    <h4 class="page-header">User roles</h4>
 	    <div class="col-sm-4">
 	      <div class="checkbox">

@@ -1,15 +1,15 @@
 module.exports = function(req, res, next) {
-    if(!(req.session.authenticated && req.session.User))
+    if(!(req.session.authenticated && req.session.user))
 	return res.forbidden();
-    var admin			= req.session.User.admin;
-    var manager			= req.session.User.manager;
-    var sales			= req.session.User.sales;
-    var purchasing		= req.session.User.purchasing;
-    var quality_check		= req.session.User.quality_check;
-    var packing			= req.session.User.packing;
-    var documentation		= req.session.User.documentation;
-    var accounts_payable	= req.session.User.accounts_payable;
-    var accounts_receivable	= req.session.User.accounts_receivable;
+    var admin			= req.session.user.admin;
+    var manager			= req.session.user.manager;
+    var sales			= req.session.user.sales;
+    var purchasing		= req.session.user.purchasing;
+    var quality_check		= req.session.user.quality_check;
+    var packing			= req.session.user.packing;
+    var documentation		= req.session.user.documentation;
+    var accounts_payable	= req.session.user.accounts_payable;
+    var accounts_receivable	= req.session.user.accounts_receivable;
     if(admin || accounts_payable || packing || quality_check || sales || manager)
 	return next();
     res.forbidden();

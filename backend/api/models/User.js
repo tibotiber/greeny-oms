@@ -2,36 +2,22 @@
  * User
  *
  * @module      :: Model
- * @description :: A short summary of how this model works and what it represents.
- * @docs		:: http://sailsjs.org/#!documentation/models
+ * @description :: This is the base user model
+ * @docs        :: http://waterlock.ninja/documentation
  */
 
 module.exports = {
 
-    tableName: 'user_in_sails',
-
-    attributes: {
-
-	username:{
-	    type: 'string',
-	    required: true,
-	    unique: true,
-	    maxLength: 20,
-	    minLength: 5
-	},
+    tableName: 'user_waterlock',
+    
+    attributes: require('waterlock').models.user.attributes({
 
 	name: {
-	    type: 'string',
-	    required: true,
+	    type: 'string'
 	},
 
 	email: {
-	    type: 'email',
-	    required: true
-	},
-
-	encryptedPassword: {
-	    type: 'string'
+	    type: 'email'
 	},
 
 	profile_pic: {
@@ -40,7 +26,6 @@ module.exports = {
 	    defaultsTo: 'avatar.png'
 	},
 
-	/* ROLES */
 	admin: {
 	    type: 'boolean',
 	    defaultsTo: false
@@ -88,17 +73,12 @@ module.exports = {
 
 	googleApiToken: {
 	    type: 'string'
-	},
-	
-	toJson: function(){
-	    var obj = this.toObject();
-	    delete obj.password;
-	    delete obj.confirmation;
-	    delete obj.encryptedPassword;
-	    delete obj._csrf;
-	    return obj;
 	}
-    },
+	
+    }),
+    
+    beforeCreate: require('waterlock').models.user.beforeCreate,
+    beforeUpdate: require('waterlock').models.user.beforeUpdate,
 
     beforeValidate: function(values, next) {
 	// boolify checkbox values
@@ -113,30 +93,6 @@ module.exports = {
 	};
 	booleans.forEach(boolify);
 	next();
-    },
-
-    beforeCreate: function(values, next) {
-	if(!values.password || values.password!=values.confirmPassword){
-	    return next({err: ["Password doesn't match password confirmation"]});
-	}
-	require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
-	    if(err) return next(err);
-	    values.encryptedPassword = encryptedPassword;
-
-	    next();
-	});
-    },
-
-    beforeUpdate: function(values, next) {
-	if(values.password && values.password == values.confirmPassword) {
-	    require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
-		if(err) return next(err);
-		values.encryptedPassword = encryptedPassword;
-		next();
-	    });
-	} else {
-	    next();
-	}
     }
-    
+
 };

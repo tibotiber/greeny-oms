@@ -18,12 +18,10 @@ module.exports.policies = {
     // (`true` allows public access) 
     '*': 'admin',
 
-    SessionController: {
-	'*': true,
-	'new': 'notAuthenticated',
-	destroy: 'authenticated'
+    AuthController: {
+	'*': true
     },
-
+    
     UserController: {
 	'*': 'admin',
 	show: 'ownProfile',
@@ -114,7 +112,7 @@ module.exports.policies = {
     },
 
     TodoController: {
-	'*': true
+	'*': 'authenticated'
     }
     /*
     // Here's an example of adding some policies to a controller

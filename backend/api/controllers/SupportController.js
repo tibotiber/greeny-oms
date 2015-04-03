@@ -23,8 +23,8 @@ module.exports = {
 	    message += 'No copy of error provided.';
 
 	var options = {
-	    fromName: req.session.User.name,
-	    fromEmail: req.session.User.email,
+	    fromName: req.session.user.name,
+	    fromEmail: req.session.user.email,
 	    to: 'support@planecq.com',
 	    subject: req.param('subject'),
 	    text: message

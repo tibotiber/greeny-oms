@@ -29,18 +29,8 @@
 module.exports.routes = {
 
     '/': {
-	controller: 'SessionController',
+	controller: 'AuthController',
 	action: 'index'
-    },
-
-    '/login': {
-	controller: 'SessionController',
-	action: 'new'
-    },
-
-    '/logout': {
-	controller: 'SessionController',
-	action: 'destroy'
     },
 
     '/oauth2callback': {
@@ -59,7 +49,7 @@ module.exports.routes = {
     },
 
     '/db/plants/*': {
-	controller: 'SessionController',
+	controller: 'AuthController',
 	action: 'comingSoon'
     },
 
@@ -94,22 +84,22 @@ module.exports.routes = {
     },
 
     '/shipment/*': {
-	controller: 'SessionController',
+	controller: 'AuthController',
 	action: 'comingSoon'
     },
 
     '/purchase/*': {
-	controller: 'SessionController',
+	controller: 'AuthController',
 	action: 'comingSoon'
     },
 
     '/qc/*': {
-	controller: 'SessionController',
+	controller: 'AuthController',
 	action: 'comingSoon'
     },
 
     '/accounts/*': {
-	controller: 'SessionController',
+	controller: 'AuthController',
 	action: 'comingSoon'
     },
 

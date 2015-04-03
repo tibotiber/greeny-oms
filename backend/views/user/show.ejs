@@ -16,10 +16,10 @@
 	  </h4>
 	  <div style="background-image: url('/upload/profile-pics/<%= user['profile_pic'] %>'); background-repeat: no-repeat; background-position-x: right; background-size: 80px;">
 	    <label class="col-sm-4 control-label">Username</label>
-	    <p class="col-sm-8"><%= user.username %></p>
+	    <p class="col-sm-8"><%= user.auth.username %></p>
 	    <label class="col-sm-4 control-label">Email</label>
 	    <p class="col-sm-8"><%= user.email %></p>
-	    <% if(session.User.admin) { %>
+	    <% if(session.user.admin) { %>
 	    <label class="col-sm-4 control-label">Admin</label>
 	    <p class="col-sm-8"><%= user.admin %></p>
 	    <label class="col-sm-4 control-label">Manager</label>

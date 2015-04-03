@@ -8,7 +8,7 @@
     </a>
   </li>
 
-  <% if(session.User.admin || session.User.manager || session.User.sales || session.User.packing || session.User.documentation){ %>
+  <% if(session.user.admin || session.user.manager || session.user.sales || session.user.packing || session.user.documentation){ %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" id="shipment-toggle">
       <i class="fa fa-plane"></i>
@@ -21,7 +21,7 @@
 	  <span>RK102</span>
 	</a>
 	<ul class="dropdown-menu">
-	  <% if(session.User.admin || session.User.manager || session.User.sales || session.User.documentation){ %>
+	  <% if(session.user.admin || session.user.manager || session.user.sales || session.user.documentation){ %>
 	  <li>
 	    <a href="/shipment/RK102">
 	      <i class="fa fa-table"></i>
@@ -35,14 +35,14 @@
 	      <span class="hidden-xs">Packing list</span>
 	    </a>
 	  </li>
-	  <% if(session.User.admin || session.User.manager || session.User.sales){ %>
+	  <% if(session.user.admin || session.user.manager || session.user.sales){ %>
 	  <li class="dropdown">
 	    <a href="#" class="dropdown-toggle">
 	      <i class="fa fa-bar-chart-o"></i>
 	      <span class="hidden-xs">Reports</span>
 	    </a>
 	    <ul class="dropdown-menu">
-	      <% if(session.User.admin || session.User.manager || session.User.sales){ %>
+	      <% if(session.user.admin || session.user.manager || session.user.sales){ %>
 	      <li>
 		<a href="/shipment/RK102/doa">
 		  <i class="fa fa-medkit"></i>
@@ -50,7 +50,7 @@
 		</a>
 	      </li>
 	      <% } %>
-	      <% if(session.User.admin || session.User.manager){ %>
+	      <% if(session.user.admin || session.user.manager){ %>
 	      <li>
 		<a href="/shipment/RK102/profit">
 		  <i class="fa fa-usd"></i>
@@ -79,7 +79,7 @@
   </li>
   <% } %>
 
-  <% if(session.User.admin || session.User.manager || session.User.purchasing){ %>
+  <% if(session.user.admin || session.user.manager || session.user.purchasing){ %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" id="purchase-toggle">
       <i class="fa fa-shopping-cart"></i>
@@ -108,7 +108,7 @@
   </li>
   <% } %>
 
-  <% if(session.User.admin || session.User.manager || session.User.sales || session.User.purchasing || session.User.quality_check || session.User.packing || session.User.documentation){ %>
+  <% if(session.user.admin || session.user.manager || session.user.sales || session.user.purchasing || session.user.quality_check || session.user.packing || session.user.documentation){ %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" id="qc-toggle">
       <i class="fa fa-truck"></i>
@@ -121,7 +121,7 @@
 	  <span class="hidden-xs">All arrivals</span>
 	</a>
       </li>
-      <% if(session.User.admin || session.User.manager || session.User.quality_check){ %>
+      <% if(session.user.admin || session.user.manager || session.user.quality_check){ %>
       <li>
 	<a href="/qc/SL105">
 	  <i class="fa fa-edit hidden-xs"></i>
@@ -139,14 +139,14 @@
   </li>
   <% } %>
 
-  <% if(session.User.admin || session.User.manager || session.User.accounts_payable || session.User.accounts_receivable){ %>
+  <% if(session.user.admin || session.user.manager || session.user.accounts_payable || session.user.accounts_receivable){ %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" id="accounts-toggle">
       <i class="fa fa-usd"></i>
       <span class="hidden-xs">Accounts</span>
     </a>
     <ul class="dropdown-menu">
-      <% if(session.User.admin || session.User.manager || session.User.accounts_payable){ %>
+      <% if(session.user.admin || session.user.manager || session.user.accounts_payable){ %>
       <li>
 	<a href="/accounts/payables">
 	  <i class="fa fa-upload"></i>
@@ -154,7 +154,7 @@
 	</a>
       </li>
       <% } %>
-      <% if(session.User.admin || session.User.manager || session.User.accounts_receivable){ %>
+      <% if(session.user.admin || session.user.manager || session.user.accounts_receivable){ %>
       <li>
 	<a href="/accounts/receivables">
 	  <i class="fa fa-download"></i>
@@ -168,7 +168,7 @@
 	</a>
       </li>
       <% } %>
-      <% if(session.User.admin || session.User.manager){ %>
+      <% if(session.user.admin || session.user.manager){ %>
       <li>
 	<a href="/accounts/reporting">
 	  <i class="fa fa-dashboard"></i>
@@ -180,7 +180,7 @@
   </li>
   <% } %>
 
-  <% if(session.User.admin || session.User.manager){ %>
+  <% if(session.user.admin || session.user.manager){ %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" id="db-toggle">
       <i class="fa fa-hdd-o"></i>
@@ -227,7 +227,7 @@
   </li>
   <% } %>
 
-  <% if(session.User.admin){ %>
+  <% if(session.user.admin){ %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" id="admin-toggle">
       <i class="fa fa-gear"></i>

@@ -12,7 +12,7 @@
       <div class="box-content">
         <div class="card">
           <form id="userForm" action="/user/updatePwd/<%=user.id %>" enctype="multipart/form-data" method="POST" class="form-horizontal">
-	    <% if(!session.User.admin){ %>
+	    <% if(!session.user.admin){ %>
             <div class="form-group">
 	      <label class="col-sm-3 control-label">Current password</label>
 	      <div class="col-sm-9">

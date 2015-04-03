@@ -20,7 +20,7 @@
           <% _.each(users, function(user){ %>
           <tr data-id="<%= user.id%>" data-model="user">
             <td><%= user.id %></td>
-	    <td><%= user.username %></td>
+	    <td><%= user.auth.username %></td>
             <td>
 	      <a href="/user/show/<%=user.id %>" class="btn btn-sm btn-primary">Show</a>
               <a href="/user/edit/<%=user.id %>" class="btn btn-sm btn-warning">Edit</a>
