@@ -11,6 +11,8 @@ var orderedSizes = ['FS','SS','S','SM','M','ML','L','XL','XXL','3XL','4XL','5XL'
 
 module.exports = {
 
+    migrate: 'safe',
+    
     attributes: {
 
 	sku: {

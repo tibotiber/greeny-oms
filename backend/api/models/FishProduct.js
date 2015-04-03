@@ -7,6 +7,8 @@
 
 module.exports = {
 
+    migrate: 'safe',
+    
     autoPK: false,
     
     attributes: {

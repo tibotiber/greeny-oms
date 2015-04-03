@@ -7,6 +7,8 @@
 
 module.exports = {
 
+    migrate: 'safe',
+
     autoCreatedAt: false,
 
     autoUpdatedAt: false,
