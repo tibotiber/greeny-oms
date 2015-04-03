@@ -88,7 +88,7 @@ module.exports.waterlock = {
 	    // obj - {controller: 'blog', action: 'post'}
 	    // string - 'custom json response string'
 	    // default - 'default'
-	    success: '/',
+	    success: 'default',
 
 	    // This can be any one of the following
 	    // 
@@ -110,7 +110,7 @@ module.exports.waterlock = {
 	    // obj - {controller: 'blog', action: 'post'}
 	    // string - 'custom json response string'
 	    // default - 'default'
-	    success: '/',
+	    success: 'default',
 
 	    // This can be any one of the following
 	    // 

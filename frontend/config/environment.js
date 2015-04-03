@@ -47,7 +47,20 @@ module.exports = function(environment) {
 	// allow the websocket to connect
 	ENV.contentSecurityPolicy['connect-src'] += ' https://dev.planecq.com:1337 wss://dev.planecq.com:1337';
 	/* end of config for ember-data-sails */
-	
+
+	/* config for waterlock */
+	ENV['simple-auth'] = {
+	    authorizer: 'simple-auth-authorizer:token',
+	    crossOriginWhitelist: ['https://dev.planecq.com:1337']
+	};
+	ENV['simple-auth-token'] = {
+	    serverTokenEndpoint: 'https://dev.planecq.com:1337/auth/login',
+	    authorizationPrefix: 'JWT ',
+	    tokenPropertyName: 'access_token',
+	    authorizationHeaderName: 'X-Auth',
+	    identificationField: 'username'
+	};
+	/* end of config for waterlock */
     }
 
     if (environment === 'test') {
