@@ -7,6 +7,10 @@
 
 module.exports = {
 
+    _config: {
+	pluralize: false
+    },
+
     find: function(req, res, next) {
 	PricelistImportService.find(function(err){
 	    if(!err) res.ok("Pricelist imported successfully");

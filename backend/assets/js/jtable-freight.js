@@ -12,10 +12,10 @@ $(document).ready(function() {
             openChildAsAccordion: true,
             listClass: 'child-opener-image-column',
             actions: {
-                listAction  : '/freightQuotation/list',
-		createAction: '/freightQuotation/create',
-		updateAction: '/freightQuotation/update',
-		deleteAction: '/freightQuotation/destroy'
+                listAction  : '/freightquotations/list',
+		createAction: '/freightquotations/create',
+		updateAction: '/freightquotations/update',
+		deleteAction: '/freightquotations/destroy'
 	    },
             fields: {
 		routes: {
@@ -34,10 +34,10 @@ $(document).ready(function() {
                                     title: freightQuotations.record.company + ' by ' + freightQuotations.record.carrier + ' - Routes',
                                     showCloseButton: false,
 				    actions: {
-					listAction    : '/freightRoute/listByQuotation?quotation='+freightQuotations.record.id,
-					createAction  : '/freightRoute/create',
-					updateAction  : '/freightRoute/update',
-					deleteAction  : '/freightRoute/destroy'
+					listAction    : '/freightroutes/listByQuotation?quotation='+freightQuotations.record.id,
+					createAction  : '/freightroutes/create',
+					updateAction  : '/freightroutes/update',
+					deleteAction  : '/freightroutes/destroy'
                                     },
                                     fields: {
 					id: {
@@ -244,7 +244,7 @@ $(document).ready(function() {
 			}).addClass('form-control').autocomplete({
 			    minLength: 2,
 			    source: function(req, res) {
-				io.socket.get('/company/picker', {
+				io.socket.get('/companies/picker', {
 				    search: req.term,
 				    _csrf: _csrfURL				    
 				}, function (data, jwres) {
@@ -338,7 +338,7 @@ $(document).ready(function() {
 		currency: {
 		    title: 'Currency',
 		    width: '10%',
-		    options: '/currency/picker?format=jtable&_csrf='+_csrfURL
+		    options: '/currencies/picker?format=jtable&_csrf='+_csrfURL
 		},
 		'default': {
 		    title: 'Default freight choice?',
@@ -390,7 +390,7 @@ $(document).ready(function() {
 
     // preload airports list
     var airports = [];
-    io.socket.get('/airport/picker', {_csrf: _csrfURL}, function (data, jwres) {
+    io.socket.get('/airports/picker', {_csrf: _csrfURL}, function (data, jwres) {
 	airports = data;
     });
 

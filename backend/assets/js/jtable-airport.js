@@ -4,10 +4,10 @@ $(document).ready(function () {
 	$('#AirportTableContainer').jtable({
 	    title: 'List of registered airports',
 	    actions: {
-		listAction:   '/airport/list',
-		createAction: '/airport/create',
-		updateAction: '/airport/update',
-		deleteAction: '/airport/destroy'
+		listAction:   '/airports/list',
+		createAction: '/airports/create',
+		updateAction: '/airports/update',
+		deleteAction: '/airports/destroy'
 	    },
 	    fields: {
 		code: {

@@ -4,7 +4,7 @@ $(document).ready(function() {
         $('#PriceTableContainer').jtable({
             title: 'Pricelist search result',
             actions: {
-                listAction: '/pricelist/search'
+                listAction: '/pricelists/search'
             },
             fields: {
 		sku: {

@@ -23,14 +23,14 @@
 	<ul class="dropdown-menu">
 	  <% if(session.user.admin || session.user.manager || session.user.sales || session.user.documentation){ %>
 	  <li>
-	    <a href="/shipment/RK102">
+	    <a href="/shipments/RK102">
 	      <i class="fa fa-table"></i>
 	      <span class="hidden-xs">Master order</span>
 	    </a>
 	  </li>
 	  <% } %>
 	  <li>
-	    <a href="/shipment/RK102/packing">
+	    <a href="/shipments/RK102/packing">
 	      <i class="fa fa-list-ol"></i>
 	      <span class="hidden-xs">Packing list</span>
 	    </a>
@@ -44,7 +44,7 @@
 	    <ul class="dropdown-menu">
 	      <% if(session.user.admin || session.user.manager || session.user.sales){ %>
 	      <li>
-		<a href="/shipment/RK102/doa">
+		<a href="/shipments/RK102/doa">
 		  <i class="fa fa-medkit"></i>
 		  <span class="hidden-xs">DOA</span>
 		</a>
@@ -52,7 +52,7 @@
 	      <% } %>
 	      <% if(session.user.admin || session.user.manager){ %>
 	      <li>
-		<a href="/shipment/RK102/profit">
+		<a href="/shipments/RK102/profit">
 		  <i class="fa fa-usd"></i>
 		  <span class="hidden-xs">Profit</span>
 		</a>
@@ -64,13 +64,13 @@
 	</ul>
       </li>
       <li>
-	<a href="/shipment/JC238">
+	<a href="/shipments/JC238">
 	  <i class="fa fa-folder-open-o hidden-xs"></i>
 	  <span>JC238</span>
 	</a>
       </li>
       <li>
-	<a href="/shipment/CT22">
+	<a href="/shipments/CT22">
 	  <i class="fa fa-folder-open-o hidden-xs"></i>
 	  <span>CT22</span>
 	</a>
@@ -87,19 +87,19 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-	<a href="/purchase">
+	<a href="/purchasing/">
 	  <i class="fa fa-stack-overflow"></i>
 	  <span class="hidden-xs">Purchase stack</span>
 	</a>
       </li>
       <li>
-	<a href="/purchase/SL105">
+	<a href="/purchasing/SL105">
 	  <i class="fa fa-folder-open-o hidden-xs"></i>
 	  <span>SL105</span>
 	</a>
       </li>
       <li>
-	<a href="/purchase/TT78">
+	<a href="/purchasing/TT78">
 	  <i class="fa fa-folder-open-o hidden-xs"></i>
 	  <span>TT78</span>
 	</a>
@@ -116,7 +116,7 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-	<a href="/qc">
+	<a href="/qc/">
 	  <i class="fa fa-truck"></i>
 	  <span class="hidden-xs">All arrivals</span>
 	</a>
@@ -188,7 +188,7 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-	<a href="/db/fish">
+	<a href="/db/fishes">
 	  <i class="fa fa-anchor"></i>
 	  <span class="hidden-xs">Fish items</span>
 	</a>
@@ -200,19 +200,19 @@
 	</a>
       </li>      
       <li>
-	<a href="/db/price">
+	<a href="/db/prices">
 	  <i class="fa fa-book"></i>
 	  <span class="hidden-xs">Pricelists</span>
 	</a>
       </li>      
       <li>
-	<a href="/db/customer">
+	<a href="/db/customers">
 	  <i class="fa fa-user"></i>
 	  <span class="hidden-xs">Customers</span>
 	</a>
       </li>      
       <li>
-	<a href="/db/supplier">
+	<a href="/db/suppliers">
 	  <i class="fa fa-user"></i>
 	  <span class="hidden-xs">Suppliers</span>
 	</a>
@@ -235,25 +235,25 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-	<a href="/user">
+	<a href="/users">
 	  <i class="fa fa-group"></i>
 	  <span class="hidden-xs">Users management</span>
 	</a>
       </li>
       <li>
-	<a href="/currency">
+	<a href="/currencies">
 	  <i class="fa fa-usd"></i>
 	  <span class="hidden-xs">Currencies</span>
 	</a>
       </li>
       <li>
-	<a href="/pricetier">
+	<a href="/pricetiers">
 	  <i class="fa fa-user"></i>
 	  <span class="hidden-xs">Pricetiers</span>
 	</a>
       </li>
       <li>
-	<a href="/airport">
+	<a href="/airports">
 	  <i class="fa fa-plane"></i>
 	  <span class="hidden-xs">Airports</span>
 	</a>
@@ -271,7 +271,7 @@
 	</a>
 	<ul class="dropdown-menu">
 	  <li>
-	    <!-- <a href="/job/skucache"> -->
+	    <!-- <a href="/jobs/skucache"> -->
 	    <a href="#">
 	      <i class="fa fa-cube"></i>
 	      <span class="hidden-xs">- admin job here -</span>

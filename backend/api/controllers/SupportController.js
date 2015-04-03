@@ -7,6 +7,10 @@
 
 module.exports = {
 
+    _config: {
+	pluralize: false
+    },
+
     index: function(req, res) {
 	res.view();
     },

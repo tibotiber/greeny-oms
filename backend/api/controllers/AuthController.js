@@ -10,6 +10,10 @@
 
 module.exports = require('waterlock').waterlocked({
 
+    _config: {
+	pluralize: false
+    },
+
     index: function(req, res, next) {
 	/* this is the main redirect of the app */
 	if(!req.session.authenticated) {

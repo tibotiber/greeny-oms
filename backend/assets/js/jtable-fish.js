@@ -10,10 +10,10 @@ $(document).ready(function() {
             openChildAsAccordion: true,
             listClass: 'child-opener-image-column',
             actions: {
-                listAction	: '/fishproduct/listFiltered',
-                createAction	: '/fishproduct/create',
-                updateAction	: '/fishproduct/update',
-                deleteAction	: '/fishproduct/destroy'
+                listAction	: '/fishproducts/listFiltered',
+                createAction	: '/fishproducts/create',
+                updateAction	: '/fishproducts/update',
+                deleteAction	: '/fishproducts/destroy'
             },
             fields: {
 		variants: {
@@ -32,10 +32,10 @@ $(document).ready(function() {
                                     title: products.record.code + ' - Variants',
 				    showCloseButton: false,
                                     actions: {
-                                        listAction	: '/fishvariant/listByProduct?code='+products.record.code,
-                                        createAction	: '/fishvariant/create',
-                                        updateAction	: '/fishvariant/update',
-                                        deleteAction	: '/fishvariant/destroy'
+                                        listAction	: '/fishvariants/listByProduct?code='+products.record.code,
+                                        createAction	: '/fishvariants/create',
+                                        updateAction	: '/fishvariants/update',
+                                        deleteAction	: '/fishvariants/destroy'
                                     },
                                     fields: {
                                         product: {
@@ -184,7 +184,7 @@ $(document).ready(function() {
                 family: {
                     title: 'Family',
                     width: '10%',
-		    options: '/fishfamily/listnames?_csrf='+_csrfURL
+		    options: '/fishfamilies/listnames?_csrf='+_csrfURL
                 },
                 name: {
                     title: 'Name',

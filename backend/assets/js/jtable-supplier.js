@@ -10,10 +10,10 @@ $(document).ready(function() {
             openChildAsAccordion: true,
             listClass: 'child-opener-image-column',
             actions: {
-                listAction  : '/supplier/list',
-		createAction: '/supplier/create',
-		updateAction: '/supplier/update',
-		deleteAction: '/supplier/destroy'
+                listAction  : '/suppliers/list',
+		createAction: '/suppliers/create',
+		updateAction: '/suppliers/update',
+		deleteAction: '/suppliers/destroy'
 	    },
             fields: {
 		prices: {
@@ -32,10 +32,10 @@ $(document).ready(function() {
                                     title: suppliers.record.code + ' - Contacts',
                                     showCloseButton: false,
 				    actions: {
-					listAction    : '/contact/listByCompany?company='+suppliers.record.code,
-					createAction  : '/contact/create',
-					updateAction  : '/contact/update',
-					deleteAction  : '/contact/destroy'
+					listAction    : '/contacts/listByCompany?company='+suppliers.record.code,
+					createAction  : '/contacts/create',
+					updateAction  : '/contacts/update',
+					deleteAction  : '/contacts/destroy'
                                     },
                                     fields: {
 					id: {
@@ -152,7 +152,7 @@ $(document).ready(function() {
 		},
 		preferredCurrency: {
 		    title: 'Preferred Currency',
-		    options: '/currency/picker?format=jtable&_csrf='+_csrfURL,
+		    options: '/currencies/picker?format=jtable&_csrf='+_csrfURL,
 		    list: false
 		},
 		firstShipment: {

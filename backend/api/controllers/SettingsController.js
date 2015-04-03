@@ -7,6 +7,10 @@
 
 module.exports = {
 
+    _config: {
+	pluralize: false
+    },
+
     edit: function(req, res, next){
 	/* Retrieve all settings and render view */
 	Settings.find({}).exec(function(err, settings){

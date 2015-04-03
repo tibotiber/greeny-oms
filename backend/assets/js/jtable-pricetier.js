@@ -4,10 +4,10 @@ $(document).ready(function () {
 	$('#PricetierTableContainer').jtable({
 	    title: 'List of available pricetiers',
 	    actions: {
-		listAction:   '/pricetier/list',
-		createAction: '/pricetier/create',
-		updateAction: '/pricetier/update',
-		deleteAction: '/pricetier/destroy'
+		listAction:   '/pricetiers/list',
+		createAction: '/pricetiers/create',
+		updateAction: '/pricetiers/update',
+		deleteAction: '/pricetiers/destroy'
 	    },
 	    fields: {
 		code: {
@@ -23,7 +23,7 @@ $(document).ready(function () {
 		},
 		preferredCurrency: {
 		    title: 'Preferred Currency',
-		    options: '/currency/picker?format=jtable&_csrf='+_csrfURL,
+		    options: '/currencies/picker?format=jtable&_csrf='+_csrfURL,
 		    width: '20%'
 		},
 		accountCode: {

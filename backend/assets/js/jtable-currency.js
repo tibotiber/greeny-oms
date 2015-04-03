@@ -4,10 +4,10 @@ $(document).ready(function () {
 	$('#CurrencyTableContainer').jtable({
 	    title: 'List of available currencies',
 	    actions: {
-		listAction:   '/currency/list',
-		createAction: '/currency/create',
-		updateAction: '/currency/update',
-		deleteAction: '/currency/destroy'
+		listAction:   '/currencies/list',
+		createAction: '/currencies/create',
+		updateAction: '/currencies/update',
+		deleteAction: '/currencies/destroy'
 	    },
 	    fields: {
 		code: {

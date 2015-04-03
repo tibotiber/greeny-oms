@@ -11,7 +11,7 @@
       </div>
       <div class="box-content">
         <div class="card">
-          <form id="userForm" action="/user/updatePwd/<%=user.id %>" enctype="multipart/form-data" method="POST" class="form-horizontal">
+          <form id="userForm" action="/users/updatePwd/<%=user.id %>" enctype="multipart/form-data" method="POST" class="form-horizontal">
 	    <% if(!session.user.admin){ %>
             <div class="form-group">
 	      <label class="col-sm-3 control-label">Current password</label>

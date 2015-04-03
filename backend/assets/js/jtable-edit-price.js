@@ -10,7 +10,7 @@ $(document).ready(function() {
             openChildAsAccordion: true,
             listClass: 'child-opener-image-column',
             actions: {
-                listAction: '/pricelist/list'
+                listAction: '/pricelists/list'
 	    },
             fields: {
 		prices: {
@@ -29,10 +29,10 @@ $(document).ready(function() {
                                     title: variants.record.sku + ' - All Prices',
                                     showCloseButton: false,
 				    actions: {
-					listAction    : '/pricelist/listByVariant?sku='+variants.record.sku,
-					createAction  : '/pricelist/create',
-					updateAction  : '/pricelist/update',
-					deleteAction  : '/pricelist/destroy'
+					listAction    : '/pricelists/listByVariant?sku='+variants.record.sku,
+					createAction  : '/pricelists/create',
+					updateAction  : '/pricelists/update',
+					deleteAction  : '/pricelists/destroy'
                                     },
                                     fields: {
                                         id: {
@@ -56,7 +56,7 @@ $(document).ready(function() {
 						    source: function(req, res) {
 							async.parallel({
 							    customers: function(cb) {
-								io.socket.get('/customer/picker', {
+								io.socket.get('/customers/picker', {
 								    search: req.term,
 								    _csrf: _csrfURL
 								}, function(data, jwres) {
@@ -67,7 +67,7 @@ $(document).ready(function() {
 								});
 							    },
 							    suppliers: function(cb) {
-								io.socket.get('/supplier/picker', {
+								io.socket.get('/suppliers/picker', {
 								    search: req.term,
 								    _csrf: _csrfURL
 								}, function(data, jwres) {
@@ -78,7 +78,7 @@ $(document).ready(function() {
 								});
 							    },
 							    pricetiers: function(cb) {
-								io.socket.get('/pricetier/picker', {
+								io.socket.get('/pricetiers/picker', {
 								    search: req.term,
 								    _csrf: _csrfURL
 								}, function(data, jwres) {
@@ -96,14 +96,14 @@ $(document).ready(function() {
 							$("input[name=thirdparty]").val(ui.item.value);
 							$("input[name=type]").val(ui.item.type);
 							if(ui.item.type === 'Pricetier') {
-							    io.socket.get('/pricetier/'+ui.item.value, function(data, jwres) {
+							    io.socket.get('/pricetiers/'+ui.item.value, function(data, jwres) {
 								if(data && data.preferredCurrency) {
 								    $("select[name=currency]").val(data.preferredCurrency.code);
 								    $('.jtable-dialog-form').bootstrapValidator('revalidateField', 'currency');
 								}
 							    });
 							} else {
-							    io.socket.get('/company/'+ui.item.value, function(data, jwres) {
+							    io.socket.get('/companies/'+ui.item.value, function(data, jwres) {
 								if(data && data.preferredCurrency) {
 								    $("select[name=currency]").val(data.preferredCurrency.code);
 								    $('.jtable-dialog-form').bootstrapValidator('revalidateField', 'currency');
@@ -136,7 +136,7 @@ $(document).ready(function() {
 					currency: {
 					    title: 'Currency',
 					    width: '6%',
-					    options: '/currency/picker?format=jtable&_csrf='+_csrfURL
+					    options: '/currencies/picker?format=jtable&_csrf='+_csrfURL
 					},
 					discount: {
 					    title: '% disc.',

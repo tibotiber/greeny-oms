@@ -10,10 +10,10 @@ $(document).ready(function() {
             openChildAsAccordion: true,
             listClass: 'child-opener-image-column',
             actions: {
-                listAction  : '/customer/list',
-		createAction: '/customer/create',
-		updateAction: '/customer/update',
-		deleteAction: '/customer/destroy'
+                listAction  : '/customers/list',
+		createAction: '/customers/create',
+		updateAction: '/customers/update',
+		deleteAction: '/customers/destroy'
 	    },
             fields: {
 		prices: {
@@ -32,10 +32,10 @@ $(document).ready(function() {
                                     title: customers.record.code + ' - Contacts',
                                     showCloseButton: false,
 				    actions: {
-					listAction    : '/contact/listByCompany?company='+customers.record.code,
-					createAction  : '/contact/create',
-					updateAction  : '/contact/update',
-					deleteAction  : '/contact/destroy'
+					listAction    : '/contacts/listByCompany?company='+customers.record.code,
+					createAction  : '/contacts/create',
+					updateAction  : '/contacts/update',
+					deleteAction  : '/contacts/destroy'
                                     },
                                     fields: {
 					id: {
@@ -152,12 +152,12 @@ $(document).ready(function() {
 		},
 		pricetier: {
 		    title: 'Pricetier',
-		    options: '/pricetier/picker?format=jtable&_csrf='+_csrfURL,
+		    options: '/pricetiers/picker?format=jtable&_csrf='+_csrfURL,
 		    list: false
 		},
 		preferredCurrency: {
 		    title: 'Preferred Currency',
-		    options: '/currency/picker?format=jtable&_csrf='+_csrfURL,
+		    options: '/currencies/picker?format=jtable&_csrf='+_csrfURL,
 		    list: false
 		},
 		firstShipment: {

@@ -38,37 +38,37 @@ module.exports.routes = {
 	action: 'oauth2'
     },
 
-    '/db/fish': {
+    '/db/fishes': {
 	controller: 'FishVariantController',
 	action: 'index'
     },
 
-    '/db/fish/family': {
+    '/db/fishes/families': {
 	controller: 'FishFamilyController',
 	action: 'index'
     },
 
-    '/db/plants/*': {
+    '/db/plants': {
 	controller: 'AuthController',
 	action: 'comingSoon'
     },
 
-    '/db/price': {
+    '/db/prices': {
 	controller: 'PricelistController',
 	action: 'index'
     },
 
-    '/db/price/edit': {
+    '/db/prices/edit': {
 	controller: 'PricelistController',
 	action: 'edit'
     },
     
-    '/db/customer': {
+    '/db/customers': {
 	controller: 'CustomerController',
 	action: 'index'
     },
 
-    '/db/supplier': {
+    '/db/suppliers': {
 	controller: 'SupplierController',
 	action: 'index'
     },
@@ -83,12 +83,12 @@ module.exports.routes = {
 	action: 'edit'
     },
 
-    '/shipment/*': {
+    '/shipments/*': {
 	controller: 'AuthController',
 	action: 'comingSoon'
     },
 
-    '/purchase/*': {
+    '/purchasing/*': {
 	controller: 'AuthController',
 	action: 'comingSoon'
     },
