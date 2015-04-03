@@ -32,6 +32,6 @@
 	"ember-cli-uglify": "1.0.1",
 	"ember-data": "1.0.0-beta.15",
 	"ember-export-application-global": "^1.0.2",
-	"ember-data-sails": "huafu/ember-data-sails#b724222" //change this to 0.0.15 when published
+	"ember-data-sails": "huafu/ember-data-sails#b724222"
     }
 }
