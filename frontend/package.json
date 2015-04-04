@@ -1,7 +1,8 @@
 {
-    "name": "ember-test",
-    "version": "0.0.0",
-    "description": "Small description for ember-test goes here",
+    "name": "greeny-oms-client",
+    "version": "0.0.1",
+    "description": "Order Management System for Greeny Aquaculture",
+    "author": "Thibaut Tiberghien, Planecq",
     "private": true,
     "directories": {
 	"doc": "doc",
@@ -16,7 +17,6 @@
     "engines": {
 	"node": ">= 0.10.0"
     },
-    "author": "",
     "license": "MIT",
     "devDependencies": {
 	"broccoli-asset-rev": "^2.0.0",

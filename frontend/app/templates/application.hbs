@@ -1,14 +1,3 @@
-{{#link-to 'user'}}User{{/link-to}}
-{{#link-to 'todos'}}Todos{{/link-to}}
-
-{{#if session.isAuthenticated}}
-<a {{ action 'invalidateSession' }}>Logout</a>
-{{else}}
-{{#link-to 'login'}}Login{{/link-to}}
-{{/if}}
-
-{{outlet}}
-
-<footer id="info">
-  <p>Double-click to edit a todo</p>
-</footer>
+<div class="container-fluid">
+  {{outlet}}
+</div>
