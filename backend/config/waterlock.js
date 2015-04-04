@@ -55,6 +55,8 @@ module.exports.waterlock = {
     // these tokens are used for authentication, password reset, 
     // and anything else you can imagine
     jsonWebTokens: {
+	// the secret should be moved to config/local.js on fix of https://github.com/waterlock/waterlock/issues/80
+	secret: 'To infinity and beyond!',
 	expiry:{
 	    unit: 'days',
 	    length: '7'
@@ -88,7 +90,7 @@ module.exports.waterlock = {
 	    // obj - {controller: 'blog', action: 'post'}
 	    // string - 'custom json response string'
 	    // default - 'default'
-	    success: 'default',
+	    success: 'default', // change to 'jwt' when https://github.com/waterlock/waterlock/pull/41 is merge
 
 	    // This can be any one of the following
 	    // 
