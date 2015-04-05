@@ -9,7 +9,7 @@ export default Token.extend({
     makeRequest: function(data) {
 	var _this = this;
 	return new Ember.RSVP.Promise(function(resolve, reject) {
-	    // make the request to authenticate the user at endpoint /v3/token
+	    // make the request to authenticate the user
 	    Ember.$.ajax({
 		url: _this.conf.serverLoginEndpoint,
 		type: 'POST',
@@ -54,30 +54,28 @@ export default Token.extend({
 	    });
 	});
     },
-/*
-    invalidate: function() {
+
+    invalidate: function(data) {
 	var _this = this;
 	return new Ember.RSVP.Promise(function(resolve, reject) {
-	    // make the request to authenticate the user at endpoint /v3/token
+	    // make the request to logout the user
 	    Ember.$.ajax({
 		url: _this.conf.serverLogoutEndpoint,
-		type: 'POST',
+		type: 'GET',
 		beforeSend: function(xhr, settings) {
 		    xhr.setRequestHeader('Accept', settings.accepts.json);
 		},
 		headers: _this.headers
 	    }).then(function(response) {
-		console.log(response);
 		Ember.run(function() {
-		    resolve(response);
+		    resolve();
 		});
 	    }, function(xhr) {
-		console.log(xhr);
 		Ember.run(function() {
 		    reject(xhr);
 		});
 	    });
 	});
     }
-*/
+
 });
