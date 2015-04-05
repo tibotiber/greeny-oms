@@ -18,14 +18,14 @@
 	    <button type="submit" class="btn btn-primary">Sign-in</button>
 	  </div>
 	</form>
+        {{#if errorMessage}}
+          <div class="alert alert-danger">
+            <p>
+              <strong>Login failed ({{loginAttempts}}):</strong> <code>{{errorMessage}}</code>
+            </p>
+          </div>
+        {{/if}}
       </div>
     </div>
   </div>
 </div>
-
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    LoginFormValidator();
-  });
-</script>
