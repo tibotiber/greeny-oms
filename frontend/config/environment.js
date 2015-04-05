@@ -56,9 +56,14 @@ module.exports = function(environment) {
 	ENV['simple-auth-token'] = {
 	    serverTokenEndpoint: 'https://dev.planecq.com:1337/auth/login',
 	    authorizationPrefix: 'JWT ',
-	    tokenPropertyName: 'access_token',
+	    tokenPropertyName: 'user',
 	    authorizationHeaderName: 'X-Auth',
 	    identificationField: 'username'
+	};
+	ENV['simple-auth-sails'] = {
+	    serverLoginEndpoint: 'https://dev.planecq.com:1337/auth/login',
+	    serverLogoutEndpoint: 'https://dev.planecq.com:1337/auth/logout',
+	    serverTokenEndpoint: 'https://dev.planecq.com:1337/users/jwt'
 	};
 	/* end of config for waterlock */
     }
