@@ -25,26 +25,7 @@ module.exports.waterlock = {
     authMethod: [
 	{
 	    name:'waterlock-local-auth',
-	    // passwordReset:{
-	    // 	tokens: false,
-	    // 	mail: {
-	    // 	    protocol: 'SMTP',
-	    // 	    options:{
-	    // 	    	service: 'Gmail',
-	    // 	    	auth: {
-	    // 	    	    user: 'gmail.user@gmail.com',
-	    // 	    	    pass: 'userpass'
-	    // 	    	}
-	    // 	    },
-	    // 	    from: 'no-reply@domain.com',
-	    // 	    subject: 'Your password reset!',
-	    // 	    forwardUrl: 'http://localhost:1337'
-	    // 	},  
-	    // 	template:{
-	    // 	    file: '../views/email.jade',
-	    // 	    vars:{}
-	    // 	}
-	    // },
+	    passwordReset:{},
 	    createOnNotFound: false
 	}
     ],

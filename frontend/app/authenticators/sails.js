@@ -21,29 +21,8 @@ export default Token.extend({
 		},
 		headers: _this.headers
 	    }).then(function(response) {
+		// all properties this promise resolves with will be available through the session
 		var user = response;
-		/*
-		// authenticated, get jwt token >> cannot since session not resolved yet
-	        Ember.$.ajax({
-		    url: _this.conf.serverTokenEndpoint,
-		    type: 'GET',
-		    beforeSend: function(xhr, settings) {
-			xhr.setRequestHeader('Accept', settings.accepts.json);
-		    },
-		    headers: _this.headers
-		}).then(function(response) {
-		    var token = response;
-		    console.log(token);
-		    // token received: all properties this promise resolves with will be available through the session
-		    Ember.run(function() {
-			resolve({ user: user, access_token: token });
-		    });
-		}, function(xhr) {
-		    Ember.run(function() {
-			reject(xhr);
-		    });
-		});
-		*/
 		Ember.run(function() {
 		    resolve({user_id: user.id, user: user});
 		});
@@ -55,7 +34,7 @@ export default Token.extend({
 	});
     },
 
-    invalidate: function(data) {
+    invalidate: function() {
 	var _this = this;
 	return new Ember.RSVP.Promise(function(resolve, reject) {
 	    // make the request to logout the user
@@ -66,7 +45,7 @@ export default Token.extend({
 		    xhr.setRequestHeader('Accept', settings.accepts.json);
 		},
 		headers: _this.headers
-	    }).then(function(response) {
+	    }).then(function() {
 		Ember.run(function() {
 		    resolve();
 		});
