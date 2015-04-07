@@ -22,9 +22,8 @@ export default Token.extend({
 		headers: _this.headers
 	    }).then(function(response) {
 		// all properties this promise resolves with will be available through the session
-		var user = response;
 		Ember.run(function() {
-		    resolve({user_id: user.id, user: user});
+		    resolve(response);
 		});
 	    }, function(xhr) {
 	        Ember.run(function() {
