@@ -90,3 +90,6 @@ form.jtable-dialog-form span.jtable-option-text-clickable {
 .ui-dialog {
     min-width: 500px;
 }
+.app-container {
+    padding: 0;
+}

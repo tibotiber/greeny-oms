@@ -1,10 +1,10 @@
 <ul class="nav main-menu">
 
   <li>
-    <a href="/" class="active">
+    {{#link-to 'main'}}
       <i class="fa fa-home"></i>
       <span class="hidden-xs">Home</span>
-    </a>
+    {{/link-to}}
   </li>
 
   <!--<% if(session.user.admin || session.user.manager || session.user.sales || session.user.packing || session.user.documentation){ %>-->
@@ -283,9 +283,9 @@
   <!--<% } %>-->
   
   <li>
-    <a href="/support">
+    {{#link-to 'main.support'}}
       <i class="fa fa-support"></i>
       <span class="hidden-xs">Support</span>
-    </a>
+    {{/link-to}}
   </li>
 </ul>

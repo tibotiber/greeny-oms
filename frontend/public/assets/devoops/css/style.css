@@ -37,6 +37,9 @@ h1, .h1, h2, .h2, h3, .h3 {
   background-position: right 15px;
   text-decoration: none;
 }
+#logo a:focus {
+  text-decoration: none;
+}
 .main-menu span {
   font-family: 'Exo 2', sans-serif;
 }
