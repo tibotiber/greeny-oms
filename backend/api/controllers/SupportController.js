@@ -32,13 +32,15 @@ module.exports = {
 	    to: 'support@planecq.com',
 	    subject: req.param('subject'),
 	    text: message
-	}
+	};
 	    
 	// send email
 	EmailService.sendAs(options, function(url, error, info) {
-	    if(url) return res.redirect(url);
-	    else if(error) return res.serverError('Error sending email:\n'+error);
-	    else return res.ok('Your email was sent successfully.');
+	    res.json({
+		error: error,
+		redirect: url,
+		success: info
+	    });
 	});
 	
     }
