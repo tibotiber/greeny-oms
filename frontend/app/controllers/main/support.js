@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import EmberValidations from 'ember-validations';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(EmberValidations.Mixin, {
 
     typeOptions: [
 	{value: 'help request'		, label: "There is something I don't understand, can you help me?"},
@@ -8,23 +9,40 @@ export default Ember.Controller.extend({
 	{value: 'bug'			, label: "Something is not working"},
 	{value: 'feature request'	, label: "I would like to suggest some changes"}
     ],
+    
     frequencyOptions: [
 	{value: 'first time', label: "It is the first time it happens"},
 	{value: 'occasional', label: "It happens sometimes but it works usually"},
 	{value: 'systematic', label: "It happens all the time"}
     ],
+
+    validations: {
+	type: {
+	    presence: true
+	},
+	frequency: {
+	    presence: true
+	},
+	subject: {
+	    presence: true,
+	    length: { maximum: 50 }
+	},
+	description: {
+	    presence: true
+	},
+    },
     
     actions: {
 	post: function() {
 	    var _this = this;
 	    var postData = this.getProperties('type','frequency','subject','description','error');
-	    
+
 	    // TEMP FIX :: https://github.com/huafu/ember-data-sails/issues/15
 	    this.sailsSocket.request('get', '/csrfToken').then(function(response) {
 		postData._csrf = response._csrf;
 		// TEMP FIX ENDS HERE
 		_this.sailsSocket.request('post', '/support/post', postData).then(function(response) {
-	            if(response.error) {
+		    if(response.error) {
 			_this.set('errorMessage', response.error);
 			_this.set('loginAttempts', _this.get('loginAttempts')+1);
 		    } else if(response.redirect) {
@@ -38,4 +56,5 @@ export default Ember.Controller.extend({
 	    });
 	}
     }
+
 });
