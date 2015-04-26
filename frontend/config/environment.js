@@ -22,7 +22,7 @@ module.exports = function(environment) {
 	    'font-src': "'self' http://themes.googleusercontent.com http://fonts.gstatic.com",
 	    'connect-src': "'self'",
 	    'img-src': "'self'",
-	    'style-src': "'self' http://fonts.googleapis.com",
+	    'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
 	    'media-src': "'self'"
 	}
     };
