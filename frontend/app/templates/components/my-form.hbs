@@ -1,0 +1,8 @@
+<form id=id class="form-horizontal" {{action action on='submit'}}>
+  {{yield}}
+  <div class="form-group">
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary" {{bind-attr disabled="isInvalid"}}>{{buttonLabel}}</button>
+    </div>
+  </div>
+</form>
