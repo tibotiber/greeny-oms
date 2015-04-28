@@ -1,0 +1,13 @@
+{{#if ph}}
+  <div class='hastip' {{bind-attr title=ph}}>
+    {{view 'select' name=id value=val prompt=ph class='form-control' focus-out='visited'
+    content=content optionVauePath='content.value' optionLabelPath='content.label'}}
+  </div>
+{{else}}
+  {{view 'select' name=id value=val prompt='Pick an option' class='form-control' focus-out='visited'
+  content=content optionVauePath='content.value' optionLabelPath='content.label'}}
+{{/if}}
+{{#if error}}
+  <div class="alert alert-info">{{error}}</div>
+{{/if}}
+
