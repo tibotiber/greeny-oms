@@ -1,6 +1,6 @@
 {{#if ph}}
-  <div class='hastip' {{bind-attr title=ph}}>
-    {{view 'select' name=id value=val prompt=ph class='form-control' focus-out='visited'
+  <div class='hastip' {{bind-attr title=ph}} {{action 'visited' on='focusOut'}}>
+    {{view 'select' name=id value=val prompt=ph class='form-control'
     content=content optionVauePath='content.value' optionLabelPath='content.label'}}
   </div>
 {{else}}
