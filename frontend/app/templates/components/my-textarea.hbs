@@ -1,0 +1,9 @@
+{{#if ph}}
+  {{textarea class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph rows=rows}}
+{{else}}
+  {{textarea class="form-control" name=id value=val focus-out="visited" rows=rows}}
+{{/if}}
+{{#if error}}
+  <div class="alert alert-info">{{error}}</div>
+{{/if}}
+

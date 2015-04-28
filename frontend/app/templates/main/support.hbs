@@ -30,17 +30,13 @@
 	      </div>
 	    </div>
 	    <div class="row form-group">
-              {{my-input id='subject' ph="Subject" wrapperClass='col-sm-10 col-sm-offset-1'}}
+              {{my-input id='subject' ph='Subject' wrapperClass='col-sm-10 col-sm-offset-1'}}
 	    </div>
 	    <div class="row form-group">
-	      <div class="col-sm-10 col-sm-offset-1">
-		{{textarea class="form-control" value=description rows="10" placeholder="Describe your issue here..."}}
-	      </div>
+	      {{my-textarea id='description' rows='10' ph='Describe your issue here...' wrapperClass='col-sm-10 col-sm-offset-1'}}
 	    </div>
 	    <div class="row form-group">
-	      <div class="col-sm-10 col-sm-offset-1">
-		{{textarea class="form-control" value=error rows="5" placeholder="If an error was returned, please copy it here..."}}
-	      </div>
+	      {{my-textarea id='error' rows='5' ph='If an error was returned, please copy it here...' wrapperClass='col-sm-10 col-sm-offset-1'}}
 	    </div>
           {{/my-form}}
           {{#if errorMessage}}
