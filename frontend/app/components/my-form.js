@@ -8,6 +8,12 @@ export default Ember.Component.extend({
     createBindings: function() {
 	Ember.defineProperty(this, 'isInvalid', Ember.computed.alias('form.isInvalid'));
 	Ember.defineProperty(this, 'errors', Ember.computed.alias('form.errors'));
-    }.on('init')
+    }.on('init'),
+
+    actions: {
+	post: function() {
+	    this.sendAction('action', this.get('param'));
+	}
+    }
 
 });
