@@ -2,24 +2,24 @@
   <li class="dropdown">
     <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
       <div class="avatar">
-	<img src="https://dev.planecq.com:1337/upload/profile-pics/{{unbound session.profile_pic}}" class="img-rounded" alt="avatar" />
+	<img src="https://dev.planecq.com:1337/upload/profile-pics/{{unbound session.user.profile_pic}}" class="img-rounded" alt="avatar" />
       </div>
       <i class="fa fa-angle-down pull-right"></i>
       <div class="user-mini pull-right">
 	<span class="welcome">Welcome,</span>
-	<span>{{session.name}}</span>
+	<span>{{session.user.name}}</span>
       </div>
     </a>
     <ul class="dropdown-menu">
       <li>
-	<a href="/users/show/{{unbound session.id}}">
+	<a href="/users/show/{{unbound session.user.id}}">
 	  <i class="fa fa-user"></i>
 	  <span>Profile</span>
 	</a>
       </li>
-      {{#if session.admin}}
+      {{#if session.user.admin}}
       <li>
-	<a href="/users/changePwd/{{unbound session.id}}">
+	<a href="/users/changePwd/{{unbound session.user.id}}">
 	  <i class="fa fa-lock"></i>
 	  <span>Change password</span>
 	</a>

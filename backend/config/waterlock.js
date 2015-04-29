@@ -44,15 +44,13 @@ module.exports.waterlock = {
 	},
 	audience: 'Greeny OMS',
 	subject: 'jwt4oms',
-
-	// tracks jwt usage if set to true
+	tokenProperty: 'access_token',
+	expiresProperty: 'expiry',
 	trackUsage: true,
-
-	// if set to false will authenticate the
-	// express session object and attach the
-	// user to it during the hasJsonWebToken 
-	// middleware
+	// if set to false will authenticate the express session object and attach the
+	// user to it during the hasJsonWebToken middleware
 	stateless: false,
+	includeUserInJwtResponse: true
     },
 
     // Post Actions
@@ -71,7 +69,7 @@ module.exports.waterlock = {
 	    // obj - {controller: 'blog', action: 'post'}
 	    // string - 'custom json response string'
 	    // default - 'default'
-	    success: 'default', // change to 'jwt' when https://github.com/waterlock/waterlock/pull/41 is merge
+	    success: 'jwt',
 
 	    // This can be any one of the following
 	    // 

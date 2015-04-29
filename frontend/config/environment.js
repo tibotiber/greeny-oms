@@ -56,7 +56,7 @@ module.exports = function(environment) {
 	ENV['simple-auth-token'] = {
 	    serverTokenEndpoint: 'https://dev.planecq.com:1337/auth/login',
 	    authorizationPrefix: 'JWT ',
-	    tokenPropertyName: 'id', // this keeps the session persisted
+	    tokenPropertyName: 'access_token', // this keeps the session persisted
 	    authorizationHeaderName: 'X-Auth',
 	    identificationField: 'username'
 	};
