@@ -11,6 +11,7 @@ Router.map(function() {
     this.resource('main', {path: '/'}, function(){
 	this.resource('user', function() {});
 	this.route('support');
+	this.route('myaccount');
     });
 
 });
