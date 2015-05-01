@@ -9,5 +9,5 @@
  */
 module.exports = function(req, res, next) {
     if (req.session.authenticated) return next();
-    return res.json({redirect:'/login'});
+    return res.forbidden('You must be signed in.');
 };
