@@ -46,12 +46,8 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
 			if(response.error) {
 			    _this.set('errorMessage', response.error);
 			    _this.set('loginAttempts', _this.get('loginAttempts')+1);
-			} else if(response.redirect) {
-			    //TODO
-			    _this.set('errorMessage', 'Needs redirect: '+response.redirect);
-			    _this.set('attempts', _this.get('attempts')+1);
 			} else {
-			    _this.set('successMessage', response.success);
+			    _this.set('successMessage', JSON.stringify(response.success));
 			}
 		    });
 		}

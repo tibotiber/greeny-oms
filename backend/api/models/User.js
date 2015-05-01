@@ -69,10 +69,6 @@ module.exports = {
 	accounts_receivable: {
 	    type: 'boolean',
 	    defaultsTo: false
-	},
-
-	googleApiToken: {
-	    type: 'string'
 	}
 	
     }),

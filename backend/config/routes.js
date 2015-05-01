@@ -33,11 +33,6 @@ module.exports.routes = {
 	action: 'index'
     },
 
-    '/oauth2callback': {
-	controller: 'IntegrationController',
-	action: 'oauth2'
-    },
-
     '/db/fishes': {
 	controller: 'FishVariantController',
 	action: 'index'

@@ -32,19 +32,15 @@ module.exports = {
     },
 
     emailAccount: {
-	from: 'Example <noreply@example.com>',
+	from: {
+	    name: 'Example',
+	    email: 'noreply@example.com'
+	},
         service: 'Gmail',
 	auth: {
-	    user: '',
+	    user: 'noreply@example.com',
 	    pass: ''
 	}
-    },
-
-    googleXOAuth2: {
-	// get this from https://console.developers.google.com/
-	clientId     : '',
-	clientSecret : '',
-	redirectUri  : ''
     },
     
     cors: {

@@ -17,28 +17,24 @@ module.exports = {
 
     post: function(req, res, next) {
 	// build email parameters
-	var message = 'Ticket type: ' + req.param('type') + '\n' +
-	    'Issue frequency: ' + req.param('frequency') + '\n\n' +
-	    'Message:\n' + req.param('description') + '\n\n' +
-	    'Error:\n';
-	if(req.param('error'))
-	    message += req.param('error');
-	else
-	    message += 'No copy of error provided.';
-
+	var error = req.param('error') || 'No copy of error provided.';
+	var message = '<strong>Ticket type:</strong> ' + req.param('type').value + '<br/>' +
+	    '<strong>Issue frequency:</strong> ' + req.param('frequency').value + '<br/><br/>' +
+	    '<strong>Message:</strong><br/>' + req.param('description') + '<br/><br/>' +
+	    '<strong>Error:</strong><br/><code>' + error + '</code>';
 	var options = {
 	    fromName: req.session.user.name,
 	    fromEmail: req.session.user.email,
-	    to: 'support@planecq.com',
+	    // put this back to pipe email in to zendesk
+	    // to: 'support@planecq.com',
+	    to: 'thibaut@planecq.com',
 	    subject: req.param('subject'),
-	    text: message
+	    html: message
 	};
-	    
 	// send email
-	EmailService.sendAs(options, function(url, error, info) {
+	EmailService.sendAs(options, function(error, info) {
 	    res.json({
 		error: error,
-		redirect: url,
 		success: info
 	    });
 	});
