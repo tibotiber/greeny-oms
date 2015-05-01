@@ -1,12 +1,12 @@
 import Ember from 'ember';
-import Token from 'simple-auth-token/authenticators/token';
+import Jwt from 'simple-auth-token/authenticators/jwt';
 import env from '../config/environment';
 
-export default Token.extend({
+export default Jwt.extend({
 
     conf: env['simple-auth-sails'],
 
-    makeRequest: function(data) {
+    makeRequest: function(tokenEndpoint, data) {
 	var _this = this;
 	return new Ember.RSVP.Promise(function(resolve, reject) {
 	    // make the request to authenticate the user
