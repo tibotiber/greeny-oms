@@ -42,7 +42,9 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
 		    _this.set('errorMessage', err);
 		    _this.set('loginAttempts', _this.get('loginAttempts')+1);
 		} else {
+		    _this.set('loading', true);
 		    _this.sailsSocket.request('post', '/support/post', postData).then(function(response) {
+			_this.set('loading', false);
 			if(response.error) {
 			    _this.set('errorMessage', response.error);
 			    _this.set('loginAttempts', _this.get('loginAttempts')+1);
