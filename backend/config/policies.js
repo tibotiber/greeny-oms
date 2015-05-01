@@ -15,105 +15,101 @@
 module.exports.policies = {
 
     // Default policy for all controllers and actions
-    // (`true` allows public access) 
-    '*': 'admin',
+    '*': ['hasJsonWebToken','admin'],
 
     AuthController: {
 	'*': true
     },
     
     UserController: {
-	'*': 'admin',
-	show: 'ownProfile',
-	update: 'ownProfile',
-	edit: 'ownProfile'
+	'*': ['hasJsonWebToken','admin'],
+	show: ['hasJsonWebToken','ownProfile'],
+	update: ['hasJsonWebToken','ownProfile'],
+	edit: ['hasJsonWebToken','ownProfile']
     },
 
     AirportController: {
-	'*': 'admin',
-	picker: 'authenticated'
+	'*': ['hasJsonWebToken','admin'],
+	picker: ['hasJsonWebToken','authenticated']
     },
 
     CompanyController: {
-	picker: 'authenticated'
+	picker: ['hasJsonWebToken','authenticated']
     },
 
     ContactController: {
-	'*': 'p_001',
-	listByCompany: 'authenticated'
+	'*': ['hasJsonWebToken','p_001'],
+	listByCompany: ['hasJsonWebToken','authenticated']
     },
 
     CurrencyController: {
-	'*': 'admin',
-	picker: 'authenticated'
+	'*': ['hasJsonWebToken','admin'],
+	picker: ['hasJsonWebToken','authenticated']
     },
 
     CustomerController: {
-	'*': 'p_001',
-	index: 'authenticated',
-	list: 'authenticated',
-	picker: 'authenticated'
+	'*': ['hasJsonWebToken','p_001'],
+	index: ['hasJsonWebToken','authenticated'],
+	list: ['hasJsonWebToken','authenticated'],
+	picker: ['hasJsonWebToken','authenticated']
     },
 
     FishFamilyController: {
-	'*': 'admin',
-	index: 'authenticated',
-	listNames: 'authenticated',
-	list: 'authenticated'
+	'*': ['hasJsonWebToken','admin'],
+	index: ['hasJsonWebToken','authenticated'],
+	listNames: ['hasJsonWebToken','authenticated'],
+	list: ['hasJsonWebToken','authenticated']
     },
 
     FishProductController: {
-	'*': 'p_001',
-	index: 'admin',
-	listFiltered: 'authenticated'
+	'*': ['hasJsonWebToken','p_001'],
+	index: ['hasJsonWebToken','admin'],
+	listFiltered: ['hasJsonWebToken','authenticated']
     },
 
     FishVariantController: {
-	'*': 'p_001',
-	index: 'authenticated',
-	listByProduct: 'authenticated'
+	'*': ['hasJsonWebToken','p_001'],
+	index: ['hasJsonWebToken','authenticated'],
+	listByProduct: ['hasJsonWebToken','authenticated']
     },
 
     FreightQuotationController: {
-	'*': 'p_001',
-	index: 'authenticated',
-	list: 'authenticated'
+	'*': ['hasJsonWebToken','p_001'],
+	index: ['hasJsonWebToken','authenticated'],
+	list: ['hasJsonWebToken','authenticated']
     },
 
     FreightRouteController: {
-	'*': 'p_001',
-	listByQuotation: 'authenticated'
+	'*': ['hasJsonWebToken','p_001'],
+	listByQuotation: ['hasJsonWebToken','authenticated']
     },
 
     IntegrationController: {
-	'*': 'authenticated',
+	'*': ['hasJsonWebToken','authenticated'],
     },
 
     PricelistController: {
-	'*': 'p_001'
+	'*': ['hasJsonWebToken','p_001']
     },
 
     PricetierController: {
-	'*': 'admin',
-	index: 'p_001',
-	list: 'p_001',
-	picker: 'authenticated'
+	'*': ['hasJsonWebToken','admin'],
+	index: ['hasJsonWebToken','p_001'],
+	list: ['hasJsonWebToken','p_001'],
+	picker: ['hasJsonWebToken','authenticated']
     },
 
     SupplierController: {
-	'*': 'p_001',
-	index: 'authenticated',
-	list: 'authenticated',
-	picker: 'authenticated'
+	'*': ['hasJsonWebToken','p_001'],
+	index: ['hasJsonWebToken','authenticated'],
+	list: ['hasJsonWebToken','authenticated'],
+	picker: ['hasJsonWebToken','authenticated']
     },
 
     SupportController: {
-	'*': 'authenticated'
-    },
-
-    TodoController: {
-	'*': 'authenticated'
+	'*': ['hasJsonWebToken', 'authenticated']
     }
+
     /*
     // Here's an example of adding some policies to a controller
     RabbitController: {
