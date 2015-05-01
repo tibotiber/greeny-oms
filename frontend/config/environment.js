@@ -21,7 +21,7 @@ module.exports = function(environment) {
 	    'script-src': "'self'",
 	    'font-src': "'self' http://themes.googleusercontent.com http://fonts.gstatic.com",
 	    'connect-src': "'self'",
-	    'img-src': "'self'",
+	    'img-src': "'self' https://dev.planecq.com:1337",
 	    'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
 	    'media-src': "'self'"
 	}
