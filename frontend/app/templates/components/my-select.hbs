@@ -1,13 +1,32 @@
-{{#if ph}}
-  <div class='hastip' {{bind-attr title=ph}} {{action 'visited' on='focusOut'}}>
-    {{view 'select' name=id value=val prompt=ph class='form-control'
-    content=content optionVauePath='content.value' optionLabelPath='content.label'}}
+{{#if autolabel}}
+  <div class="row form-group">
+    <label {{bind-attr class=":control-label labelClass"}}>{{label}}</label>
+    <div {{bind-attr class="inputClass"}}>
+      {{#if ph}}
+        <div class='hastip' {{bind-attr title=ph}} {{action 'visited' on='focusOut'}}>
+          {{view 'select' name=id value=val prompt=ph class='form-control'
+          content=content optionVauePath='content.value' optionLabelPath='content.label'}}
+        </div>
+      {{else}}
+        {{view 'select' name=id value=val prompt='Pick an option' class='form-control' focus-out='visited'
+        content=content optionVauePath='content.value' optionLabelPath='content.label'}}
+      {{/if}}
+    </div>
+    {{#if error}}
+      <div class="alert alert-info">{{error}}</div>
+    {{/if}}
   </div>
 {{else}}
-  {{view 'select' name=id value=val prompt='Pick an option' class='form-control' focus-out='visited'
-  content=content optionVauePath='content.value' optionLabelPath='content.label'}}
+  {{#if ph}}
+    <div class='hastip' {{bind-attr title=ph}} {{action 'visited' on='focusOut'}}>
+      {{view 'select' name=id value=val prompt=ph class='form-control'
+      content=content optionVauePath='content.value' optionLabelPath='content.label'}}
+    </div>
+  {{else}}
+    {{view 'select' name=id value=val prompt='Pick an option' class='form-control' focus-out='visited'
+    content=content optionVauePath='content.value' optionLabelPath='content.label'}}
+  {{/if}}
+  {{#if error}}
+    <div class="alert alert-info">{{error}}</div>
+  {{/if}}
 {{/if}}
-{{#if error}}
-  <div class="alert alert-info">{{error}}</div>
-{{/if}}
-

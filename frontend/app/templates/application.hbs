@@ -3,8 +3,11 @@
 </div>
 
 <script type="text/javascript">
-  $('.hastip').tooltipsy({
-    alignTo: 'element',
-    offset: [0, 1]
-  });
+  function makeTooltips() {
+    $('.hastip').tooltipsy({
+      alignTo: 'element',
+      offset: [0, 1]
+    });
+ }
+ makeTooltips();
 </script>
