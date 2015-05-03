@@ -112,3 +112,10 @@ form.jtable-dialog-form span.jtable-option-text-clickable {
     right: 40px;
     z-index: -1;
 }
+.dc-form-input {
+    height: 26px;
+    padding: 2px 12px;
+}
+.click-me {
+    cursor: pointer;
+}

@@ -5,6 +5,8 @@ export default Ember.Component.extend({
 
     layout: layout,
 
+    hasChanges: false,
+    
     createBindings: function() {
 	Ember.defineProperty(this, 'isInvalid', Ember.computed.alias('form.isInvalid'));
 	Ember.defineProperty(this, 'errors', Ember.computed.alias('form.errors'));

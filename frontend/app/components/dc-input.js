@@ -9,6 +9,8 @@ export default Ember.Component.extend({
 
     shouldValidate: false,
 
+    hasChanges: false,
+
     createBindings: function() {
 	Ember.defineProperty(this, 'val', Ember.computed.alias('parentView.form.'+this.get('id')));
 	Ember.defineProperty(this, 'err', Ember.computed.alias('parentView.form.errors.'+this.get('id')));
@@ -39,6 +41,12 @@ export default Ember.Component.extend({
     actions: {
 	visited: function() {
 	    this.set('shouldValidate', true);
+	},
+	edit: function() {
+	    if(!this.get('locked')) {
+		this.set('hasChanges', true);
+		this.set('parentView.hasChanges', true);
+	    }
 	}
     }
 });
