@@ -13,5 +13,5 @@ export default DS.Model.extend({
     documentation: DS.attr('boolean'),
     accounts_payable: DS.attr('boolean'),
     accounts_receivable: DS.attr('boolean'),
-    auth: DS.attr('number')
+    auth: DS.belongsTo('auth')
 });

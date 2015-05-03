@@ -2,7 +2,7 @@
   <li class="dropdown">
     <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
       <div class="avatar">
-	<img src="https://dev.planecq.com:1337/upload/profile-pics/{{unbound session.user.profile_pic}}" class="img-rounded" alt="avatar" />
+        {{sails-path 'img' '/upload/profile-pics/' session.user.profile_pic class='img-rounded'}}
       </div>
       <i class="fa fa-angle-down pull-right"></i>
       <div class="user-mini pull-right">
@@ -12,10 +12,10 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-	<a href="/users/show/{{unbound session.user.id}}">
+	{{#link-to 'main.myaccount'}}
 	  <i class="fa fa-user"></i>
 	  <span>Profile</span>
-	</a>
+	{{/link-to}}
       </li>
       {{#if session.user.admin}}
       <li>
