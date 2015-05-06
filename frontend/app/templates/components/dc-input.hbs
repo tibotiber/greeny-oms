@@ -10,7 +10,7 @@
         {{/if}}
       {{else}}
         {{#if ph}}
-          {{input type="text" class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph}}
+          <p {{bind-attr class=':dc-form-input :hastip locked::click-me'}} {{bind-attr name=id}} {{bind-attr title=ph}} {{action 'edit' on='doubleClick'}}>{{val}}</p>
         {{else}}
           <p {{bind-attr class=':dc-form-input locked::click-me'}} {{bind-attr name=id}} {{action 'edit' on='doubleClick'}}>{{val}}</p>
         {{/if}}
@@ -21,11 +21,19 @@
     {{/if}}
   </div>
 {{else}}
-  {{#if ph}}
-    {{input type="text" class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph}}
+  {{#if hasChanges}}
+    {{#if ph}}
+      {{input type="text" class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph}}
+    {{else}}
+      {{input type="text" class="form-control" name=id value=val focus-out="visited"}}
+    {{/if}}
   {{else}}
-    {{input type="text" class="form-control" name=id value=val focus-out="visited"}}
-  {{/if}}
+    {{#if ph}}
+      <p {{bind-attr class=':dc-form-input locked::click-me'}} {{bind-attr name=id}} {{bind-attr title=ph}} {{action 'edit' on='doubleClick'}}>{{val}}</p>
+    {{else}}
+      <p {{bind-attr class=':dc-form-input locked::click-me'}} {{bind-attr name=id}} {{action 'edit' on='doubleClick'}}>{{val}}</p>
+    {{/if}}
+  {{/if}}    
   {{#if error}}
     <div class="alert alert-info">{{error}}</div>
   {{/if}}
