@@ -45,7 +45,7 @@ export default Ember.Component.extend({
 	edit: function() {
 	    if(!this.get('locked')) {
 		this.set('hasChanges', true);
-		this.set('parentView.hasChanges', true);
+		this.get('parentView').send('hasChanges');
 	    }
 	}
     }

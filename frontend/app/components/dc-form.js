@@ -6,6 +6,8 @@ export default Ember.Component.extend({
     layout: layout,
 
     hasChanges: false,
+
+    bubbleChanges: "hasChanges",
     
     createBindings: function() {
 	Ember.defineProperty(this, 'isInvalid', Ember.computed.alias('form.isInvalid'));
@@ -30,6 +32,10 @@ export default Ember.Component.extend({
     actions: {
 	post: function() {
 	    this.sendAction('action', this.get('param'));
+	},
+	hasChanges: function() {
+	    this.set('hasChanges', true);
+	    this.sendAction('bubbleChanges');
 	}
     }
 
