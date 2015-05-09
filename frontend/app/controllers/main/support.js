@@ -40,14 +40,14 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
 	    tokens().addCsrfAndJwt(this, postData, function(err, postData) {
 		if(err) {
 		    _this.set('errorMessage', err);
-		    _this.set('loginAttempts', _this.get('loginAttempts')+1);
+		    _this.set('attempts', _this.get('attempts')+1);
 		} else {
 		    _this.set('loading', true);
 		    _this.sailsSocket.request('post', '/support/post', postData).then(function(response) {
 			_this.set('loading', false);
 			if(response.error) {
 			    _this.set('errorMessage', response.error);
-			    _this.set('loginAttempts', _this.get('loginAttempts')+1);
+			    _this.set('attempts', _this.get('attempts')+1);
 			} else {
 			    _this.set('successMessage', JSON.stringify(response.success));
 			}
