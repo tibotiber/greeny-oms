@@ -25,9 +25,10 @@ module.exports = {
 	var options = {
 	    fromName: req.session.user.name,
 	    fromEmail: req.session.user.email,
-	    // put this back to pipe email in to zendesk
-	    // to: 'support@planecq.com',
-	    to: 'thibaut@planecq.com',
+	    // use 'support' to pipe email in to zendesk
+	    // use 'help' to pipe email in to groove
+	    // use 'thibaut' to use direct email support
+	    to: 'help@planecq.com',
 	    subject: req.param('subject'),
 	    html: message
 	};
