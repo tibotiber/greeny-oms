@@ -51,7 +51,9 @@ module.exports = function(environment) {
 	/* config for waterlock */
 	ENV['simple-auth'] = {
 	    authorizer: 'simple-auth-authorizer:token',
-	    crossOriginWhitelist: ['https://dev.planecq.com:1337']
+	    crossOriginWhitelist: ['https://dev.planecq.com:1337'],
+	    routeAfterAuthentication: 'main',
+	    routeIfAlreadyAuthenticated: 'main'
 	};
 	ENV['simple-auth-token'] = {
 	    serverTokenEndpoint: 'https://dev.planecq.com:1337/auth/login',

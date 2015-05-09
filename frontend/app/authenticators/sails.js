@@ -21,12 +21,19 @@ export default Jwt.extend({
 		},
 		headers: _this.headers
 	    }).then(function(response) {
-		// all properties this promise resolves with will be available through the session
-		Ember.run(function() {
-		    resolve(response);
-		});
+		// check for waterlock error
+		if(response.error) {
+		    Ember.run(function() {
+			reject({responseJSON: response});
+		    });
+		} else {
+		    // all properties this promise resolves with will be available through the session
+		    Ember.run(function() {
+			resolve(response);
+		    });
+		}
 	    }, function(xhr) {
-	        Ember.run(function() {
+		Ember.run(function() {
 		    reject(xhr);
 		});
 	    });
