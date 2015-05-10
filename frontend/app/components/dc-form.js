@@ -5,9 +5,17 @@ export default Ember.Component.extend({
 
     layout: layout,
 
-    hasChanges: false,
+    nbOfFieldsEdited: 0,
 
-    bubbleChanges: "hasChanges",
+    isEdited: function() {
+	return this.get('nbOfFieldsEdited') > 0;
+    }.property('nbOfFieldsEdited'),
+
+    protectUnsavedChanges: function() {
+	this.sendAction('bubbleChanges', this.get('isEdited'));
+    }.observes('isEdited').on('init'),
+    
+    bubbleChanges: "hasUnsavedChanges",
     
     createBindings: function() {
 	Ember.defineProperty(this, 'isInvalid', Ember.computed.alias('form.isInvalid'));
@@ -16,7 +24,7 @@ export default Ember.Component.extend({
 
     defaults: function() {
 	if(!this.get('buttonLabel')) {
-	    this.set('buttonLabel', 'Save');
+	    this.set('buttonLabel', 'Save Changes');
 	}
 	if(!this.get('inputWrapperClass')) {
 	    this.set('inputWrapperClass', 'col-xs-12');
@@ -33,9 +41,11 @@ export default Ember.Component.extend({
 	post: function() {
 	    this.sendAction('action', this.get('param'));
 	},
-	hasChanges: function() {
-	    this.set('hasChanges', true);
-	    this.sendAction('bubbleChanges');
+	fieldIsEdited: function() {
+	    this.set('nbOfFieldsEdited', this.get('nbOfFieldsEdited') + 1);
+	},
+	fieldEditionIsCancelled: function() {
+	    this.set('nbOfFieldsEdited', this.get('nbOfFieldsEdited') - 1);
 	}
     }
 

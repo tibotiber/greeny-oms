@@ -9,7 +9,7 @@ export default Ember.Component.extend({
 
     shouldValidate: false,
 
-    hasChanges: false,
+    isEdited: false,
 
     createBindings: function() {
 	Ember.defineProperty(this, 'val', Ember.computed.alias('parentView.form.'+this.get('id')));
@@ -44,9 +44,13 @@ export default Ember.Component.extend({
 	},
 	edit: function() {
 	    if(!this.get('locked')) {
-		this.set('hasChanges', true);
-		this.get('parentView').send('hasChanges');
+		this.set('isEdited', true);
+		this.get('parentView').send('fieldIsEdited');
 	    }
+	},
+	cancel: function() {
+	    this.set('isEdited', false);
+	    this.get('parentView').send('fieldEditionIsCancelled');
 	}
     }
 });

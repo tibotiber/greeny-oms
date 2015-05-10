@@ -2,11 +2,11 @@
   <div class="row form-group">
     <label {{bind-attr class=":control-label labelClass"}}>{{label}}</label>
     <div {{bind-attr class="inputClass"}}>
-      {{#if hasChanges}}
+      {{#if isEdited}}
         {{#if ph}}
-          {{input type="text" class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph}}
+          {{input type="text" class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph escape-press="cancel"}}
         {{else}}
-          {{input type="text" class="form-control" name=id value=val focus-out="visited"}}
+          {{input type="text" class="form-control" name=id value=val focus-out="visited" escape-press="cancel"}}
         {{/if}}
       {{else}}
         {{#if ph}}
@@ -21,11 +21,11 @@
     {{/if}}
   </div>
 {{else}}
-  {{#if hasChanges}}
+  {{#if isEdited}}
     {{#if ph}}
-      {{input type="text" class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph}}
+      {{input type="text" class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph escape-press="cancel"}}
     {{else}}
-      {{input type="text" class="form-control" name=id value=val focus-out="visited"}}
+      {{input type="text" class="form-control" name=id value=val focus-out="visited" escape-press="cancel"}}
     {{/if}}
   {{else}}
     {{#if ph}}

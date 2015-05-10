@@ -5,7 +5,7 @@ export default Ember.Mixin.create({
     beforeUnload: function() {
 	var that = this;
 	Ember.$(window).on('beforeunload', function() {
-	    if(that.get('hasChanges')) {
+	    if(that.get('hasUnsavedChanges')) {
 		return 'There seem to be unsaved changes in the page...';
 	    }
 	});
@@ -13,12 +13,12 @@ export default Ember.Mixin.create({
 
     actions: {
 
-	hasChanges: function() {
-	    this.set('hasChanges', true);
+	hasUnsavedChanges: function(bool) {
+	    this.set('hasUnsavedChanges', bool);
 	},
 
 	willTransition: function(transition) {
-	    if (this.get('hasChanges') && !confirm("There seem to be unsaved changes in the page...\n\nAre you sure you want to leave this page?")) {
+	    if (this.get('hasUnsavedChanges') && !confirm("There seem to be unsaved changes in the page...\n\nAre you sure you want to leave this page?")) {
 		transition.abort();
 	    } else {
 		return true;
@@ -26,7 +26,7 @@ export default Ember.Mixin.create({
 	},
 
 	didTransition: function() {
-	    this.set('hasChanges', false);
+	    this.set('hasUnsavedChanges', false);
 	    return true;
 	}
 	
