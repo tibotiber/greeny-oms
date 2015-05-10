@@ -11,7 +11,7 @@ export default Jwt.extend({
 	return new Ember.RSVP.Promise(function(resolve, reject) {
 	    // make the request to authenticate the user
 	    Ember.$.ajax({
-		url: _this.conf.serverLoginEndpoint,
+		url: tokenEndpoint,
 		type: 'POST',
 		data: JSON.stringify(data),
 		dataType: 'json',
@@ -24,7 +24,7 @@ export default Jwt.extend({
 		// check for waterlock error
 		if(response.error) {
 		    Ember.run(function() {
-			reject({responseJSON: response});
+			reject({responseJSON: response}, null, response.error);
 		    });
 		} else {
 		    // all properties this promise resolves with will be available through the session
@@ -32,9 +32,9 @@ export default Jwt.extend({
 			resolve(response);
 		    });
 		}
-	    }, function(xhr) {
+	    }, function(xhr, status, error) {
 		Ember.run(function() {
-		    reject(xhr);
+		    reject(xhr, status, error);
 		});
 	    });
 	});

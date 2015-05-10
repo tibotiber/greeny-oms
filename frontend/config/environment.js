@@ -63,14 +63,11 @@ module.exports = function(environment) {
 	    identificationField: 'username',
 	    refreshAccessTokens: true,
 	    serverTokenRefreshEndpoint: 'https://dev.planecq.com:1337/users/jwt',
-	    tokenExpireName: 'expiry',
 	    refreshLeeway: 600, // refresh 10min before expiry
 	    timeFactor: 1  // set to "1000" to convert incoming seconds to milliseconds.
 	};
 	ENV['simple-auth-sails'] = {
-	    serverLoginEndpoint: 'https://dev.planecq.com:1337/auth/login',
-	    serverLogoutEndpoint: 'https://dev.planecq.com:1337/auth/logout',
-	    serverTokenEndpoint: 'https://dev.planecq.com:1337/users/jwt'
+	    serverLogoutEndpoint: 'https://dev.planecq.com:1337/auth/logout'
 	};
 	/* end of config for waterlock */
     }

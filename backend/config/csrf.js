@@ -38,5 +38,5 @@
  */
 
 module.exports.csrf = {
-    routesDisabled: '/auth/login'
+    routesDisabled: '/auth/login,/auth/logout,/users/jwt'
 };
