@@ -7,6 +7,8 @@ export default Ember.Component.extend({
 
     nbOfFieldsEdited: 0,
 
+    cancelClicked: 0,
+
     isEdited: function() {
 	return this.get('nbOfFieldsEdited') > 0;
     }.property('nbOfFieldsEdited'),
@@ -26,6 +28,9 @@ export default Ember.Component.extend({
 	if(!this.get('buttonLabel')) {
 	    this.set('buttonLabel', 'Save Changes');
 	}
+	if(!this.get('cancelLabel')) {
+	    this.set('cancelLabel', 'Cancel Changes');
+	}
 	if(!this.get('inputWrapperClass')) {
 	    this.set('inputWrapperClass', 'col-xs-12');
 	}
@@ -35,17 +40,28 @@ export default Ember.Component.extend({
 	if(!this.get('labelClass')) {
 	    this.set('labelClass', 'col-sm-4');
 	}
+	if(!this.get('submit')) {
+	    this.set('submit', 'submit');
+	}
+	if(!this.get('cancel')) {
+	    this.set('cancel', 'cancel');
+	}
     }.on('init'),
 
     actions: {
 	post: function() {
-	    this.sendAction('action', this.get('param'));
+	    this.sendAction('submit', this.get('param'));
 	},
 	fieldIsEdited: function() {
 	    this.set('nbOfFieldsEdited', this.get('nbOfFieldsEdited') + 1);
 	},
 	fieldEditionIsCancelled: function() {
 	    this.set('nbOfFieldsEdited', this.get('nbOfFieldsEdited') - 1);
+	},
+	cancel: function() {
+	    this.sendAction('cancel');
+	    this.set('nbOfFieldsEdited', 0);
+	    this.set('cancelClicked', this.get('cancelClicked') + 1);
 	}
     }
 

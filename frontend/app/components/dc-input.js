@@ -14,6 +14,7 @@ export default Ember.Component.extend({
     createBindings: function() {
 	Ember.defineProperty(this, 'val', Ember.computed.alias('parentView.form.'+this.get('id')));
 	Ember.defineProperty(this, 'err', Ember.computed.alias('parentView.form.errors.'+this.get('id')));
+	Ember.defineProperty(this, 'cancel', Ember.computed.alias('parentView.cancelClicked'));
     }.on('init'),
 
     defaults: function() {
@@ -37,6 +38,10 @@ export default Ember.Component.extend({
     error: function() {
 	return (this.get('shouldValidate')) ? this.get('err') : null;
     }.property('err', 'shouldValidate'),
+
+    cancelClicked: function() {
+	this.set('isEdited', false);
+    }.observes('cancel').on('init'),
 
     actions: {
 	visited: function() {
