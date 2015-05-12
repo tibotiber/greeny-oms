@@ -44,6 +44,7 @@ export default Ember.Component.extend({
 	},
 	edit: function() {
 	    if(!this.get('locked')) {
+		this.set('originalValue', this.get('val'));
 		this.set('isEdited', true);
 		this.get('parentView').send('fieldIsEdited');
 		var that = this;
@@ -53,6 +54,7 @@ export default Ember.Component.extend({
 	    }
 	},
 	cancel: function() {
+	    this.set('val', this.get('originalValue'));
 	    this.set('isEdited', false);
 	    this.get('parentView').send('fieldEditionIsCancelled');
 	}
