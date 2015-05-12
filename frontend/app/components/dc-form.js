@@ -9,6 +9,8 @@ export default Ember.Component.extend({
 
     cancelClicked: 0,
 
+    cancelRequested: false,
+
     isEdited: function() {
 	return this.get('nbOfFieldsEdited') > 0;
     }.property('nbOfFieldsEdited'),
@@ -62,6 +64,14 @@ export default Ember.Component.extend({
 	    this.sendAction('cancel');
 	    this.set('nbOfFieldsEdited', 0);
 	    this.set('cancelClicked', this.get('cancelClicked') + 1);
+	    this.set('cancelRequested', false);
+	},
+	requestCancel: function() {
+	    this.set('cancelRequested', true);
+	    var that = this;
+	    setTimeout(function(){
+		that.set('cancelRequested', false);
+	    }, 5000);
 	}
     }
 

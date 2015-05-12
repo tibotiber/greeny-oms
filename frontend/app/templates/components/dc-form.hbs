@@ -4,7 +4,11 @@
     <div class="text-center">
       {{#if isEdited}}
         <button type="submit" class="btn btn-primary" {{bind-attr disabled="isInvalid"}}>{{buttonLabel}}</button>
-        <button type="cancel" class="btn btn-warning" {{action 'cancel'}}>{{cancelLabel}}</button>
+        {{#if cancelRequested}}
+          <button type="cancel" class="btn btn-warning" {{action 'cancel'}}>Click again to confirm cancel!</button>
+        {{else}}
+          <button type="cancel" class="btn btn-warning" {{action 'requestCancel'}}>{{cancelLabel}}</button>
+        {{/if}}
       {{else}}
         <button class="btn btn-primary" disabled>Double-click any field to edit it</button>
       {{/if}}
