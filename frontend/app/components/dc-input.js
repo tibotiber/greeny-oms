@@ -46,6 +46,10 @@ export default Ember.Component.extend({
 	    if(!this.get('locked')) {
 		this.set('isEdited', true);
 		this.get('parentView').send('fieldIsEdited');
+		var that = this;
+		setTimeout(function(){
+		    that.$('input').focus();
+		}, 80);
 	    }
 	},
 	cancel: function() {
