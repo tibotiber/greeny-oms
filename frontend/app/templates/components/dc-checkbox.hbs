@@ -19,10 +19,10 @@
           <p {{bind-attr class=':dc-form-input locked::click-me'}} {{bind-attr name=id}} {{action 'edit' on='doubleClick'}}>{{val}}</p>
         {{/if}}
       {{/if}}
+      {{#if error}}
+        <div class="alert alert-info">{{error}}</div>
+      {{/if}}
     </div>
-    {{#if error}}
-      <div class="alert alert-info">{{error}}</div>
-    {{/if}}
   </div>
 {{else}}
   {{#if isEdited}}
