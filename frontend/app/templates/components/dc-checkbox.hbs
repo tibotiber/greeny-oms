@@ -4,9 +4,13 @@
     <div {{bind-attr class="inputClass"}}>
       {{#if isEdited}}
         {{#if ph}}
-          {{input type="text" class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph escape-press="cancel"}}
+          {{input type="checkbox" class="dc-checkbox hastip" name=id checked=val title=ph escape-press="cancel"}}
+          <span class="dc-checkbox-value">{{val}}</span>
+          <button class="btn btn-default btn-xs dc-checkbox-cancel-btn" {{action 'cancel'}}>Cancel</button>
         {{else}}
-          {{input type="text" class="form-control" name=id value=val focus-out="visited" escape-press="cancel"}}
+          {{input type="checkbox" class="dc-checkbox" name=id checked=val}}
+          <span class="dc-checkbox-value">{{val}}</span>
+          <button class="btn btn-default btn-xs dc-checkbox-cancel-btn" {{action 'cancel'}}>Cancel</button>
         {{/if}}
       {{else}}
         {{#if ph}}
@@ -23,9 +27,13 @@
 {{else}}
   {{#if isEdited}}
     {{#if ph}}
-      {{input type="text" class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph escape-press="cancel"}}
+      {{input type="checkbox" class="dc-checkbox hastip" name=id checked=val title=ph escape-press="cancel"}}
+      <span class="dc-checkbox-value">{{val}}</span>
+      <button class="btn btn-default btn-xs dc-checkbox-cancel-btn" {{action 'cancel'}}>Cancel</button>
     {{else}}
-      {{input type="text" class="form-control" name=id value=val focus-out="visited" escape-press="cancel"}}
+      {{input type="checkbox" class="dc-checkbox" name=id checked=val escape-press="cancel"}}
+      <span class="dc-checkbox-value">{{val}}</span>
+      <button class="btn btn-default btn-xs dc-checkbox-cancel-btn" {{action 'cancel'}}>Cancel</button>
     {{/if}}
   {{else}}
     {{#if ph}}

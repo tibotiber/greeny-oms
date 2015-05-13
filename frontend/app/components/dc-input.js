@@ -11,6 +11,8 @@ export default Ember.Component.extend({
 
     isEdited: false,
 
+    autofocus: true,
+
     createBindings: function() {
 	Ember.defineProperty(this, 'val', Ember.computed.alias('parentView.form.'+this.get('id')));
 	Ember.defineProperty(this, 'err', Ember.computed.alias('parentView.form.errors.'+this.get('id')));
@@ -33,7 +35,14 @@ export default Ember.Component.extend({
 	if(!this.get('labelClass')) {
 	    this.set('labelClass', this.get('parentView.labelClass'));
 	}
+	if(!this.get('margin')) {
+	    this.set('margin', this.get('parentView.margin'));
+	}
     }.on('init'),
+
+    style: function() {
+	return 'margin-top: '+this.get('margin')+'; margin-bottom: '+this.get('margin')+';';
+    }.property('margin'),
     
     error: function() {
 	return (this.get('shouldValidate')) ? this.get('err') : null;
@@ -52,10 +61,12 @@ export default Ember.Component.extend({
 		this.set('originalValue', this.get('val'));
 		this.set('isEdited', true);
 		this.get('parentView').send('fieldIsEdited');
-		var that = this;
-		setTimeout(function(){
-		    that.$('input').focus();
-		}, 80);
+		if(this.get('autofocus')) {
+		    var that = this;
+		    setTimeout(function(){
+			that.$('input').focus();
+		    }, 80);
+		}
 	    }
 	},
 	cancel: function() {

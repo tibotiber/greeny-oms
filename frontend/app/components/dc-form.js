@@ -48,6 +48,9 @@ export default Ember.Component.extend({
 	if(!this.get('cancel')) {
 	    this.set('cancel', 'cancel');
 	}
+	if(!this.get('margin')) {
+	    this.set('margin', '0px');
+	}
     }.on('init'),
 
     actions: {

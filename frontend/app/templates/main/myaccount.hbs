@@ -4,7 +4,7 @@
       <div class="box-header">
 	<div class="box-name">
 	  <i class="fa fa-user"></i>
-	  <span>User Profile</span>
+	  <span>User Profile - {{name}}</span>
 	</div>
 	<div class="no-move"></div>
       </div>
@@ -15,35 +15,23 @@
               {{sails-path 'img' '/upload/profile-pics/' profile_pic class='media-object img-responsive img-thumbnail'}}
             </div>
             <div class="col-sm-9 col-lg-10">
-              <h4>{{name}}</h4>
-	      <label class="col-sm-4 control-label">Username</label>
-	      <p class="col-sm-8">{{auth.username}}</p>
-	      <label class="col-sm-4 control-label">Email</label>
-	      <p class="col-sm-8">{{email}}</p>
-	      {{#if admin}}
-	        <label class="col-sm-4 control-label">Admin</label>
-	        <p class="col-sm-8">{{admin}}</p>
-	        <label class="col-sm-4 control-label">Manager</label>
-	        <p class="col-sm-8">{{manager}}</p>
-	        <label class="col-sm-4 control-label">Sales</label>
-	        <p class="col-sm-8">{{sales}}</p>
-	        <label class="col-sm-4 control-label">Purchasing</label>
-	        <p class="col-sm-8">{{purchasing}}</p>
-	        <label class="col-sm-4 control-label">Quality Check</label>
-	        <p class="col-sm-8">{{quality_check}}</p>
-	        <label class="col-sm-4 control-label">Packing</label>
-	        <p class="col-sm-8">{{packing}}</p>
-	        <label class="col-sm-4 control-label">Documentation</label>
-	        <p class="col-sm-8">{{documentation}}</p>
-	        <label class="col-sm-4 control-label">Accounts Payable</label>
-	        <p class="col-sm-8">{{accounts_payable}}</p>
-	        <label class="col-sm-4 control-label">Accounts Receivable</label>
-	        <p class="col-sm-8">{{accounts_receivable}}</p>
+              {{#dc-form form=this id='userProfileForm' submit='update' labelClass='col-sm-4' inputClass='col-sm-8'}}
+              {{dc-input id='auth.username' label='Username' locked=true}}
+	      {{dc-input id='name'}}
+	      {{dc-input id='email'}}
+	      {{#if session.user.admin}}
+                {{dc-checkbox id='admin'}}
+                {{dc-checkbox id='manager'}}
+                {{dc-checkbox id='sales'}}
+                {{dc-checkbox id='purchasing'}}
+                {{dc-checkbox id='quality_check' label='Quality Check'}}
+                {{dc-checkbox id='packing'}}
+                {{dc-checkbox id='documentation'}}
+                {{dc-checkbox id='accounts_payable' label='Accounts Payable'}}
+                {{dc-checkbox id='accounts_receivable' label='Accounts Receivable'}}
 	      {{/if}}
-	      <p class="text-center">
-	        <a class="btn btn-primary" href="/users/edit/{{unbound id}}">Edit</a>
-	      </p>
-            </div>
+              {{/dc-form}}
+	    </div>
           </div>
 	</div>
       </div>
