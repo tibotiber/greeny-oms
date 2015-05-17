@@ -3,9 +3,9 @@
     <label {{bind-attr class=":control-label labelClass"}}>{{label}}</label>
     <div {{bind-attr class="inputClass"}}>
       {{#if ph}}
-        {{input type="text" class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph}}
+        {{input type=type class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph}}
       {{else}}
-        {{input type="text" class="form-control" name=id value=val focus-out="visited"}}
+        {{input type=type class="form-control" name=id value=val focus-out="visited"}}
       {{/if}}
       {{#if error}}
         <div class="alert alert-info">{{error}}</div>
@@ -14,9 +14,9 @@
   </div>
 {{else}}
   {{#if ph}}
-    {{input type="text" class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph}}
+    {{input type=type class="form-control hastip" name=id value=val placeholder=ph focus-out="visited" title=ph}}
   {{else}}
-    {{input type="text" class="form-control" name=id value=val focus-out="visited"}}
+    {{input type=type class="form-control" name=id value=val focus-out="visited"}}
   {{/if}}
   {{#if error}}
     <div class="alert alert-info">{{error}}</div>

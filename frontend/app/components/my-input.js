@@ -33,6 +33,9 @@ export default Ember.Component.extend({
 	if(!this.get('margin')) {
 	    this.set('margin', this.get('parentView.margin'));
 	}
+	if(!this.get('type')) {
+	    this.set('type', 'text');
+	}
     }.on('init'),
 
     style: function() {

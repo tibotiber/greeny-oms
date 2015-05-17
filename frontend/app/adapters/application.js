@@ -1,7 +1,8 @@
+import Ember from 'ember';
 import SailsSocketAdapter from 'ember-data-sails/adapters/sails-socket';
 import tokens from '../utils/tokens';
 
-export default SailsSocketAdapter.extend({
+ var ApplicationAdapter = SailsSocketAdapter.extend({
     useCSRF: true,
     coalesceFindRequests: true,
     _request: function(out, url, method, options) {
@@ -10,3 +11,8 @@ export default SailsSocketAdapter.extend({
 	return this._super(out, url, method, options);
     }
 });
+
+var inflector = Ember.Inflector.inflector;
+inflector.uncountable('auth');
+
+export default ApplicationAdapter;
