@@ -1,5 +1,5 @@
 {{#if autolabel}}
-  <div class="row form-group">
+  <div class="row form-group" {{bind-attr style=style}}>
     <label {{bind-attr class=":control-label labelClass"}}>{{label}}</label>
     <div {{bind-attr class="inputClass"}}>
       {{#if ph}}
@@ -7,10 +7,10 @@
       {{else}}
         {{textarea class="form-control" name=id value=val focus-out="visited" rows=rows}}
       {{/if}}
+      {{#if error}}
+        <div class="alert alert-info">{{error}}</div>
+      {{/if}}
     </div>
-    {{#if error}}
-      <div class="alert alert-info">{{error}}</div>
-    {{/if}}
   </div>
 {{else}}
   {{#if ph}}

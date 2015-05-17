@@ -8,6 +8,10 @@ export default Ember.Component.extend({
     createBindings: function() {
 	Ember.defineProperty(this, 'isInvalid', Ember.computed.alias('form.isInvalid'));
 	Ember.defineProperty(this, 'errors', Ember.computed.alias('form.errors'));
+	Ember.defineProperty(this, 'errorMessage', Ember.computed.alias('form.errorMessage'));
+	Ember.defineProperty(this, 'successMessage', Ember.computed.alias('form.successMessage'));
+	Ember.defineProperty(this, 'attempts', Ember.computed.alias('form.attempts'));
+	Ember.defineProperty(this, 'loading', Ember.computed.alias('form.loading'));
     }.on('init'),
 
     defaults: function() {
@@ -23,11 +27,17 @@ export default Ember.Component.extend({
 	if(!this.get('labelClass')) {
 	    this.set('labelClass', 'col-sm-4');
 	}
+	if(!this.get('submit')) {
+	    this.set('submit', 'submit');
+	}
+	if(!this.get('margin')) {
+	    this.set('margin', '0px');
+	}
     }.on('init'),
 
     actions: {
-	post: function() {
-	    this.sendAction('action', this.get('param'));
+	submit: function() {
+	    this.sendAction('submit', this.get('param'));
 	}
     }
 

@@ -10,7 +10,7 @@
       </div>
       <div class="box-content">
         <div class="card">
-          {{#my-form form=this id="supportForm" action="post" buttonLabel="Submit this support ticket" inputWrapperClass="col-sm-10 col-sm-offset-1"}}
+          {{#my-form form=this id="supportForm" buttonLabel="Submit this support ticket" inputWrapperClass="col-sm-10 col-sm-offset-1"}}
           <div class="row form-group">
             {{my-select id='type' content=typeOptions ph='What can we help you with?' nolabel=true}}
 	  </div>
@@ -27,20 +27,7 @@
             {{my-textarea id='error' rows='5' ph='If an error was returned, please copy it here...' nolabel=true}}
           </div>
 	  {{/my-form}}
-          {{please-wait loading=loading msg="Processing..." }}
-          {{#if errorMessage}}
-            <div class="alert alert-danger">
-              <p>
-                <strong>Post failed ({{attempts}}):</strong> <code>{{errorMessage}}</code>
-              </p>
-            </div>
-          {{/if}}
-          {{#if successMessage}}
-            <div class="alert alert-success text-center">
-              <p><strong>Your support ticket has been posted!</strong></p>
-            </div>
-          {{/if}}
-	</div>
+        </div>
       </div>
     </div>
   </div>  

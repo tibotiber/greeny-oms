@@ -13,17 +13,17 @@
     <ul class="dropdown-menu">
       <li>
 	{{#link-to 'main.myaccount'}}
-	  <i class="fa fa-user"></i>
-	  <span>Profile</span>
+	<i class="fa fa-user"></i>
+	<span>Profile</span>
 	{{/link-to}}
       </li>
       {{#if session.user.admin}}
-      <li>
-	<a href="/users/changePwd/{{unbound session.user.id}}">
+        <li>
+          {{#link-to 'main.mypassword'}}
 	  <i class="fa fa-lock"></i>
 	  <span>Change password</span>
-	</a>
-      </li>
+          {{/link-to}}
+	</li>
       {{/if}}
       <li>
 	<a {{ action 'invalidateSession' }}>

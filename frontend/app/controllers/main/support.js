@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import EmberValidations from 'ember-validations';
 import tokens from '../../utils/tokens';
+import MyFormControllerMixin from '../../mixins/my-form-controller-mixin';
 
-export default Ember.Controller.extend(EmberValidations.Mixin, {
+export default Ember.Controller.extend(EmberValidations.Mixin, MyFormControllerMixin, {
 
     typeOptions: [
 	{value: 'help request'		, label: "There is something I don't understand, can you help me?"},
@@ -34,7 +35,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     },
     
     actions: {
-	post: function() {
+	submit: function() {
 	    var _this = this;
 	    var postData = this.getProperties('type','frequency','subject','description','error');
 	    tokens().addCsrfAndJwt(this, postData, function(err, postData) {
@@ -49,7 +50,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
 			    _this.set('errorMessage', response.error);
 			    _this.set('attempts', _this.get('attempts')+1);
 			} else {
-			    _this.set('successMessage', JSON.stringify(response.success));
+			    _this.set('successMessage', 'Your support ticket has been posted!');
 			}
 		    });
 		}

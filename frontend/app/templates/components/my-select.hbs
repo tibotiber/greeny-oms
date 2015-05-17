@@ -1,5 +1,5 @@
 {{#if autolabel}}
-  <div class="row form-group">
+  <div class="row form-group" {{bind-attr style=style}}>
     <label {{bind-attr class=":control-label labelClass"}}>{{label}}</label>
     <div {{bind-attr class="inputClass"}}>
       {{#if ph}}
@@ -11,10 +11,10 @@
         {{view 'select' name=id value=val prompt='Pick an option' class='form-control' focus-out='visited'
         content=content optionVauePath='content.value' optionLabelPath='content.label'}}
       {{/if}}
+      {{#if error}}
+        <div class="alert alert-info">{{error}}</div>
+      {{/if}}
     </div>
-    {{#if error}}
-      <div class="alert alert-info">{{error}}</div>
-    {{/if}}
   </div>
 {{else}}
   {{#if ph}}

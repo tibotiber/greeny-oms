@@ -9,9 +9,10 @@ Router.map(function() {
     this.route('login');
 
     this.resource('main', {path: '/'}, function(){
-	this.resource('user', function() {});
-	this.route('support');
-	this.route('myaccount');
+      this.resource('user', function() {});
+      this.route('support');
+      this.route('myaccount');
+      this.route('mypassword');
     });
 
 });

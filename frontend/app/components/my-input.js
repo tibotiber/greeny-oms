@@ -30,7 +30,14 @@ export default Ember.Component.extend({
 	if(!this.get('labelClass')) {
 	    this.set('labelClass', this.get('parentView.labelClass'));
 	}
+	if(!this.get('margin')) {
+	    this.set('margin', this.get('parentView.margin'));
+	}
     }.on('init'),
+
+    style: function() {
+	return 'margin-top: '+this.get('margin')+'; margin-bottom: '+this.get('margin')+';';
+    }.property('margin'),
     
     error: function() {
 	return (this.get('shouldValidate')) ? this.get('err') : null;
