@@ -15,7 +15,7 @@
               {{sails-path 'img' '/upload/profile-pics/' profile_pic class='media-object img-responsive img-thumbnail'}}
             </div>
             <div class="col-sm-9 col-lg-10">
-              {{#dc-form form=this id='userProfileForm' submit='update' labelClass='col-sm-4' inputClass='col-sm-8'}}
+              {{#dc-form form=this id='userProfileForm' labelClass='col-sm-4' inputClass='col-sm-8'}}
               {{dc-input id='auth.username' label='Username' locked=true}}
 	      {{dc-input id='name'}}
 	      {{dc-input id='email'}}
@@ -31,7 +31,7 @@
                 {{dc-checkbox id='accounts_receivable' label='Accounts Receivable'}}
 	      {{/if}}
               {{/dc-form}}
-	    </div>
+            </div>
           </div>
 	</div>
       </div>

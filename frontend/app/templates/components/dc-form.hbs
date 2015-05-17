@@ -15,3 +15,16 @@
     </div>
   </div>
 </form>
+{{please-wait loading=loading msg="Processing..." }}
+{{#if errorMessage}}
+  <div class="alert alert-danger">
+    <p>
+      <strong>Post failed ({{attempts}}):</strong> <code>{{errorMessage}}</code>
+    </p>
+  </div>
+{{/if}}
+{{#if successMessage}}
+  <div class="alert alert-success text-center">
+    <p><strong>{{successMessage}}</strong></p>
+  </div>
+{{/if}}

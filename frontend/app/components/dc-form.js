@@ -18,12 +18,24 @@ export default Ember.Component.extend({
     protectUnsavedChanges: function() {
 	this.sendAction('bubbleChanges', this.get('isEdited'));
     }.observes('isEdited').on('init'),
+
+    clearChanges: function() {
+	this.set('nbOfFieldsEdited', 0);
+	this.set('cancelClicked', this.get('cancelClicked') + 1);
+	this.set('cancelRequested', false);
+	this.set('changesSaved', false);
+    }.observes('changesSaved').on('init'),
     
     bubbleChanges: "hasUnsavedChanges",
     
     createBindings: function() {
 	Ember.defineProperty(this, 'isInvalid', Ember.computed.alias('form.isInvalid'));
 	Ember.defineProperty(this, 'errors', Ember.computed.alias('form.errors'));
+	Ember.defineProperty(this, 'errorMessage', Ember.computed.alias('form.errorMessage'));
+	Ember.defineProperty(this, 'successMessage', Ember.computed.alias('form.successMessage'));
+	Ember.defineProperty(this, 'attempts', Ember.computed.alias('form.attempts'));
+	Ember.defineProperty(this, 'changesSaved', Ember.computed.alias('form.changesSaved'));
+	Ember.defineProperty(this, 'loading', Ember.computed.alias('form.loading'));
     }.on('init'),
 
     defaults: function() {
@@ -54,7 +66,7 @@ export default Ember.Component.extend({
     }.on('init'),
 
     actions: {
-	post: function() {
+	submit: function() {
 	    this.sendAction('submit', this.get('param'));
 	},
 	fieldIsEdited: function() {
@@ -65,9 +77,7 @@ export default Ember.Component.extend({
 	},
 	cancel: function() {
 	    this.sendAction('cancel');
-	    this.set('nbOfFieldsEdited', 0);
-	    this.set('cancelClicked', this.get('cancelClicked') + 1);
-	    this.set('cancelRequested', false);
+	    this.clearChanges();
 	},
 	requestCancel: function() {
 	    this.set('cancelRequested', true);

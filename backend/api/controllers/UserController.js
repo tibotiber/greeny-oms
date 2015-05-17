@@ -33,34 +33,6 @@ module.exports = require('waterlock').actions.user({
 	});
     },
 
-    update: function(req, res, next){
-	// initialize updates object
-	var params = JSON.parse(JSON.stringify(req.params.all()));
-	// upload profile pic if any
-	req.file('profile_pic').upload({
-		dirname: UPLOAD_PATH,
-		saveAs: req.param('username')+'.jpg'
-	    }, function (err, uploadedFiles){
-		if(err)
-		    return res.serverError("Error uploading new profile pic: "+err);
-		if(uploadedFiles.length > 0)
-		    // update database
-		    params.profile_pic = req.param('username')+'.jpg';
-		// update user info
-		User.update(params.id, params).exec(function(err, userUpdated) {
-		    // update session if needed
-		    if(!err && req.session.user.id == params.id){
-			req.session.user = userUpdated[0];
-		    } else {
-			sails.log.error(err);
-			return res.redirect('/user/edit/' + req.param('id'));
-		    }
-		    res.redirect('/user/show/' + req.param('id'));
-		});
-	    }
-	);
-    },
-
     edit: function(req, res, next){
 	User.findOne(req.param('id')).populate('auth').exec(function(err, user) {
 	    if(err) return next(err);
