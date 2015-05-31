@@ -40,7 +40,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, MyFormControllerM
 	    var postData = this.getProperties('type','frequency','subject','description','error');
 	    socket().request(this, 'post', '/support/post', postData, function(err, response) {
 		if(err) {
-		    that.set('errorMessage', response.error);
+		    that.set('errorMessage', err);
 		    that.set('attempts', that.get('attempts')+1);
 		} else {
 		    that.set('successMessage', 'Your support ticket has been posted!');
