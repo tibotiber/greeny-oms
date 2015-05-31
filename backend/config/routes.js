@@ -33,6 +33,11 @@ module.exports.routes = {
 	action: 'index'
     },
 
+    '/upload': {
+	controller: 'FileController',
+	action: 'upload'
+    },
+
     '/db/fishes': {
 	controller: 'FishVariantController',
 	action: 'index'

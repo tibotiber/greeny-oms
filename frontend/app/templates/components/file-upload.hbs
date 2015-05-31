@@ -1,1 +1,22 @@
-{{yield}}
+<div class="file-upload">
+  {{file-upload-field name=name}}
+  {{#if progress}}
+    {{progress-bar progress=progress}}
+  {{/if}}
+  {{#if successMessage}}
+    <div class="alert alert-success alert-dismissible" role="alert">
+      <button type="button" class="close" aria-label="Close" {{action 'reset'}}>
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{successMessage}}
+    </div>
+  {{/if}}
+  {{#if errorMessage}}
+    <div class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" aria-label="Close" {{action 'reset'}}>
+        <span aria-hidden="true">&times;</span>
+      </button>
+      Error ({{nbOfAttempts}}): {{errorMessage}}
+    </div>
+  {{/if}}
+</div>

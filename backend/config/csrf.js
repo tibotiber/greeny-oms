@@ -38,5 +38,5 @@
  */
 
 module.exports.csrf = {
-    routesDisabled: '/auth/login,/auth/logout,/users/jwt,/users/uploadProfilePic'
+    routesDisabled: '/auth/login,/auth/logout,/users/jwt,/upload'
 };

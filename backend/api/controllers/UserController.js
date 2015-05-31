@@ -42,26 +42,6 @@ module.exports = require('waterlock').actions.user({
 	});
     },
 
-    uploadProfilePic: function(req, res, next) {
-	sails.log.debug('AVATAR UPLOAD');
-	var uploadPath = '../../assets/upload/profile-pics/';
-	req.file('file').upload({
-	    dirname: uploadPath,
-	    saveAs: 'test.jpg'//req.param('username')+'.jpg'
-	}, function (err, uploadedFiles){
-	    if(err)
-	    	return res.serverError("Error uploading new profile pic: "+err);
-	    // if(uploadedFiles.length > 0)
-	    // 	// update database
-	    // 	params.profile_pic = req.param('username')+'.jpg';
-	    // // update user info
-	    // User.update(params.id, {profile_pic: req.param()}).exec(function(err, userUpdated) {
-	    // 	res.ok('User profile updated');
-	    // });
-	    res.ok('upload ok');
-	});
-    },
-    
     destroy: function(req, res, next){
 	User.findOne(req.param('id')).populate('auth').exec(function(err, user) {
 	    if(err) return next(err);

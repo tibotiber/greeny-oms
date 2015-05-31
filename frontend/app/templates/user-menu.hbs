@@ -17,12 +17,6 @@
 	<span>My account</span>
 	{{/link-to}}
       </li>
-      <li>
-	{{#link-to 'main.mypicture'}}
-	<i class="fa fa-camera"></i>
-	<span>My picture</span>
-	{{/link-to}}
-      </li>
       {{#if session.user.admin}}
         <li>
           {{#link-to 'main.mypassword'}}
