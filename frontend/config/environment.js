@@ -21,20 +21,17 @@ module.exports = function(environment) {
 	    'script-src': "'self'",
 	    'font-src': "'self' http://themes.googleusercontent.com http://fonts.gstatic.com",
 	    'connect-src': "'self'",
-	    'img-src': "'self' https://dev.planecq.com:1337",
+	    'img-src': "'self'",
 	    'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
 	    'media-src': "'self'"
 	}
     };
 
     if (environment === 'development') {
-	// ENV.APP.LOG_RESOLVER = true;
-	// ENV.APP.LOG_ACTIVE_GENERATION = true;
-	// ENV.APP.LOG_TRANSITIONS = true;
-	// ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-	// ENV.APP.LOG_VIEW_LOOKUPS = true;
+	// basic content security policy
 	ENV.contentSecurityPolicy['script-src'] += " 'unsafe-inline' dev.planecq.com:35729";
 	ENV.contentSecurityPolicy['connect-src'] += " ws://dev.planecq.com:35729";
+	ENV.contentSecurityPolicy['img-src'] += " https://dev.planecq.com:1337",
 	
 	/* config for ember-data-sails */
 	ENV.APP.SAILS_LOG_LEVEL = 'debug';
@@ -68,6 +65,48 @@ module.exports = function(environment) {
 	};
 	ENV['simple-auth-sails'] = {
 	    serverLogoutEndpoint: 'https://dev.planecq.com:1337/auth/logout'
+	};
+	/* end of config for waterlock */
+    }
+
+    if (environment === 'docker') {
+	// basic content security policy
+	ENV.contentSecurityPolicy['script-src'] += " 'unsafe-inline' b2d:35729";
+	ENV.contentSecurityPolicy['connect-src'] += " ws://b2d:35729";
+	ENV.contentSecurityPolicy['img-src'] += " https://b2d:32768",
+	
+	/* config for ember-data-sails */
+	ENV.APP.SAILS_LOG_LEVEL = 'debug';
+	ENV.APP.emberDataSails =  {
+	    host: 'https://b2d:32768',
+	    scriptPath: '/js/dependencies/sails.io.js'
+	};
+	// allow to fetch the script
+	ENV.contentSecurityPolicy['script-src'] += ' https://b2d:32768';
+	// allow the websocket to connect
+	ENV.contentSecurityPolicy['connect-src'] += ' https://b2d:32768 wss://b2d:32768';
+	/* end of config for ember-data-sails */
+
+	/* config for waterlock */
+	ENV['simple-auth'] = {
+	    authorizer: 'simple-auth-authorizer:token',
+	    crossOriginWhitelist: ['https://b2d:32768'],
+	    routeAfterAuthentication: 'main',
+	    routeIfAlreadyAuthenticated: 'main'
+	};
+	ENV['simple-auth-token'] = {
+	    serverTokenEndpoint: 'https://b2d:32768/auth/login',
+	    authorizationPrefix: 'JWT ',
+	    tokenPropertyName: 'access_token', // this keeps the session persisted
+	    authorizationHeaderName: 'X-Auth',
+	    identificationField: 'username',
+	    refreshAccessTokens: true,
+	    serverTokenRefreshEndpoint: 'https://b2d:32768/users/jwt',
+	    refreshLeeway: 600, // refresh 10min before expiry
+	    timeFactor: 1  // set to "1000" to convert incoming seconds to milliseconds.
+	};
+	ENV['simple-auth-sails'] = {
+	    serverLogoutEndpoint: 'https://b2d:32768/auth/logout'
 	};
 	/* end of config for waterlock */
     }
