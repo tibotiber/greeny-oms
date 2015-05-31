@@ -13,6 +13,7 @@ Router.map(function() {
       this.route('support');
       this.route('myaccount');
       this.route('mypassword');
+      this.route('mypicture');
     });
 
 });

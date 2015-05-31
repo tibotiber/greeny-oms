@@ -36,5 +36,8 @@
     "ember-data-sails": "0.0.15",
     "ember-export-application-global": "^1.0.2",
     "ember-validations": "^2.0.0-alpha.3"
+  },
+  "dependencies": {
+    "ember-cli-uploader": "^0.3.7"
   }
 }

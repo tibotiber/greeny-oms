@@ -14,7 +14,13 @@
       <li>
 	{{#link-to 'main.myaccount'}}
 	<i class="fa fa-user"></i>
-	<span>Profile</span>
+	<span>My account</span>
+	{{/link-to}}
+      </li>
+      <li>
+	{{#link-to 'main.mypicture'}}
+	<i class="fa fa-camera"></i>
+	<span>My picture</span>
 	{{/link-to}}
       </li>
       {{#if session.user.admin}}
