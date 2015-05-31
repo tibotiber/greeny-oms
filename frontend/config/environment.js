@@ -73,40 +73,40 @@ module.exports = function(environment) {
 	// basic content security policy
 	ENV.contentSecurityPolicy['script-src'] += " 'unsafe-inline' b2d:35729";
 	ENV.contentSecurityPolicy['connect-src'] += " ws://b2d:35729";
-	ENV.contentSecurityPolicy['img-src'] += " https://b2d:1337",
+	ENV.contentSecurityPolicy['img-src'] += " https://b2d:32768",
 	
 	/* config for ember-data-sails */
 	ENV.APP.SAILS_LOG_LEVEL = 'debug';
 	ENV.APP.emberDataSails =  {
-	    host: 'https://b2d:1337',
+	    host: 'https://b2d:32768',
 	    scriptPath: '/js/dependencies/sails.io.js'
 	};
 	// allow to fetch the script
-	ENV.contentSecurityPolicy['script-src'] += ' https://b2d:1337';
+	ENV.contentSecurityPolicy['script-src'] += ' https://b2d:32768';
 	// allow the websocket to connect
-	ENV.contentSecurityPolicy['connect-src'] += ' https://b2d:1337 wss://b2d:1337';
+	ENV.contentSecurityPolicy['connect-src'] += ' https://b2d:32768 wss://b2d:32768';
 	/* end of config for ember-data-sails */
 
 	/* config for waterlock */
 	ENV['simple-auth'] = {
 	    authorizer: 'simple-auth-authorizer:token',
-	    crossOriginWhitelist: ['https://b2d:1337'],
+	    crossOriginWhitelist: ['https://b2d:32768'],
 	    routeAfterAuthentication: 'main',
 	    routeIfAlreadyAuthenticated: 'main'
 	};
 	ENV['simple-auth-token'] = {
-	    serverTokenEndpoint: 'https://b2d:1337/auth/login',
+	    serverTokenEndpoint: 'https://b2d:32768/auth/login',
 	    authorizationPrefix: 'JWT ',
 	    tokenPropertyName: 'access_token', // this keeps the session persisted
 	    authorizationHeaderName: 'X-Auth',
 	    identificationField: 'username',
 	    refreshAccessTokens: true,
-	    serverTokenRefreshEndpoint: 'https://b2d:1337/users/jwt',
+	    serverTokenRefreshEndpoint: 'https://b2d:32768/users/jwt',
 	    refreshLeeway: 600, // refresh 10min before expiry
 	    timeFactor: 1  // set to "1000" to convert incoming seconds to milliseconds.
 	};
 	ENV['simple-auth-sails'] = {
-	    serverLogoutEndpoint: 'https://b2d:1337/auth/logout'
+	    serverLogoutEndpoint: 'https://b2d:32768/auth/logout'
 	};
 	/* end of config for waterlock */
     }
