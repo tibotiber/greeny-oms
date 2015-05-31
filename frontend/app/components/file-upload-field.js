@@ -39,7 +39,8 @@ export default EmberUploader.FileField.extend({
 	var uploadSuccess = function(data) {
 	    that.set('parentView.progress', null);
 	    that.set('parentView.errorMessage', null);
-	    that.set('parentView.successMessage', data);
+	    that.set('parentView.successMessage', data.message);
+	    that.get('parentView').send('onSuccess');
 	};
 
 	var uploadError = function(error) {

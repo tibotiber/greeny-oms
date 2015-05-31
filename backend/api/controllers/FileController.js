@@ -15,7 +15,12 @@ module.exports = {
 	if(req.param('saveAs')) uploadSettings.saveAs = req.param('saveAs');
 	req.file('file').upload(uploadSettings, function (err, uploadedFiles){
 	    if(err) return res.serverError("Error uploading new profile pic: "+err);
-	    res.ok(uploadedFiles.length + ' file(s) uploaded successfully!');
+	    res.ok({
+		message: uploadedFiles.length + ' file(s) uploaded successfully!',
+		files: _.map(uploadedFiles, function(file) {
+		    return file.fd.split('/upload/')[1];
+		})
+	    });
 	});
     }
     

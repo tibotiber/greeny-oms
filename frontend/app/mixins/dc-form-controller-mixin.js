@@ -14,11 +14,19 @@ export default Ember.Mixin.create({
 		setTimeout(function() {
 		    that.set('successMessage', null);
 		}, 3000);
+		// allow success extension
+		if(that.get('afterSuccess')) {
+		    that.get('afterSuccess')(that);
+		}
 	    };
 	    var onFail = function(error) {
 		that.set('loading', false);
 		that.set('errorMessage', error);
 		that.set('attempts', that.get('attempts')+1);
+		// allow error extension
+		if(that.get('afterError')) {
+		    that.get('afterError')(that, error);
+		}
 	    };
 	    this.set('loading', true);
 	    this.get('model').save().then(onSuccess, onFail);

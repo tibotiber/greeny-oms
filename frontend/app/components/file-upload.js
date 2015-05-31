@@ -10,11 +10,17 @@ export default Ember.Component.extend({
     extension: '',
 
     actions: {
+
+	onSuccess: function() {
+	    this.sendAction('onSuccess');
+	},
+
 	reset: function() {
 	    this.set('progress', null);
 	    this.set('errorMessage', null);
 	    this.set('successMessage', null);
 	}
+	
     }
     
 });

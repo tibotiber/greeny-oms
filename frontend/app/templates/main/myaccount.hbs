@@ -13,7 +13,7 @@
           <div class="row">
             <div class="col-sm-3 col-lg-2 pull-right">
               {{sails-path 'img' '/upload/profile-pics/' profile_pic class='media-object img-responsive img-thumbnail'}}
-              {{file-upload name="avatar" uploadPath="profile-pics/" saveAs=auth.username extension="jpg"}}
+              {{file-upload name="avatar" uploadPath="profile-pics/" saveAs=auth.username extension="jpg" onSuccess="profilePictureUploaded"}}
             </div>
             <div class="col-sm-9 col-lg-10">
               {{#dc-form form=this id='userProfileForm' labelClass='col-sm-4' inputClass='col-sm-8'}}
