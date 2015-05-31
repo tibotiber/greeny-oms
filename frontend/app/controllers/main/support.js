@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import EmberValidations from 'ember-validations';
-import tokens from '../../utils/tokens';
+import socket from '../../utils/socket';
 import MyFormControllerMixin from '../../mixins/my-form-controller-mixin';
 
 export default Ember.Controller.extend(EmberValidations.Mixin, MyFormControllerMixin, {
@@ -36,23 +36,14 @@ export default Ember.Controller.extend(EmberValidations.Mixin, MyFormControllerM
     
     actions: {
 	submit: function() {
-	    var _this = this;
+	    var that = this;
 	    var postData = this.getProperties('type','frequency','subject','description','error');
-	    tokens().addCsrfAndJwt(this, postData, function(err, postData) {
+	    socket().request(this, 'post', '/support/post', postData, function(err, response) {
 		if(err) {
-		    _this.set('errorMessage', err);
-		    _this.set('attempts', _this.get('attempts')+1);
+		    that.set('errorMessage', response.error);
+		    that.set('attempts', that.get('attempts')+1);
 		} else {
-		    _this.set('loading', true);
-		    _this.sailsSocket.request('post', '/support/post', postData).then(function(response) {
-			_this.set('loading', false);
-			if(response.error) {
-			    _this.set('errorMessage', response.error);
-			    _this.set('attempts', _this.get('attempts')+1);
-			} else {
-			    _this.set('successMessage', 'Your support ticket has been posted!');
-			}
-		    });
+		    that.set('successMessage', 'Your support ticket has been posted!');
 		}
 	    });
 	}
