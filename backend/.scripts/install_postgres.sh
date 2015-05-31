@@ -5,6 +5,7 @@
 
 # Install PostgreSQL and tools
 sudo apt-get install -y postgresql postgresql-contrib
+sudo /etc/init.d/postgresql restart
 echo "NOTA: You will be prompted to choose a PostgreSQL user password for the default user 'postgres', please key it in twice!"
 sudo -u postgres psql postgres -c "\password postgres"
 sudo -u postgres psql -c "CREATE EXTENSION adminpack;"
