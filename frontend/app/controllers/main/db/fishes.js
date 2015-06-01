@@ -3,6 +3,12 @@ import ColumnDefinition from 'ember-table/models/column-definition';
 
 export default Ember.ArrayController.extend({
 
+    nbOfRecords: function() {
+	this.set('isLoading', false);
+	return this.get('model.content').length;
+    }.property('model.content'),
+
+    // setup table
     columns: function() {
 	var code = ColumnDefinition.create({
 	    savedWidth: 70,
@@ -40,6 +46,25 @@ export default Ember.ArrayController.extend({
 	    canAutoResize: true
 	});
 	return [code, family, name, scientificName, chineseName];
-    }.property()
+    }.property(),
 
+    // setup pagination
+    queryParams: ['page','limit','sort'],
+    page: 1,
+    limit: 50,
+    sort: 'code',
+    isLoading: false,
+    prevPage: function() {
+	return this.get('page') - 1;
+    }.property('page'),
+    nextPage: function() {
+	return this.get('page') + 1;
+    }.property('page'),
+    isFirstPage: function() {
+	return this.get('page') === 1;
+    }.property('page'),
+    isLastPage: function() {
+	return this.get('nbOfRecords') !== this.get('limit');
+    }.property('nbOfRecords','limit')
+    
 });

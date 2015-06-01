@@ -16,5 +16,24 @@
 <div class="row">
   <div class="col-xs-12">
     {{ember-table hasFooter=false columns=columns content=model height=750 numFixedColumns=1 selectionMode='multiple'}}
+    <div class="pagination" class="text-center">
+      <div class="btn-group">
+        {{#if isFirstPage}}
+          <button type="button" class="btn btn-default" disabled><i class="fa fa-chevron-left"></i></button>
+        {{else}}
+          {{#link-to (query-params page=prevPage) class="btn btn-default"}}<i class="fa fa-chevron-left"></i>{{/link-to}}
+        {{/if}}
+        {{#if isLoading}}
+          <button type="button" class="btn btn-default" disabled><i class="fa fa-circle-o-notch fa-spin"></i></button>
+        {{else}}
+          <button type="button" class="btn btn-default" disabled>{{page}}</button>
+        {{/if}}
+        {{#if isLastPage}}
+          <button type="button" class="btn btn-default" disabled><i class="fa fa-chevron-right"></i></button>
+        {{else}}
+          {{#link-to (query-params page=nextPage) class="btn btn-default"}}<i class="fa fa-chevron-right"></i>{{/link-to}}
+        {{/if}}
+      </div>
+    </div>
   </div>
 </div>
