@@ -58,7 +58,7 @@ module.exports = {
 	// calculate sku picker cache
 	FishProduct.cacheSkuPicker(product, cb);
     },
-
+    
     cacheSkuPicker: function(product, cb) {
 	// compute cache for sku picker
 	FishProduct.findOne(product.code).populateAll().exec(function(err, item) {

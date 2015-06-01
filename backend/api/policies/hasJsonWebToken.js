@@ -10,12 +10,13 @@
  * @docs        :: http://waterlock.ninja/documentation
  */
 module.exports = function(req, res, next) {
-  waterlock.validator.validateTokenRequest(req, function(err, user){
-    if(err){
-      return res.forbidden(err);  
-    }
-
-    // valid request
-    next();
-  });
+    waterlock.validator.validateTokenRequest(req, function(err, user){
+	if(err){
+	    return res.forbidden(err);  
+	}
+	// clear access_token
+	if(req.body.access_token) delete req.body.access_token;
+	// process request
+	next();
+    });
 };

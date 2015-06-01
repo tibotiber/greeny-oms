@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-xs-9">
+    <form>
+      <div class="input-group">
+	<span class="input-group-btn">
+	  <button class="btn btn-default" type="submit" id="SearchButton">Search products!</button>
+	</span>
+	<input type="text" class="form-control" name="search">
+      </div>
+    </form>
+  </div>
+  <div class="col-xs-3 text-right">
+    {{#link-to 'main.db.fishfamilies' class="btn btn-default"}}Administer Fish Families{{/link-to}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    {{ember-table hasFooter=false columns=columns content=model height=750 numFixedColumns=1 selectionMode='multiple'}}
+  </div>
+</div>

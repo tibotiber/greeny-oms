@@ -7,7 +7,10 @@ import tokens from '../utils/tokens';
     coalesceFindRequests: true,
     _request: function(out, url, method, options) {
 	var jwt = tokens().getJwt(this);
-	url = (jwt) ? url+'?access_token='+jwt : url;
+	if(!options.data) {
+	    options.data = {};
+	}
+	options.data.access_token = jwt;
 	return this._super(out, url, method, options);
     }
 });

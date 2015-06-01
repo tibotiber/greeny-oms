@@ -9,12 +9,6 @@ var skuPicker = require('../services/SkuPickerService');
 
 module.exports = {
 
-    index: function(req, res, next) {
-	FishProduct.find({}).populateAll().exec(function(err, found) {
-	    res.json({products: found});
-	});
-    },
-
     listFiltered: function(req, res, next) {
 	skuPicker.pickProducts({
 	    search : req.param('search'),

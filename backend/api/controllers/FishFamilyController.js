@@ -7,10 +7,6 @@
 
 module.exports = {
 
-    index: function(req, res, next) {
-	res.view('fish/family');
-    },
-
     listNames: function(req, res, next) {
 	FishFamily.find({}).sort('name').exec(function(err, found) {
 	    if(!err) {
