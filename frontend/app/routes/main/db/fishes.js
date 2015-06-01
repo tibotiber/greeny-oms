@@ -9,15 +9,23 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     model: function(params) {
-	if(this.controller) this.controller.set('isLoading', true);
-	params.skip = (params.page-1)*params.limit;
+	if(this.controller) {
+	    this.controller.set('isLoading', true);
+	}
+	params.skip = (params.page - 1) * params.limit;
 	delete params.page;
+	if(_.isUndefined(params.search) || params.search === '') {
+	    delete params.search;
+	}
 	return this.store.find('fishproduct', params);
     },
 
     // setup pagination
     queryParams: {
 	page: {
+	    refreshModel: true
+	},
+	search: {
 	    refreshModel: true
 	}
     },

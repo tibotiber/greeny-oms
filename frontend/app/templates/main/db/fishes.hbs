@@ -1,13 +1,11 @@
 <div class="row">
   <div class="col-xs-9">
-    <form>
-      <div class="input-group">
-	<span class="input-group-btn">
-	  <button class="btn btn-default" type="submit" id="SearchButton">Search products!</button>
-	</span>
-	<input type="text" class="form-control" name="search">
-      </div>
-    </form>
+    <div class="input-group">
+      <span class="input-group-btn">
+        {{#link-to (query-params search=searchfield page=1) class="btn btn-default" id="searchBtn"}}Search products{{/link-to}}
+      </span>
+      {{input value=searchfield class="form-control" action="search" escape-press="cancel"}}
+    </div>
   </div>
   <div class="col-xs-3 text-right">
     {{#link-to 'main.db.fishfamilies' class="btn btn-default"}}Administer Fish Families{{/link-to}}

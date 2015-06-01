@@ -9,25 +9,20 @@ var skuPicker = require('../services/SkuPickerService');
 
 module.exports = {
 
+    find: function(req, res, next) {
+	if(req.param('search'))
+	    sails.controllers.fishproduct.listFiltered(req, res, next);
+	else
+	    require("../../node_modules/sails/lib/hooks/blueprints/actions/find")(req, res, next);
+    },
+
     listFiltered: function(req, res, next) {
-	skuPicker.pickProducts({
-	    search : req.param('search'),
-	    skip   : req.param('jtStartIndex'),
-	    limit  : req.param('jtPageSize')
-	}, false, function(err, records, count) {
+	skuPicker.pickProducts(req.params.all(), true, function(err, records, count) {
 	    if(!err) {
-		// respond to query
-		res.json({
-		    Result: 'OK',
-		    Records: records,
-		    TotalRecordCount: count
-		});
+		res.ok(records);
 	    } else {
 		sails.log.error("Error listing fish products: \n"+err);
-		res.json({
-		    Result: 'Error',
-		    Message: err
-		});
+		res.serverError(err);
 	    }
 	});
     },

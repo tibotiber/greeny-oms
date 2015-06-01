@@ -49,7 +49,7 @@ export default Ember.ArrayController.extend({
     }.property(),
 
     // setup pagination
-    queryParams: ['page','limit','sort'],
+    queryParams: ['page','limit','sort','search'],
     page: 1,
     limit: 50,
     sort: 'code',
@@ -65,6 +65,17 @@ export default Ember.ArrayController.extend({
     }.property('page'),
     isLastPage: function() {
 	return this.get('nbOfRecords') !== this.get('limit');
-    }.property('nbOfRecords','limit')
+    }.property('nbOfRecords','limit'),
+
+    // setup search
+    searchfield: '',
+    actions: {
+	search: function() {
+	    Ember.$('#searchBtn').click();
+	},
+	cancel: function() {
+	    this.set('searchfield', '');
+	}
+    }
     
 });
