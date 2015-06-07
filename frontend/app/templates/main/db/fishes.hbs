@@ -39,10 +39,10 @@
   </div>
 </div>
 
-{{#em-modal configName="bs" open-if=openModal on-hide='modalWasClosed' ignore-esc=true}}
+{{#em-modal configName="bs" open-if=openEditModal on-hide='editModalWasClosed' ignore-esc=true}}
 {{#em-modal-title}}
   {{#em-modal-toggler class="close"}}<span aria-hidden="true">×</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
-  <h4 class="modal-title">Fish Product: {{editedRecord.id}} - {{editedRecord.commonName}}</h4>
+  <h4 class="modal-title">Edit Product: {{editedRecord.id}} - {{editedRecord.commonName}}</h4>
 {{/em-modal-title}}
 {{#em-modal-body}}
   {{#dc-form form=this id='fishProductEditForm' valuesStoredIn=editedRecord}}
@@ -52,5 +52,20 @@
   {{dc-input id='scientificName'}}
   {{dc-input id='chineseName'}}
   {{/dc-form}}
+{{/em-modal-body}}
+{{/em-modal}}
+
+{{#em-modal configName="bs" open-if=openNewModal on-hide='newModalWasClosed' ignore-esc=true}}
+{{#em-modal-title}}
+  {{#em-modal-toggler class="close"}}<span aria-hidden="true">×</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
+  <h4 class="modal-title">New Product</h4>
+{{/em-modal-title}}
+{{#em-modal-body}}
+  {{#my-form form=this id='fishProductNewForm' valuesStoredIn=newRecord submitAction='createRecord'}}
+  {{my-select id='family' content=families}}
+  {{my-input id='name'}}
+  {{my-input id='scientificName'}}
+  {{my-input id='chineseName'}}
+  {{/my-form}}
 {{/em-modal-body}}
 {{/em-modal}}

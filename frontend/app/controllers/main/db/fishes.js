@@ -2,9 +2,13 @@ import Ember from 'ember';
 import ColumnDefinition from 'ember-table/models/column-definition';
 import EmberValidations from 'ember-validations';
 import DcFormControllerMixin from '../../../mixins/dc-form-controller-mixin';
+import socket from '../../../utils/socket';
 
 export default Ember.ArrayController.extend(DcFormControllerMixin, EmberValidations, {
 
+    needs: 'main/db/fishfamilies',
+    families: Ember.computed.alias("controllers.main/db/fishfamilies.dropdown"),
+    
     nbOfRecords: function() {
 	this.set('isLoading', false);
 	return this.get('model.content').length;
@@ -81,7 +85,8 @@ export default Ember.ArrayController.extend(DcFormControllerMixin, EmberValidati
     searchfield: '',
 
     // create/edit modals
-    openModal: false,
+    openEditModal: false,
+    openNewModal: false,
     validations: {
 	//TODO
     },
@@ -103,9 +108,32 @@ export default Ember.ArrayController.extend(DcFormControllerMixin, EmberValidati
 
 	// create/edit/delete actions and modals
 	newRecord: function() {
-	    this.set('savedSearch', this.get('search'));
-	    this.set('savedPage', this.get('page'));
-	    this.toggleProperty('openModal');
+	    this.set('newRecord', {});
+	    this.toggleProperty('openNewModal');
+	},
+	createRecord: function() {
+	    var that = this;
+	    var postData = {
+		family		: this.get('newRecord.family.value'),
+		name		: this.get('newRecord.name'),
+		scientificName	: this.get('newRecord.scientificName'),
+		chineseName	: this.get('newRecord.chineseName')
+	    };
+	    socket().request(this, 'post', '/fishproducts/create', postData, function(err, response) {
+		if(err) {
+		    that.set('errorMessage', err);
+		    that.set('attempts', that.get('attempts')+1);
+		} else {
+		    that.set('successMessage', 'New product created with code '+response.code);
+		    that.set('search', response.code);
+		    that.set('page', 1);
+		}
+	    });
+	},
+	newModalWasClosed: function() {
+	    this.set('errorMessage', null);
+	    this.set('attempts', 0);
+	    this.set('successMessage', null);
 	},
 	editRecord: function(id) {
 	    this.set('savedSearch', this.get('search'));
@@ -113,15 +141,15 @@ export default Ember.ArrayController.extend(DcFormControllerMixin, EmberValidati
 	    this.set('savedPage', this.get('page'));
 	    this.set('page', 1);
 	    this.set('editedRecordId', id);
-	    this.toggleProperty('openModal');
+	    this.toggleProperty('openEditModal');
 	},
-	deleteRecord: function() {
-	    console.log('delete record');
-	},
-	modalWasClosed: function() {
+	editModalWasClosed: function() {
 	    this.set('search', this.get('savedSearch'));
 	    this.set('page', this.get('savedPage'));
 	    this.set('editedRecordId', null);
+	},
+	deleteRecord: function() {
+	    console.log('delete record');
 	}
     }
     

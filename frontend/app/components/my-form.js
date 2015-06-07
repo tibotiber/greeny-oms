@@ -27,8 +27,8 @@ export default Ember.Component.extend({
 	if(!this.get('labelClass')) {
 	    this.set('labelClass', 'col-sm-4');
 	}
-	if(!this.get('submit')) {
-	    this.set('submit', 'submit');
+	if(!this.get('submitAction')) {
+	    this.set('submitAction', 'submit');
 	}
 	if(!this.get('margin')) {
 	    this.set('margin', '0px');
@@ -37,7 +37,7 @@ export default Ember.Component.extend({
 
     actions: {
 	submit: function() {
-	    this.sendAction('submit', this.get('param'));
+	    this.sendAction('submitAction', this.get('param'));
 	}
     }
 

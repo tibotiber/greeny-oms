@@ -5,11 +5,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 
     setupController: function(controller, model) {
 	this._super(controller, model);
-	controller.set('model', model);
-    },
-
-    model: function() {
-	return this.store.find('fishfamily');
+	// model loaded in main route
     }
 
 });

@@ -14,11 +14,16 @@ export default function socket() {
 		    that.sailsSocket.request(type, url, data).then(function(response) {
 			that.set('loading', false);
 			if(response.error) {
+			    console.log(response.error);
 			    cb(response.error);
 			} else {
 			    console.log(response);
 			    cb(null, response);
 			}
+		    }, function(error) {
+			that.set('loading', false);
+			console.log(error);
+			cb(error);
 		    });
 		}
 	    });

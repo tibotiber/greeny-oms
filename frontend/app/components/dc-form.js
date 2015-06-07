@@ -54,8 +54,8 @@ export default Ember.Component.extend({
 	if(!this.get('labelClass')) {
 	    this.set('labelClass', 'col-sm-4');
 	}
-	if(!this.get('submit')) {
-	    this.set('submit', 'submit');
+	if(!this.get('submitAction')) {
+	    this.set('submitAction', 'submit');
 	}
 	if(!this.get('cancel')) {
 	    this.set('cancel', 'cancel');
@@ -67,7 +67,7 @@ export default Ember.Component.extend({
 
     actions: {
 	submit: function() {
-	    this.sendAction('submit', this.get('param'));
+	    this.sendAction('submitAction', this.get('param'));
 	},
 	fieldIsEdited: function() {
 	    this.set('nbOfFieldsEdited', this.get('nbOfFieldsEdited') + 1);

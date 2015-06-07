@@ -13,7 +13,7 @@ module.exports = {
 	if(req.param('search'))
 	    sails.controllers.fishproduct.listFiltered(req, res, next);
 	else
-	    require("../../node_modules/sails/lib/hooks/blueprints/actions/find")(req, res, next);
+	    require("sails/lib/hooks/blueprints/actions/find")(req, res, next);
     },
 
     listFiltered: function(req, res, next) {
@@ -28,35 +28,17 @@ module.exports = {
     },
 
     create: function(req, res, next) {
-	var params = JSON.parse(JSON.stringify(req.params.all()));
-	delete params.id;	
+	var params = req.params.all();
 	ProductCodingService.getNextFishProductCode(params.family, function(err, code) {
-	    if(!err) {
-		params.code = code;
-		FishProduct.create(params).exec(function(err, created) {
-		    if(!err) {
-			res.json({
-			    Result: 'OK',
-			    Record: created
-			});
-		    } else {
-			sails.log.error("Error creating fish product: \n"+err);
-			res.json({
-			    Result: 'Error',
-			    Message: err
-			});
-		    }
-		});
-	    } else {
-		sails.log.error("Error creating fish product code: \n"+err);
-		res.json({
-		    Result: 'Error',
-		    Message: err
-		});
-	    }
+	    if(err) return res.serverError(err);
+	    params.code = code;
+	    FishProduct.create(params).exec(function(err, product) {
+		if(err) return res.serverError(err);
+		return res.ok(product);
+	    });
 	});
     },
-
+    
     destroy: function(req, res, next) {
 	FishProduct.destroy(req.param('code')).exec(function(err, destroyed) {
 	    if(!err) {

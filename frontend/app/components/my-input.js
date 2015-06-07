@@ -10,7 +10,11 @@ export default Ember.Component.extend({
     shouldValidate: false,
 
     createBindings: function() {
-	Ember.defineProperty(this, 'val', Ember.computed.alias('parentView.form.'+this.get('id')));
+	if(this.get('parentView.valuesStoredIn')) {
+	    Ember.defineProperty(this, 'val', Ember.computed.alias('parentView.valuesStoredIn.'+this.get('id')));
+	} else {
+	    Ember.defineProperty(this, 'val', Ember.computed.alias('parentView.form.'+this.get('id')));
+	}
 	Ember.defineProperty(this, 'err', Ember.computed.alias('parentView.form.errors.'+this.get('id')));
     }.on('init'),
     
