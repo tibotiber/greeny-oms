@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import ColumnDefinition from 'ember-table/models/column-definition';
+import EmberValidations from 'ember-validations';
+import DcFormControllerMixin from '../../../mixins/dc-form-controller-mixin';
 
-export default Ember.ArrayController.extend({
+export default Ember.ArrayController.extend(DcFormControllerMixin, EmberValidations, {
 
     nbOfRecords: function() {
 	this.set('isLoading', false);
@@ -45,7 +47,15 @@ export default Ember.ArrayController.extend({
 	    contentPath: 'chineseName',
 	    canAutoResize: true
 	});
-	return [code, family, name, scientificName, chineseName];
+	var edit = ColumnDefinition.create({
+	    savedWidth: 30,
+	    textAlign: 'text-align-center',
+	    headerCellName: '',
+	    tableCellViewClass: 'fa-edit-table-cell',
+	    contentPath: 'id',
+	    canAutoResize: false
+	});
+	return [code, family, name, scientificName, chineseName, edit];
     }.property(),
 
     // setup pagination
@@ -69,12 +79,49 @@ export default Ember.ArrayController.extend({
 
     // setup search
     searchfield: '',
+
+    // create/edit modals
+    openModal: false,
+    validations: {
+	//TODO
+    },
+    editedRecord: function() {
+	var that = this;
+	return this.get('model.content').find(function(item) {
+	    return item.id === that.get('editedRecordId');
+	});
+    }.property('model.content.[]','editedRecordId'),
+    
     actions: {
+	// search actions
 	search: function() {
 	    Ember.$('#searchBtn').click();
 	},
 	cancel: function() {
 	    this.set('searchfield', '');
+	},
+
+	// create/edit/delete actions and modals
+	newRecord: function() {
+	    this.set('savedSearch', this.get('search'));
+	    this.set('savedPage', this.get('page'));
+	    this.toggleProperty('openModal');
+	},
+	editRecord: function(id) {
+	    this.set('savedSearch', this.get('search'));
+	    this.set('search', id);
+	    this.set('savedPage', this.get('page'));
+	    this.set('page', 1);
+	    this.set('editedRecordId', id);
+	    this.toggleProperty('openModal');
+	},
+	deleteRecord: function() {
+	    console.log('delete record');
+	},
+	modalWasClosed: function() {
+	    this.set('search', this.get('savedSearch'));
+	    this.set('page', this.get('savedPage'));
+	    this.set('editedRecordId', null);
 	}
     }
     

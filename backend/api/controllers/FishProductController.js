@@ -57,23 +57,6 @@ module.exports = {
 	});
     },
 
-    update: function(req, res, next) {
-	FishProduct.update(req.param('code'), req.params.all()).exec(function(err, updated) {
-	    if(!err) {
-		res.json({
-		    Result: 'OK',
-		    Record: updated
-		});
-	    } else {
-		sails.log.error("Error updating fish product: \n"+err);
-		res.json({
-		    Result: 'Error',
-		    Message: err
-		});
-	    }
-	});
-    },
-
     destroy: function(req, res, next) {
 	FishProduct.destroy(req.param('code')).exec(function(err, destroyed) {
 	    if(!err) {

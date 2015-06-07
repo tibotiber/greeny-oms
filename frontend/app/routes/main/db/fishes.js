@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin';
+import UnsavedChangesRouteMixin from '../../../mixins/unsaved-changes-route-mixin';
+import DcFormRouteMixin from '../../../mixins/dc-form-route-mixin';
 
-export default Ember.Route.extend(AuthenticatedRouteMixin, {
+export default Ember.Route.extend(AuthenticatedRouteMixin, UnsavedChangesRouteMixin, DcFormRouteMixin, {
 
     setupController: function(controller, model) {
 	this._super(controller, model);

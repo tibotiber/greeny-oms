@@ -135,3 +135,12 @@ input[type=checkbox].dc-checkbox {
     line-height: 1.5;
     border-radius: 3px;
 }
+.ember-table-tables-container {
+    margin-bottom: 15px;
+}
+.fa-table-cell i {
+    line-height: 30px;
+}
+.modal-dialog {
+    margin-top: 70px;
+}
