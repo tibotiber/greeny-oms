@@ -59,7 +59,15 @@ export default Ember.ArrayController.extend(DcFormControllerMixin, EmberValidati
 	    contentPath: 'id',
 	    canAutoResize: false
 	});
-	return [code, family, name, scientificName, chineseName, edit];
+	var destroy = ColumnDefinition.create({
+	    savedWidth: 30,
+	    textAlign: 'text-align-center',
+	    headerCellName: '',
+	    tableCellViewClass: 'fa-destroy-table-cell',
+	    contentPath: 'id',
+	    canAutoResize: false
+	});
+	return [code, family, name, scientificName, chineseName, edit, destroy];
     }.property(),
 
     // setup pagination
@@ -148,8 +156,17 @@ export default Ember.ArrayController.extend(DcFormControllerMixin, EmberValidati
 	    this.set('page', this.get('savedPage'));
 	    this.set('editedRecordId', null);
 	},
-	deleteRecord: function() {
-	    console.log('delete record');
+	deleteRecord: function(id) {
+	    this.set('productIdToDelete', id);
+	    this.toggleProperty('openConfirmModal');
+	},
+	confirmDeleteRecord: function() {
+	    var that = this;
+	    this.store.find('fishproduct', this.get('productIdToDelete')).then(function(product) {
+		product.destroyRecord();
+		that.set('productIdToDelete', null);
+		that.toggleProperty('closeConfirmModal');
+	    });
 	}
     }
     
