@@ -32,7 +32,16 @@ export default Ember.Mixin.create({
 	    this.get('model').save().then(onSuccess, onFail);
 	},
 	cancel: function() {
-	    this.get('model').rollback();
+	    var model = this.get('model');
+	    if(model.content) {
+		// array controller
+		model.content.forEach(function(item) {
+		    item.rollback();
+		});
+	    } else {
+		// object controller
+		model.rollback();
+	    }
 	}
     }
 

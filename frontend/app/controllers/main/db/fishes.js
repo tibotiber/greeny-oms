@@ -152,6 +152,9 @@ export default Ember.ArrayController.extend(DcFormControllerMixin, EmberValidati
 	    this.toggleProperty('openEditModal');
 	},
 	editModalWasClosed: function() {
+	    this.get('model.content').forEach(function(item){
+		item.rollback();
+	    });
 	    this.set('search', this.get('savedSearch'));
 	    this.set('page', this.get('savedPage'));
 	    this.set('editedRecordId', null);
