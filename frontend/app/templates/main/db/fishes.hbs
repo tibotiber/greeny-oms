@@ -4,7 +4,7 @@
       <span class="input-group-btn">
         {{#link-to (query-params search=searchfield page=1) class="btn btn-default" id="searchBtn"}}Search products{{/link-to}}
       </span>
-      {{input value=searchfield class="form-control" action="search" escape-press="cancel"}}
+      {{input value=searchfield class="form-control" action="search" escape-press="clearSearch"}}
     </div>
   </div>
   <div class="col-xs-3 text-right">

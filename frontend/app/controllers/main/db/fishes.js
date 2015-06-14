@@ -110,7 +110,7 @@ export default Ember.ArrayController.extend(DcFormControllerMixin, EmberValidati
 	search: function() {
 	    Ember.$('#searchBtn').click();
 	},
-	cancel: function() {
+	clearSearch: function() {
 	    this.set('searchfield', '');
 	},
 
